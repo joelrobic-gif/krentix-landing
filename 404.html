@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Krentix &mdash; Page not found</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#0f0c0a">
+<meta name="color-scheme" content="dark">
+
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..900&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+
+<style>
+:root{
+  --bg:#0f0c0a;
+  --rule:rgba(244,234,213,.10);
+  --rule-strong:rgba(244,234,213,.22);
+  --text:#f4ead5;
+  --text-dim:#a89878;
+  --text-faint:#7a6c52;
+  --brand:#d4a017;
+  --brand-warm:#e8b833;
+  --serif:"Fraunces",ui-serif,Georgia,serif;
+  --sans:"Inter",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0;padding:0;background:var(--bg);color:var(--text)}
+body{
+  font-family:var(--sans);
+  font-feature-settings:"ss01","cv11","tnum";
+  font-size:16px;
+  line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+}
+::selection{background:var(--brand);color:#0f0c0a}
+:focus{outline:none}
+:focus-visible{outline:2px solid var(--brand-warm);outline-offset:3px;border-radius:2px}
+
+.shell{
+  max-width:1280px;
+  width:100%;
+  margin:0 auto;
+  padding-inline:clamp(20px,5vw,72px);
+}
+
+.mast{
+  display:flex;
+  align-items:baseline;
+  justify-content:space-between;
+  padding:28px 0 0;
+  font-size:.78rem;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  color:var(--text-dim);
+}
+.mast .wordmark{
+  font-family:var(--serif);
+  font-weight:600;
+  font-size:1.05rem;
+  letter-spacing:.04em;
+  text-transform:none;
+  color:var(--text);
+  text-decoration:none;
+}
+.mast .wordmark::after{
+  content:"";
+  display:inline-block;
+  width:.32em;height:.32em;
+  margin-left:.34em;
+  background:var(--brand);
+  border-radius:50%;
+  transform:translateY(-.18em);
+}
+.mast nav{display:flex;gap:2.4em}
+.mast a{color:inherit;text-decoration:none}
+.mast a:hover{color:var(--text)}
+
+main{
+  flex:1;
+  display:grid;
+  place-items:center;
+  padding:clamp(72px,14vh,140px) 0;
+}
+
+.lost{
+  font-family:var(--serif);
+  hanging-punctuation:first last;
+  max-width:60ch;
+}
+
+.code{
+  font-family:var(--mono);
+  font-size:.78rem;
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  color:var(--brand);
+  margin:0 0 1.4em;
+}
+.code::before{
+  content:"";
+  display:inline-block;
+  width:24px;height:1px;
+  background:var(--brand);
+  vertical-align:middle;
+  margin-right:.9em;
+  transform:translateY(-2px);
+}
+
+h1{
+  font-family:var(--serif);
+  font-weight:300;
+  font-size:clamp(2.6rem,6vw,5rem);
+  line-height:1.02;
+  letter-spacing:-.015em;
+  margin:0 0 .6em;
+}
+h1 em{
+  font-style:italic;
+  font-weight:400;
+  color:var(--brand-warm);
+}
+
+.lede{
+  font-family:var(--sans);
+  font-size:1.06rem;
+  line-height:1.62;
+  color:var(--text-dim);
+  margin:0 0 2.2em;
+  max-width:52ch;
+}
+.lede strong{color:var(--text);font-weight:500}
+
+.cta-row{
+  display:flex;
+  flex-wrap:wrap;
+  gap:1.4em 2em;
+  align-items:center;
+  font-family:var(--sans);
+  margin:0;
+}
+.cta{
+  display:inline-flex;
+  align-items:center;
+  gap:.7em;
+  padding:.95em 1.6em;
+  background:var(--brand);
+  color:#0f0c0a;
+  font-weight:600;
+  font-size:.95rem;
+  text-decoration:none;
+  border-radius:1px;
+  transition:background .14s ease;
+}
+.cta:hover{background:var(--brand-warm)}
+.cta-quiet{
+  color:var(--text-dim);
+  font-size:.92rem;
+  text-decoration:none;
+  border-bottom:1px solid var(--rule);
+  padding-bottom:.18em;
+}
+.cta-quiet:hover{color:var(--text);border-color:var(--rule-strong)}
+
+.path{
+  margin-top:2.4em;
+  font-family:var(--mono);
+  font-size:.82rem;
+  color:var(--text-faint);
+  background:rgba(244,234,213,.04);
+  border:1px solid var(--rule);
+  padding:.7em 1em;
+  border-radius:1px;
+  word-break:break-all;
+}
+.path .label{
+  color:var(--text-dim);
+  margin-right:.6em;
+}
+
+footer{
+  font-family:var(--sans);
+  font-size:.82rem;
+  color:var(--text-faint);
+  padding:28px 0;
+  border-top:1px solid var(--rule);
+  display:flex;
+  justify-content:space-between;
+  flex-wrap:wrap;
+  gap:1em;
+}
+footer a{color:var(--text-dim);text-decoration:none}
+footer a:hover{color:var(--text)}
+.markk{
+  font-family:var(--serif);
+  font-weight:600;
+  color:var(--text);
+}
+
+@media (max-width:560px){
+  .mast nav{gap:1.4em}
+  h1{font-size:2.6rem}
+}
+</style>
+</head>
+<body>
+
+<div class="shell">
+
+<header class="mast" role="banner">
+  <a class="wordmark" href="/">Krentix</a>
+  <nav aria-label="Primary">
+    <a href="/#mechanism">Mechanism</a>
+    <a href="/#contrast">Positioning</a>
+    <a href="/app">Open</a>
+  </nav>
+</header>
+
+<main>
+  <article class="lost">
+    <p class="code">404 &middot; off the path</p>
+
+    <h1>
+      Nothing <em>here.</em><br>
+      Nothing missing either.
+    </h1>
+
+    <p class="lede">
+      The address you tried doesn&rsquo;t resolve to anything we&rsquo;ve published.
+      <strong>It might be a stale link, a typo, or a page we haven&rsquo;t shipped yet.</strong>
+      The agent itself runs on a private surface &mdash; it isn&rsquo;t reached through deep links.
+    </p>
+
+    <p class="cta-row">
+      <a class="cta" href="/">
+        <span aria-hidden="true">&larr;</span>
+        Back to Krentix
+      </a>
+      <a class="cta-quiet" href="/#mechanism">How it works</a>
+    </p>
+
+    <p class="path" id="lost-path">
+      <span class="label">Tried:</span><span id="lost-href">&mdash;</span>
+    </p>
+  </article>
+</main>
+
+<footer role="contentinfo">
+  <div>
+    <span class="markk">Krentix</span>
+    &middot;
+    <span>A governed intelligence system.</span>
+  </div>
+  <div>
+    <a href="/">krentix.com</a>
+  </div>
+</footer>
+
+</div>
+
+<script>
+(function(){
+  try{
+    var el=document.getElementById('lost-href');
+    if(!el)return;
+    var path=window.location.pathname+window.location.search;
+    el.textContent=path.length>80?path.slice(0,77)+'…':path;
+  }catch(_){}
+})();
+</script>
+
+</body>
+</html>
