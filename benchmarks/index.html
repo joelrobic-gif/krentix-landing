@@ -329,12 +329,20 @@ footer a:hover{color:var(--text);border-color:var(--rule-strong)}
         </tr>
 
         <tr class="krentix-row">
-          <th scope="row">MBPP+<span class="sub">Coding &middot; pass@1 &middot; full 378</span></th>
+          <th scope="row">MBPP+<span class="sub">Coding &middot; pass@1 &middot; full 378 (medium tier)</span></th>
           <td class="col-krentix">81.5%<span class="meta">308 / 378 &middot; medium tier<sup><a href="#ref-14">[14]</a></sup></span></td>
           <td class="dim">&mdash;</td>
           <td class="dim">&mdash;</td>
           <td class="dim">&mdash;</td>
           <td class="dim">&mdash;<span class="meta">vendor scores not standardised<sup><a href="#ref-13">[13]</a></sup></span></td>
+        </tr>
+        <tr class="krentix-row">
+          <th scope="row">MBPP+ &middot; tier compare<span class="sub">Coding &middot; same 50 tasks &middot; medium vs full</span></th>
+          <td class="col-krentix">92.0% / 92.0%<span class="meta">46/50 medium &middot; 46/50 full &middot; tied<sup><a href="#ref-15">[15]</a></sup></span></td>
+          <td class="dim">&mdash;</td>
+          <td class="dim">&mdash;</td>
+          <td class="dim">&mdash;</td>
+          <td class="dim">&mdash;</td>
         </tr>
 
         <tr>
@@ -610,6 +618,12 @@ footer a:hover{color:var(--text);border-color:var(--rule-strong)}
       69 of 70 fails were full-pipeline ensemble misses, 1 was a speed_path routing bug.
       Harness, raw per-problem results, and stderr tails on every failure:
       <a href="https://github.com/joelrobic-gif/krentix-landing/tree/main/bench/mbpp" rel="noopener">github.com/joelrobic-gif/krentix-landing/bench/mbpp</a>.
+    </p>
+    <p>
+      <span class="ref-num">[15]</span>
+      <strong>Tier comparison &mdash; Krentix medium vs full on the same first-50 MBPP+ subset</strong>: both tiers landed at 46/50 = 92.0% pass@1. Different failure pattern: full caught task 20 that medium missed (1 catch); full regressed on task 87 that medium passed (1 regression); both fail tasks 14, 74, 92 (hard problems). Net swap, same total.
+      Full tier wall: 18.5 min. Medium first-50 wall: extracted from the full-378 run. v1 of the full-tier run scored 43/50 (86%) and lost to medium by 6pp due to a dead Moonshot key, 240s timeout too tight for frontier latencies, and provider rate-limit cascades; <a href="/changelog/" style="color:var(--text);border-bottom:1px solid var(--rule-strong);text-decoration:none">/changelog</a> documents the v1 → v2 fix sequence in detail. Result file:
+      <a href="https://github.com/joelrobic-gif/krentix-landing/tree/main/bench/mbpp/results" rel="noopener">bench/mbpp/results/</a>.
     </p>
   </div>
 </section>

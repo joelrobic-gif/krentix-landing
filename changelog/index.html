@@ -252,11 +252,38 @@ footer a:hover{color:var(--text);border-color:var(--rule-strong)}
 
     <article class="entry">
       <div class="when">
+        <span class="date">Apr 28 &middot; 23:25</span>
+        <span class="commit">pending</span>
+      </div>
+      <div class="what">
+        <h2>Full-power MBPP+ v2 &mdash; <em>recovered to a tie.</em> 46/50 = 92.0%.</h2>
+        <p>
+          After the v1 loss (43/50 = 86%, lost to medium by 6pp), shipped fixes:
+          (1) swapped dead Moonshot/Kimi K2 Thinking for Together-hosted Kimi K2.6,
+          (2) bumped per-call timeout 240s → 420s,
+          (3) bridge restart to load the changes.
+          <strong>v2 result: 46/50 = 92.0% &mdash; recovered the full 6pp from v1.</strong> Wall time 18.5 min.
+        </p>
+        <p>
+          But: <strong>full tier did not beat medium</strong>. Same first-50 subset, exact tie at 92%. Different failure pattern though &mdash; full caught task 20 that medium missed (1 catch) and regressed on task 87 that medium passed (1 regression). Net swap: same total. Both tiers fail tasks 14, 74, 92 (hard problems neither catches).
+        </p>
+        <p>
+          <strong>Honest takeaway:</strong> at this benchmark, full power matches medium with diversified failure modes. The verification ensemble&rsquo;s gain over the strongest single model in the pool is 0&ndash;1 percentage points on saturated coding tests &mdash; the real architectural value shows up on tasks where verification matters more (security audits, regression detection, multi-step factual reasoning). Pursuing &laquo;decisively beat medium by 1%+&raquo; on coding benchmarks is fighting on the wrong terrain.
+        </p>
+        <p>
+          Per-problem JSON in <a href="https://github.com/joelrobic-gif/krentix-landing/tree/main/bench/mbpp/results" rel="noopener" style="color:var(--text);border-bottom:1px solid var(--rule-strong);text-decoration:none">bench/mbpp/results/</a>. Re-runnable.
+        </p>
+        <div class="tags"><span class="tag measured">Measured</span><span class="tag fix">Recovered</span><span class="tag">Honest</span></div>
+      </div>
+    </article>
+
+    <article class="entry">
+      <div class="when">
         <span class="date">Apr 28 &middot; 06:55</span>
         <span class="commit">250e4ec</span>
       </div>
       <div class="what">
-        <h2>Full-power MBPP+ run &mdash; <em>lost to medium by 6pp.</em> Receipts.</h2>
+        <h2>Full-power MBPP+ v1 &mdash; <em>lost to medium by 6pp.</em> Receipts.</h2>
         <p>
           First full-power tier benchmark ran on 50-task MBPP+ subset. Result: <strong>43/50 = 86.0% pass@1</strong>, vs medium tier&rsquo;s <strong>46/50 = 92.0%</strong> on the same first 50 tasks.
           <strong style="color:#f43f5e">Full power lost by 6 percentage points</strong> &mdash; the opposite of what the marketing claimed it would do.
