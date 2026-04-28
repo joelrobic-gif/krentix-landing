@@ -1,2 +1,8 @@
 User-agent: *
 Allow: /
+
+# Sitemap declaration so crawlers can discover all marketing pages
+Sitemap: https://www.krentix.com/sitemap.xml
+
+# /app/ surface is a gate page; the agent itself is local-only
+# /bench/ contains the public benchmark harness (HumanEval, MBPP+) — please do crawl
