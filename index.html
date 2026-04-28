@@ -892,6 +892,138 @@ footer .markk{
 /* economy big numbers — count-up support */
 .econ-list .big{ font-variant-numeric:tabular-nums }
 
+/* ── section 7 — source mode ────────────────────────────────────────── */
+.source{
+  padding-top:clamp(64px,10vh,120px);
+  padding-bottom:clamp(96px,12vh,160px);
+}
+.source > .head{
+  display:grid;
+  grid-template-columns:repeat(12,var(--col));
+  gap:24px;
+  margin-bottom:clamp(28px,4vh,48px);
+  align-items:end;
+}
+.source .head .label{
+  grid-column:1 / span 3;
+  font-family:var(--mono);
+  font-size:.74rem;
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  color:var(--text-faint);
+}
+.source .head h2{
+  grid-column:5 / span 8;
+  font-family:var(--serif);
+  font-weight:380;
+  font-size:clamp(1.7rem,3.6vw,2.6rem);
+  line-height:1.18;
+  letter-spacing:-.012em;
+  font-variation-settings:"opsz" 96;
+  max-width:32ch;
+  margin:0;
+  text-wrap:balance;
+}
+.source .head h2 em{font-style:italic;color:var(--brand-warm);font-weight:400}
+.source-lede{
+  font-size:1.02rem;line-height:1.65;color:var(--text-dim);
+  margin:0 auto;
+  margin-left:calc((100% / 12) * 4 + 8px);
+  max-width:62ch;
+  margin-bottom:clamp(40px,6vh,72px);
+  border-left:2px solid var(--brand);
+  padding:.4em 0 .4em 1.4em;
+}
+.source-lede strong{color:var(--text);font-weight:500}
+.source-lede code{
+  font-family:var(--mono);
+  font-size:.85em;
+  color:var(--brand-warm);
+  background:rgba(212,160,23,.06);
+  padding:.05em .35em;
+  border-radius:1px;
+}
+
+.source-grid{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:18px;
+  margin:0 0 clamp(40px,6vh,72px);
+}
+.source-card{
+  background:var(--surface);
+  border:1px solid var(--rule);
+  border-radius:2px;
+  padding:22px 22px 26px;
+  display:flex;
+  flex-direction:column;
+  gap:.7em;
+  transition:border-color .25s ease, transform .25s ease;
+}
+.source-card:hover{
+  border-color:var(--rule-strong);
+  transform:translateY(-2px);
+}
+.source-card .src-label{
+  font-family:var(--mono);
+  font-size:.7rem;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  color:var(--brand);
+  margin:0 0 .2em;
+  font-weight:500;
+  border-bottom:1px solid var(--rule);
+  padding-bottom:.7em;
+}
+.source-card .src-body{
+  font-size:.92rem;
+  line-height:1.55;
+  color:var(--text-dim);
+  margin:0;
+}
+.source-card code{
+  font-family:var(--mono);
+  font-size:.85em;
+  color:var(--brand-warm);
+  background:rgba(212,160,23,.06);
+  padding:.05em .28em;
+  border-radius:1px;
+}
+.source-note{
+  display:block;
+  max-width:78ch;
+  margin:0 auto;
+  margin-left:calc((100% / 12) * 4 + 8px);
+  font-size:1.02rem;
+  line-height:1.62;
+  color:var(--text-dim);
+  border-left:2px solid var(--brand);
+  padding:.4em 0 .4em 1.4em;
+}
+.source-note strong{color:var(--text);font-weight:500}
+.source-note code{
+  font-family:var(--mono);
+  font-size:.85em;
+  color:var(--brand-warm);
+  background:rgba(212,160,23,.06);
+  padding:.05em .35em;
+  border-radius:1px;
+}
+
+@media (max-width:1100px){
+  .source-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (max-width:880px){
+  .source .head{grid-template-columns:1fr}
+  .source .head .label{grid-column:1;margin-bottom:1em}
+  .source .head h2{grid-column:1;font-size:clamp(1.5rem,5.4vw,2.2rem)}
+  .source-lede{margin-left:0}
+  .source-note{margin-left:0}
+}
+@media (max-width:640px){
+  .source-grid{grid-template-columns:1fr}
+}
+
 /* ── section 6 — power dial ─────────────────────────────────────────── */
 .dial{
   padding-top:clamp(64px,10vh,120px);
@@ -1117,6 +1249,7 @@ footer .markk{
     <a href="#mechanism">Mechanism</a>
     <a href="#benchmarks">Benchmarks</a>
     <a href="#dial">The dial</a>
+    <a href="#source">Source mode</a>
     <a href="/app">Open</a>
   </nav>
 </header>
@@ -1401,11 +1534,12 @@ footer .markk{
         <p class="tier-name">Full power</p>
         <p class="tier-price">$<span class="num-anim" data-count="5" data-decimals="0">0</span><span class="tier-price-unit">&ndash;15/day</span></p>
       </header>
-      <p class="tier-tag">Max-effort frontier &middot; leaderboard mode</p>
+      <p class="tier-tag">Seven labs voting &middot; leaderboard mode</p>
       <ul class="tier-bullets">
-        <li>Opus 4.7 (max), GPT&#8209;5.5 (xhigh), Gemini 3.1 Pro Preview</li>
-        <li>All 12 personas at top tier</li>
-        <li>Extended thinking on governance</li>
+        <li>Claude Opus 4.7 &middot; Grok 4 (xAI) &middot; Gemini 2.5 Pro</li>
+        <li>DeepSeek V4 Pro + Qwen 3.5 397B (via Together)</li>
+        <li>Kimi K2 Thinking (Moonshot) &middot; GPT-4o &middot; Mistral Large</li>
+        <li>Extended thinking on governance personas</li>
         <li>Production critical paths &middot; benchmark runs</li>
       </ul>
     </article>
@@ -1414,6 +1548,52 @@ footer .markk{
 
   <p class="dial-note" data-reveal>
     The dial is a single API call: <code>POST /api/cost-tier</code> with <code>{"id":"full"}</code>. Or pick from the dropdown in the agent surface. The same prompt, the same governance, the same provenance trail &mdash; just with a different model lineup underneath. <strong>Nobody else builds this.</strong> Cursor, Copilot, Devin all bill you the maximum on every keystroke; you can&rsquo;t throttle them down for low-stakes work and you can&rsquo;t throttle them up for high-stakes work. Krentix can.
+  </p>
+</section>
+
+<hr class="divider" aria-hidden="true">
+
+<!-- ─────────────────────────────────────────────────────────────────── -->
+<!-- 7. SOURCE MODE — NotebookLM-equivalent bounded answers              -->
+<!-- ─────────────────────────────────────────────────────────────────── -->
+<section class="source" id="source" aria-labelledby="source-heading">
+  <div class="head" data-reveal>
+    <p class="label">07 &middot; Source mode</p>
+    <h2 id="source-heading" class="serif">
+      Pin a codebase. Pin a regulation. Pin a spec. Krentix answers <em>only</em> from those.
+    </h2>
+  </div>
+
+  <p class="source-lede" data-reveal>
+    <strong>NotebookLM for code &mdash; with a verification ensemble on top.</strong>
+    Toggle Source Mode on, drag in files / URLs / pasted text. The twelve verifiers
+    must answer from your sources only, cite <code>[SOURCE&nbsp;N]</code> for every
+    claim, and refuse if the answer isn&rsquo;t in the source set. The Constitutional
+    Tribune&rsquo;s veto power enforces it across the quorum &mdash; no model can
+    quietly extrapolate from training data when bounded mode is on.
+  </p>
+
+  <div class="source-grid" role="list">
+    <article class="source-card" role="listitem" data-reveal>
+      <p class="src-label">For pharma intel</p>
+      <p class="src-body">Pin the FDA briefing, the company 10-K, the ClinicalTrials.gov registry. Krentix won&rsquo;t hallucinate dosage schedules &mdash; it cites the page they came from or refuses.</p>
+    </article>
+    <article class="source-card" role="listitem" data-reveal data-reveal-stagger="2">
+      <p class="src-label">For regulated code</p>
+      <p class="src-body">Pin SOC 2 controls, the internal security policy, the redaction rule set. Code review answers carry the rule reference. Compliance review takes minutes, not days.</p>
+    </article>
+    <article class="source-card" role="listitem" data-reveal data-reveal-stagger="3">
+      <p class="src-label">For your codebase</p>
+      <p class="src-body">Pin <code>./src/**</code> as the source set. Krentix won&rsquo;t suggest APIs that don&rsquo;t exist in your repo &mdash; it answers from your actual code or says &laquo;not in pinned sources&raquo;.</p>
+    </article>
+    <article class="source-card" role="listitem" data-reveal data-reveal-stagger="4">
+      <p class="src-label">For research</p>
+      <p class="src-body">Pin papers, preprints, internal write-ups. Every claim in the answer comes back with the paper section. No fabricated citations.</p>
+    </article>
+  </div>
+
+  <p class="source-note" data-reveal>
+    Available at every tier &mdash; <strong>even zero</strong>. Bounded mode raises quality at any price point because the verification ensemble has explicit ground truth to check against. The dial picks the model lineup; Source Mode picks the world the lineup is allowed to think in. Toggle from the agent surface or via <code>POST /api/sources/mode</code>.
   </p>
 </section>
 
