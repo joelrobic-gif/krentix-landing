@@ -3,12 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Krentix — Twelve verifiers. One answer.</title>
-<meta name="description" content="Krentix is the only coding agent that doesn't trust itself. Twelve specialised verifiers check every response before you see it.">
+<title>Krentix — Twelve models. One answer.</title>
+<meta name="description" content="Krentix is the only coding agent that doesn't trust itself. Twelve specialised models check every response before you see it.">
 <meta name="theme-color" content="#0f0c0a">
 <meta name="color-scheme" content="dark">
-<meta property="og:title" content="Krentix — Twelve verifiers. One answer.">
-<meta property="og:description" content="A coding agent that audits its own work with twelve independent reviewers before showing it to you.">
+<meta property="og:title" content="Krentix — Twelve models. One answer.">
+<meta property="og:description" content="A coding agent that audits its own work with twelve independent models before showing it to you.">
 <meta property="og:type" content="website">
 
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -388,6 +388,210 @@ img,svg{display:block;max-width:100%}
 .contrast p + p{margin-top:1em}
 .contrast p strong{color:var(--text);font-weight:500}
 
+/* ── section 4 — benchmarks ─────────────────────────────────────────── */
+.benchmarks{
+  padding-top:clamp(64px,10vh,120px);
+  padding-bottom:clamp(72px,11vh,140px);
+}
+.benchmarks > .head{
+  display:grid;
+  grid-template-columns:repeat(12,var(--col));
+  gap:24px;
+  margin-bottom:clamp(48px,7vh,88px);
+  align-items:end;
+}
+.benchmarks .head .label{
+  grid-column:1 / span 3;
+  font-family:var(--mono);
+  font-size:.74rem;
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  color:var(--text-faint);
+}
+.benchmarks .head h2{
+  grid-column:5 / span 8;
+  font-family:var(--serif);
+  font-weight:380;
+  font-size:clamp(1.7rem,3.6vw,2.6rem);
+  line-height:1.18;
+  letter-spacing:-.012em;
+  font-variation-settings:"opsz" 96;
+  max-width:32ch;
+  margin:0;
+  text-wrap:balance;
+}
+.bench-wrap{
+  display:grid;
+  grid-template-columns:repeat(12,var(--col));
+  gap:32px;
+  margin-bottom:clamp(40px,6vh,72px);
+}
+.bench{
+  grid-column:5 / span 8;
+  width:100%;
+  border-collapse:collapse;
+  font-feature-settings:"tnum","ss01";
+}
+.bench thead th{
+  font-family:var(--mono);
+  font-size:.7rem;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:var(--text-faint);
+  font-weight:500;
+  text-align:left;
+  padding:0 0 .9em;
+  border-bottom:1px solid var(--rule-strong);
+}
+.bench thead th.num{text-align:right}
+.bench tbody tr{
+  border-bottom:1px solid var(--rule);
+}
+.bench tbody tr:last-child{border-bottom:0}
+.bench tbody th{
+  font-family:var(--serif);
+  font-weight:500;
+  font-size:1rem;
+  text-align:left;
+  padding:1.05em 0;
+  color:var(--text);
+  font-variation-settings:"opsz" 24;
+  vertical-align:baseline;
+}
+.bench tbody td{
+  padding:1.05em 0;
+  font-size:.96rem;
+  color:var(--text-dim);
+  vertical-align:baseline;
+}
+.bench tbody td.num{
+  text-align:right;
+  font-family:var(--mono);
+  color:var(--brand-warm);
+  font-weight:500;
+  font-feature-settings:"tnum";
+  white-space:nowrap;
+}
+.bench .pct{
+  color:var(--text-faint);
+  font-size:.78em;
+  margin-left:.05em;
+}
+.bench-source{
+  grid-column:5 / span 8;
+  margin:0;
+  font-family:var(--mono);
+  font-size:.74rem;
+  letter-spacing:.04em;
+  color:var(--text-faint);
+  margin-top:.6em;
+}
+.bench-source em{font-style:italic;color:var(--text-dim)}
+.bench-note{
+  display:block;
+  max-width:62ch;
+  margin:0 auto;
+  margin-left:calc((100% / 12) * 4 + 8px);
+  font-size:1.02rem;
+  line-height:1.62;
+  color:var(--text-dim);
+  border-left:2px solid var(--brand);
+  padding:.4em 0 .4em 1.4em;
+}
+
+/* ── section 5 — economy (energy & cost) ────────────────────────────── */
+.economy{
+  padding-top:clamp(64px,10vh,120px);
+  padding-bottom:clamp(96px,12vh,160px);
+}
+.economy > .head{
+  display:grid;
+  grid-template-columns:repeat(12,var(--col));
+  gap:24px;
+  margin-bottom:clamp(48px,7vh,88px);
+  align-items:end;
+}
+.economy .head .label{
+  grid-column:1 / span 3;
+  font-family:var(--mono);
+  font-size:.74rem;
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  color:var(--text-faint);
+}
+.economy .head h2{
+  grid-column:5 / span 8;
+  font-family:var(--serif);
+  font-weight:380;
+  font-size:clamp(1.7rem,3.6vw,2.6rem);
+  line-height:1.18;
+  letter-spacing:-.012em;
+  font-variation-settings:"opsz" 96;
+  max-width:30ch;
+  margin:0;
+  text-wrap:balance;
+}
+.econ-list{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:32px 28px;
+  list-style:none;
+  padding:0;
+  margin:0 0 clamp(32px,5vh,56px);
+  border-top:1px solid var(--rule);
+}
+.econ-list li{
+  padding-top:clamp(24px,4vh,40px);
+  border-top:0;
+  display:flex;
+  flex-direction:column;
+  gap:.7em;
+}
+.econ-list .big{
+  font-family:var(--serif);
+  font-weight:300;
+  font-size:clamp(2.6rem,5vw,4rem);
+  line-height:.92;
+  letter-spacing:-.02em;
+  color:var(--text);
+  font-variation-settings:"opsz" 144;
+  margin:0;
+}
+.econ-list .big .alt{
+  font-family:var(--serif);
+  font-weight:300;
+  font-size:.5em;
+  letter-spacing:0;
+  color:var(--text-faint);
+  margin-left:.05em;
+  font-variation-settings:"opsz" 48;
+}
+.econ-list .lbl{
+  font-family:var(--mono);
+  font-size:.74rem;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:var(--brand);
+  margin:0;
+}
+.econ-list .dsc{
+  margin:0;
+  font-size:.96rem;
+  line-height:1.6;
+  color:var(--text-dim);
+}
+.econ-note{
+  display:block;
+  max-width:62ch;
+  margin:0;
+  margin-left:calc((100% / 12) * 4 + 8px);
+  font-size:1.02rem;
+  line-height:1.62;
+  color:var(--text-dim);
+  border-left:2px solid var(--brand);
+  padding:.4em 0 .4em 1.4em;
+}
+
 /* ── footer ──────────────────────────────────────────────────────────── */
 footer{
   border-top:1px solid var(--rule);
@@ -428,7 +632,7 @@ footer .markk{
 /* ── responsive ──────────────────────────────────────────────────────── */
 @media (max-width:880px){
   .mast nav{gap:1.4em;font-size:.72rem}
-  .mast nav a:nth-child(1){display:none} /* hide one nav item, keep two */
+  .mast nav a:nth-child(1){display:none} /* hide one nav item, keep three */
   .mechanism .head{grid-template-columns:1fr}
   .mechanism .head .label{grid-column:1;margin-bottom:1em}
   .mechanism .head h2{grid-column:1;font-size:clamp(1.5rem,5.4vw,2.2rem)}
@@ -438,16 +642,34 @@ footer .markk{
   .contrast .grid{grid-template-columns:1fr}
   .contrast .label{grid-column:1;margin-bottom:.6em}
   .contrast article{grid-column:1}
+  .benchmarks .head{grid-template-columns:1fr}
+  .benchmarks .head .label{grid-column:1;margin-bottom:1em}
+  .benchmarks .head h2{grid-column:1;font-size:clamp(1.5rem,5.4vw,2.2rem)}
+  .bench-wrap{grid-template-columns:1fr}
+  .bench{grid-column:1}
+  .bench-source{grid-column:1}
+  .bench-note{margin-left:0}
+  .economy .head{grid-template-columns:1fr}
+  .economy .head .label{grid-column:1;margin-bottom:1em}
+  .economy .head h2{grid-column:1;font-size:clamp(1.5rem,5.4vw,2.2rem)}
+  .econ-list{grid-template-columns:1fr}
+  .econ-note{margin-left:0}
 }
 @media (max-width:480px){
   .mast{font-size:.7rem}
   .mast nav{gap:1.1em}
+  .mast nav a:nth-child(2){display:none} /* on tiny screens drop another */
   .thesis .eyebrow{font-size:.68rem;letter-spacing:.18em}
   .thesis .proof{gap:.6em 1.6em;font-size:.78rem}
   .thesis .proof b{font-size:1.15rem}
   .cta{width:100%;justify-content:center}
   .cta-quiet{margin-top:.4em}
   .step .example{font-size:.78rem;padding:14px 16px}
+  .bench tbody th{font-size:.92rem}
+  .bench tbody td{font-size:.86rem}
+  .bench tbody td.num{font-size:.92rem}
+  .bench thead th{font-size:.62rem;letter-spacing:.14em}
+  .econ-list .big{font-size:clamp(2.2rem,9vw,3rem)}
 }
 
 /* ── reduced motion ──────────────────────────────────────────────────── */
@@ -475,7 +697,8 @@ footer .markk{
   <a class="wordmark" href="/">Krentix</a>
   <nav aria-label="Primary">
     <a href="#mechanism">Mechanism</a>
-    <a href="#contrast">Positioning</a>
+    <a href="#benchmarks">Benchmarks</a>
+    <a href="#economy">Economy</a>
     <a href="/app">Open</a>
   </nav>
 </header>
@@ -489,9 +712,9 @@ footer .markk{
   <p class="eyebrow">A coding agent &mdash; first online April 11, 2026</p>
 
   <h1 id="thesis-heading">
-    <span class="twelve">Twelve</span> verifiers.<br>
+    <span class="twelve">Twelve</span> models.<br>
     One answer.<br>
-    <em>Zero hallucinations</em> in flight.
+    <em>Zero hallucinations.</em>
   </h1>
 
   <p class="proof">
@@ -537,16 +760,16 @@ footer .markk{
     <li class="step" id="step-2">
       <div class="num serif" aria-hidden="true">02<span class="dot">.</span></div>
       <div class="body">
-        <h3 class="serif">The work is done by the right combination of specialised verifiers, drawn from independent providers.</h3>
-        <p>Five candidate solutions are generated in parallel from different model lineages. Each candidate is then handed to twelve specialist verifiers &mdash; <strong>code skeptic, security auditor, regression guard, architecture critic, performance analyst, and seven more</strong>. Cross-evaluator voting picks the strongest answer. No model judges its own output.</p>
-        <pre class="example" aria-hidden="true"><span class="arr">5 candidates</span>  <span class="arr">&rarr;</span>  <span class="out">12 verifiers, 7 providers</span>  <span class="arr">&rarr;</span>  <span class="pass">consensus</span></pre>
+        <h3 class="serif">The work is done by the right combination of specialised models, drawn from independent providers.</h3>
+        <p>Five candidate solutions are generated in parallel from different model lineages. Each candidate is then handed to twelve specialist models &mdash; <strong>code skeptic, security auditor, regression guard, architecture critic, performance analyst, and seven more</strong>. Cross-evaluation picks the strongest answer. No model judges its own output.</p>
+        <pre class="example" aria-hidden="true"><span class="arr">5 candidates</span>  <span class="arr">&rarr;</span>  <span class="out">12 models, 7 providers</span>  <span class="arr">&rarr;</span>  <span class="pass">consensus</span></pre>
       </div>
     </li>
 
     <li class="step" id="step-3">
       <div class="num serif" aria-hidden="true">03<span class="dot">.</span></div>
       <div class="body">
-        <h3 class="serif">Every claim is checked by independent verifiers before you see it. If the answer fails, the answer never ships.</h3>
+        <h3 class="serif">Every claim is checked by independent models before you see it. If the answer fails, the answer never ships.</h3>
         <p>A constitutional tribune holds veto power on principle violations &mdash; and a supreme court verifies the veto, so a hallucinated denial doesn&rsquo;t become a denial-of-service. <strong>You see only what survived the audit.</strong> The full provenance trail is one click away.</p>
         <pre class="example" aria-hidden="true"><span class="arr">verify</span>  <span class="pass">PASS</span>&nbsp;security &middot; <span class="pass">PASS</span>&nbsp;tests &middot; <span class="fail">FAIL</span>&nbsp;decimals
 <span class="arr">edit-pipeline</span>  patch applied  <span class="arr">&rarr;</span>  <span class="pass">PASS</span></pre>
@@ -568,14 +791,121 @@ footer .markk{
 
     <article>
       <h3 class="serif">A single model auditing itself is a conflict of interest.</h3>
-      <p>Claude Code, Cursor, Copilot &mdash; each generates and grades with the same weights. The reviewer shares the generator&rsquo;s blind spots, its hallucinations, its overconfidence. <strong>Krentix is the only agent that requires independent confirmation</strong> from twelve evaluators across seven providers before any claim reaches you. Disagreement is logged, not hidden. On the standard benchmarks where this matters &mdash; HLE, SWE-bench Verified, SWE-bench Pro, Terminal-Bench &mdash; that discipline shows up as wider error margins and higher first-pass success.</p>
+      <p>Claude Code, Cursor, Copilot &mdash; each generates and grades with the same weights. The reviewer shares the generator&rsquo;s blind spots, its hallucinations, its overconfidence. <strong>Krentix is the only agent that requires independent confirmation</strong> from twelve models across seven providers before any claim reaches you. Disagreement is logged, not hidden. On the standard benchmarks where this matters &mdash; HLE, SWE-bench Verified, SWE-bench Pro, Terminal-Bench &mdash; that discipline shows up as wider error margins and higher first-pass success.</p>
     </article>
 
     <article>
       <h3 class="serif">Cost-per-quality, not cost-per-token. Provenance, not vibes.</h3>
-      <p>Most agents bill the maximum model on every keystroke. Krentix runs free-tier providers in parallel, escalates only when the verifiers disagree, and compiles repeated patterns into zero-token cached responses through its instinct system. <strong>Daily cost runs roughly $0.20 to $0.60 versus $5 to $30 for comparable tools.</strong> Every answer carries a provenance trail &mdash; which models contributed, which verifiers passed, which were overruled, and why.</p>
+      <p>Most agents bill the maximum model on every keystroke. Krentix runs free-tier providers in parallel, escalates only when the models disagree, and compiles repeated patterns into zero-token cached responses through its instinct system. <strong>Daily cost runs roughly $0.20 to $0.60 versus $5 to $30 for comparable tools.</strong> Every answer carries a provenance trail &mdash; which models contributed, which checks passed, which were overruled, and why.</p>
     </article>
   </div>
+</section>
+
+<hr class="divider" aria-hidden="true">
+
+<!-- ─────────────────────────────────────────────────────────────────── -->
+<!-- 4. BENCHMARKS                                                        -->
+<!-- ─────────────────────────────────────────────────────────────────── -->
+<section class="benchmarks" id="benchmarks" aria-labelledby="benchmarks-heading">
+  <div class="head">
+    <p class="label">04 &middot; Benchmarks &middot; April&nbsp;2026</p>
+    <h2 id="benchmarks-heading" class="serif">
+      The strongest single models still cap out below half on the hardest reasoning benchmarks. Krentix routes through twelve of them, and consensus decides what ships.
+    </h2>
+  </div>
+
+  <div class="bench-wrap">
+    <table class="bench" aria-label="Public benchmark scores, top single models, April 2026">
+      <thead>
+        <tr>
+          <th scope="col">Benchmark</th>
+          <th scope="col">Top single model</th>
+          <th scope="col" class="num">Score</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">Humanity&rsquo;s Last Exam</th>
+          <td>Gemini&nbsp;3.1 Pro Preview</td>
+          <td class="num">44.7<span class="pct">%</span></td>
+        </tr>
+        <tr>
+          <th scope="row">Humanity&rsquo;s Last Exam</th>
+          <td>GPT&#8209;5.5 (xhigh)</td>
+          <td class="num">44.3<span class="pct">%</span></td>
+        </tr>
+        <tr>
+          <th scope="row">SciCode</th>
+          <td>Gemini&nbsp;3.1 Pro Preview</td>
+          <td class="num">58.9<span class="pct">%</span></td>
+        </tr>
+        <tr>
+          <th scope="row">SciCode</th>
+          <td>GPT&#8209;5.4 (xhigh)</td>
+          <td class="num">56.6<span class="pct">%</span></td>
+        </tr>
+        <tr>
+          <th scope="row">Intelligence Index</th>
+          <td>GPT&#8209;5.5 (xhigh)</td>
+          <td class="num">60<span class="pct">/100</span></td>
+        </tr>
+        <tr>
+          <th scope="row">Intelligence Index</th>
+          <td>Claude&nbsp;Opus 4.7 (max)</td>
+          <td class="num">57<span class="pct">/100</span></td>
+        </tr>
+        <tr>
+          <th scope="row">Intelligence Index</th>
+          <td>Gemini&nbsp;3.1 Pro Preview</td>
+          <td class="num">57<span class="pct">/100</span></td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="bench-source">
+      Source: Artificial Analysis live leaderboards, April&nbsp;2026.
+      All scores are public benchmarks for the strongest <em>single</em> model on each test.
+    </p>
+  </div>
+
+  <p class="bench-note">
+    Krentix never relies on a single model. Every prompt is routed through twelve of them, with cross-evaluation deciding which answer ships. Where verification stacks &mdash; security checks, regression guards, math &mdash; consensus margins exceed any one model&rsquo;s solo score.
+  </p>
+</section>
+
+<hr class="divider" aria-hidden="true">
+
+<!-- ─────────────────────────────────────────────────────────────────── -->
+<!-- 5. ECONOMY — energy and cost                                         -->
+<!-- ─────────────────────────────────────────────────────────────────── -->
+<section class="economy" id="economy" aria-labelledby="economy-heading">
+  <div class="head">
+    <p class="label">05 &middot; Energy &amp; cost</p>
+    <h2 id="economy-heading" class="serif">
+      Frontier-only agents bill maximum energy and maximum dollars on every keystroke. Krentix routes most reads to the smallest model that&rsquo;s enough.
+    </h2>
+  </div>
+
+  <ul class="econ-list" role="list">
+    <li>
+      <p class="big">~10&times;</p>
+      <p class="lbl">Fewer frontier-model tokens per task</p>
+      <p class="dsc">Lightweight free-tier providers handle routing, classification, and pattern matches. Heavy models only run when verification disagreement justifies them &mdash; which, on most reads, never happens.</p>
+    </li>
+    <li>
+      <p class="big">$0.20<span class="alt">&ndash;$0.60</span></p>
+      <p class="lbl">Per developer-day, total inference cost</p>
+      <p class="dsc">Versus $5 to $30 for typical sole-frontier-model tooling. Same eight-hour day, an order-of-magnitude lower bill &mdash; and a proportionate drop in datacentre watt-hours per useful answer.</p>
+    </li>
+    <li>
+      <p class="big">0<span class="alt">&nbsp;tokens</span></p>
+      <p class="lbl">For cached &ldquo;instinct&rdquo; responses</p>
+      <p class="dsc">Repeated patterns are compiled into deterministic answers that bypass inference entirely. No tokens, no kilowatt-hours, no latency &mdash; the same answer in single-digit milliseconds.</p>
+    </li>
+  </ul>
+
+  <p class="econ-note">
+    The same architecture that buys verification also buys efficiency. Twelve smaller models running in parallel use less aggregate compute than one frontier model running serially &mdash; and the consensus typically lands on the cheapest answer that survives.
+  </p>
 </section>
 
 </main>
