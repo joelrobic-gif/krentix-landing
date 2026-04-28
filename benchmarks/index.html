@@ -294,7 +294,7 @@ footer a:hover{color:var(--text);border-color:var(--rule-strong)}
     Krentix appears in every row. Where Krentix has been measured against the public dataset (HumanEval, full 164 problems &mdash; <strong>89.0% pass@1</strong>), the cell shows the score in gold. Where Krentix hasn&rsquo;t been measured yet, the cell is dashed &mdash; we don&rsquo;t fabricate numbers to fill space.
   </p>
   <p style="font-family:var(--mono);font-size:.82rem;color:var(--brand);letter-spacing:.06em;margin-top:1.4em;border-left:2px solid var(--brand);padding:.4em 0 .4em 1em">
-    <strong style="color:var(--brand-warm);font-weight:600">Live</strong> &middot; MBPP+ is running on Krentix right now (378 problems, public dataset). The score will land here automatically when the run completes; this page rebuilds on push. GSM8K queued next.
+    <strong style="color:var(--brand-warm);font-weight:600">2026&#8209;04&#8209;28 &middot; MBPP+ landed</strong> &middot; 308 of 378 = <strong>81.5% pass@1</strong>, full dataset, medium tier. 69 of 70 fails were genuine full-pipeline misses (1 routing bug). Full-power tier expected to add 6&ndash;10 points once the router patches and tier wiring ship. GSM8K queued.
   </p>
 </section>
 
@@ -328,9 +328,9 @@ footer a:hover{color:var(--text);border-color:var(--rule-strong)}
           <td class="dim">&mdash;</td>
         </tr>
 
-        <tr>
-          <th scope="row">MBPP+<span class="sub">Coding &middot; pass@1</span></th>
-          <td class="col-krentix dim">&hellip;<span class="meta">running now &middot; result tonight</span></td>
+        <tr class="krentix-row">
+          <th scope="row">MBPP+<span class="sub">Coding &middot; pass@1 &middot; full 378</span></th>
+          <td class="col-krentix">81.5%<span class="meta">308 / 378 &middot; medium tier<sup><a href="#ref-14">[14]</a></sup></span></td>
           <td class="dim">&mdash;</td>
           <td class="dim">&mdash;</td>
           <td class="dim">&mdash;</td>
@@ -601,6 +601,15 @@ footer a:hover{color:var(--text);border-color:var(--rule-strong)}
     <p>
       <span class="ref-num">[13]</span>
       <strong>&laquo;Vendor scores not standardised&raquo;</strong>: As of April 2026, vendor labs (Anthropic, OpenAI, Google) have largely stopped publishing standard-benchmark tables in their release announcements for the most current models, citing saturation, partner-specific benchmarks, or visual charts without numerical labels. Where this note appears we don&rsquo;t have a vendor-published score we can quote and won&rsquo;t fabricate one. Krentix runs against the public dataset are queued separately.
+    </p>
+    <p>
+      <span class="ref-num">[14]</span>
+      Krentix MBPP+ pass@1 = 81.5% (308/378), measured 2026-04-28 against
+      <a href="https://huggingface.co/datasets/evalplus/mbppplus" rel="noopener">evalplus/mbppplus</a>
+      (Liu et al., NeurIPS 2023). Wall: 98.7 min. Medium tier (current default lineup);
+      69 of 70 fails were full-pipeline ensemble misses, 1 was a speed_path routing bug.
+      Harness, raw per-problem results, and stderr tails on every failure:
+      <a href="https://github.com/joelrobic-gif/krentix-landing/tree/main/bench/mbpp" rel="noopener">github.com/joelrobic-gif/krentix-landing/bench/mbpp</a>.
     </p>
   </div>
 </section>
