@@ -892,6 +892,198 @@ footer .markk{
 /* economy big numbers — count-up support */
 .econ-list .big{ font-variant-numeric:tabular-nums }
 
+/* ── section 6 — power dial ─────────────────────────────────────────── */
+.dial{
+  padding-top:clamp(64px,10vh,120px);
+  padding-bottom:clamp(96px,12vh,160px);
+}
+.dial > .head{
+  display:grid;
+  grid-template-columns:repeat(12,var(--col));
+  gap:24px;
+  margin-bottom:clamp(28px,4vh,48px);
+  align-items:end;
+}
+.dial .head .label{
+  grid-column:1 / span 3;
+  font-family:var(--mono);
+  font-size:.74rem;
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  color:var(--text-faint);
+}
+.dial .head h2{
+  grid-column:5 / span 8;
+  font-family:var(--serif);
+  font-weight:380;
+  font-size:clamp(1.7rem,3.6vw,2.6rem);
+  line-height:1.18;
+  letter-spacing:-.012em;
+  font-variation-settings:"opsz" 96;
+  max-width:32ch;
+  margin:0;
+  text-wrap:balance;
+}
+.dial .head h2 em{font-style:italic;color:var(--brand-warm);font-weight:400}
+.dial-lede{
+  font-size:1.02rem;line-height:1.65;color:var(--text-dim);
+  margin:0 auto 0;
+  margin-left:calc((100% / 12) * 4 + 8px);
+  max-width:62ch;
+  margin-bottom:clamp(40px,6vh,72px);
+  border-left:2px solid var(--brand);
+  padding:.4em 0 .4em 1.4em;
+}
+.dial-lede strong{color:var(--text);font-weight:500}
+
+.dial-grid{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:18px;
+  margin:0 0 clamp(40px,6vh,72px);
+}
+.dial-tier{
+  background:var(--surface);
+  border:1px solid var(--rule);
+  border-radius:2px;
+  padding:24px 22px 26px;
+  display:flex;
+  flex-direction:column;
+  gap:1.2em;
+  transition:border-color .25s ease, transform .25s ease, background .25s ease;
+}
+.dial-tier:hover{
+  border-color:var(--rule-strong);
+  transform:translateY(-2px);
+}
+.dial-tier--full{
+  border-color:rgba(212,160,23,.35);
+  background:linear-gradient(180deg, rgba(212,160,23,.04), var(--surface));
+}
+.dial-tier--full:hover{
+  border-color:var(--brand);
+}
+.dial-tier--zero{
+  background:linear-gradient(180deg, rgba(244,234,213,.02), var(--surface));
+}
+.dial-tier header{
+  display:flex;
+  flex-direction:column;
+  gap:.4em;
+  border-bottom:1px solid var(--rule);
+  padding-bottom:1em;
+}
+.dial-tier .tier-name{
+  font-family:var(--mono);
+  font-size:.72rem;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:var(--brand);
+  margin:0;
+  display:flex;
+  align-items:baseline;
+  gap:.6em;
+}
+.dial-tier .tier-default{
+  font-family:var(--mono);
+  font-size:.62rem;
+  letter-spacing:.14em;
+  color:var(--text-faint);
+  border:1px solid var(--rule);
+  padding:.1em .4em;
+  border-radius:1px;
+  font-weight:400;
+}
+.dial-tier .tier-price{
+  font-family:var(--serif);
+  font-weight:300;
+  font-size:clamp(2rem,3.4vw,2.8rem);
+  line-height:.95;
+  letter-spacing:-.02em;
+  color:var(--text);
+  font-variation-settings:"opsz" 96;
+  font-variant-numeric:tabular-nums;
+  margin:0;
+}
+.dial-tier .tier-price-unit{
+  font-family:var(--mono);
+  font-size:.36em;
+  font-weight:400;
+  letter-spacing:.04em;
+  color:var(--text-faint);
+  margin-left:.05em;
+  vertical-align:.4em;
+}
+.dial-tier--full .tier-price{color:var(--brand-warm)}
+.dial-tier .tier-tag{
+  font-family:var(--mono);
+  font-size:.72rem;
+  letter-spacing:.06em;
+  color:var(--text-dim);
+  margin:0;
+  text-transform:uppercase;
+}
+.dial-tier .tier-bullets{
+  list-style:none;
+  padding:0;
+  margin:0;
+  display:flex;
+  flex-direction:column;
+  gap:.6em;
+}
+.dial-tier .tier-bullets li{
+  font-size:.86rem;
+  line-height:1.5;
+  color:var(--text-dim);
+  padding-left:1em;
+  position:relative;
+}
+.dial-tier .tier-bullets li::before{
+  content:"·";
+  position:absolute;
+  left:.1em;
+  top:-.05em;
+  color:var(--brand);
+  font-size:1.2em;
+  font-weight:600;
+}
+.dial-tier--full .tier-bullets li::before{color:var(--brand-warm)}
+
+.dial-note{
+  display:block;
+  max-width:78ch;
+  margin:0 auto 0;
+  margin-left:calc((100% / 12) * 4 + 8px);
+  font-size:1.02rem;
+  line-height:1.62;
+  color:var(--text-dim);
+  border-left:2px solid var(--brand);
+  padding:.4em 0 .4em 1.4em;
+}
+.dial-note strong{color:var(--text);font-weight:500}
+.dial-note code{
+  font-family:var(--mono);
+  font-size:.85em;
+  color:var(--brand-warm);
+  background:rgba(212,160,23,.06);
+  padding:.05em .35em;
+  border-radius:1px;
+}
+
+@media (max-width:1100px){
+  .dial-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (max-width:880px){
+  .dial .head{grid-template-columns:1fr}
+  .dial .head .label{grid-column:1;margin-bottom:1em}
+  .dial .head h2{grid-column:1;font-size:clamp(1.5rem,5.4vw,2.2rem)}
+  .dial-lede{margin-left:0}
+  .dial-note{margin-left:0}
+}
+@media (max-width:640px){
+  .dial-grid{grid-template-columns:1fr}
+}
+
 /* ── reduced motion ──────────────────────────────────────────────────── */
 @media (prefers-reduced-motion:reduce){
   .step{opacity:1;transform:none;transition:none}
@@ -924,7 +1116,7 @@ footer .markk{
   <nav aria-label="Primary">
     <a href="#mechanism">Mechanism</a>
     <a href="#benchmarks">Benchmarks</a>
-    <a href="#economy">Economy</a>
+    <a href="#dial">The dial</a>
     <a href="/app">Open</a>
   </nav>
 </header>
@@ -939,8 +1131,8 @@ footer .markk{
 
   <h1 id="thesis-heading" data-lit-on-load>
     <span class="ln"><span class="twelve">Twelve</span> models.</span>
-    <span class="ln">One answer.</span>
-    <span class="ln"><em>Zero hallucinations.</em></span>
+    <span class="ln">Every frontier.</span>
+    <span class="ln"><em>You move the dial.</em></span>
   </h1>
 
   <p class="proof" data-reveal>
@@ -1139,6 +1331,88 @@ footer .markk{
 
   <p class="econ-note">
     The same architecture that buys verification also buys efficiency. Twelve smaller models running in parallel use less aggregate compute than one frontier model running serially &mdash; and the consensus typically lands on the cheapest answer that survives.
+  </p>
+</section>
+
+<hr class="divider" aria-hidden="true">
+
+<!-- ─────────────────────────────────────────────────────────────────── -->
+<!-- 6. POWER DIAL — the cost-tier selector                              -->
+<!-- ─────────────────────────────────────────────────────────────────── -->
+<section class="dial" id="dial" aria-labelledby="dial-heading">
+  <div class="head" data-reveal>
+    <p class="label">06 &middot; The dial</p>
+    <h2 id="dial-heading" class="serif">
+      Every frontier model. Every price point. <em>You</em> move the dial.
+    </h2>
+  </div>
+
+  <p class="dial-lede" data-reveal>
+    The same twelve-verifier architecture, four power levels. At <strong>full power</strong>, Krentix runs Claude Opus 4.7, GPT&#8209;5.5 (xhigh), and Gemini 3.1 Pro Preview side by side &mdash; the entire frontier in concert, with cross-evaluation deciding what ships. At <strong>zero</strong>, it serves cached patterns instantly, free, with no API calls. Every other agent picks a fixed point on the price-quality curve and bills you. Krentix puts the curve in your hand.
+  </p>
+
+  <div class="dial-grid" role="list">
+
+    <article class="dial-tier dial-tier--zero" role="listitem" data-reveal>
+      <header>
+        <p class="tier-name">Zero</p>
+        <p class="tier-price"><span class="num-anim" data-count="0" data-decimals="0">0</span><span class="tier-price-unit">/&hairsp;day</span></p>
+      </header>
+      <p class="tier-tag">Cached only &middot; instant</p>
+      <ul class="tier-bullets">
+        <li>Instinct cache + deterministic math</li>
+        <li>Zero API calls, zero tokens, zero kilowatt&#8209;hours</li>
+        <li>Single-digit millisecond responses</li>
+        <li>Free trial that&rsquo;s actually free</li>
+      </ul>
+    </article>
+
+    <article class="dial-tier dial-tier--low" role="listitem" data-reveal data-reveal-stagger="2">
+      <header>
+        <p class="tier-name">Low</p>
+        <p class="tier-price">$<span class="num-anim" data-count="0.05" data-decimals="2">0.00</span><span class="tier-price-unit">&ndash;0.10/day</span></p>
+      </header>
+      <p class="tier-tag">All 12 verifiers &middot; cheap models</p>
+      <ul class="tier-bullets">
+        <li>Claude Haiku 4.6, Gemini 2.5 Flash</li>
+        <li>Free Cerebras-hosted Qwen 235B + GPT-OSS</li>
+        <li>Full verification quorum, smaller weights</li>
+        <li>Hobbyist and freelance work</li>
+      </ul>
+    </article>
+
+    <article class="dial-tier dial-tier--medium" role="listitem" data-reveal data-reveal-stagger="3">
+      <header>
+        <p class="tier-name">Medium <span class="tier-default">default</span></p>
+        <p class="tier-price">$<span class="num-anim" data-count="0.20" data-decimals="2">0.00</span><span class="tier-price-unit">&ndash;0.60/day</span></p>
+      </header>
+      <p class="tier-tag">Mixed lineup &middot; frontier-class outputs</p>
+      <ul class="tier-bullets">
+        <li>Opus 4.7 lead, Sonnet 4.6 governance</li>
+        <li>GPT-4o on security, DeepSeek on regression</li>
+        <li>Gemini 2.5 Pro on architecture</li>
+        <li>~1/10 the cost of always running max-effort</li>
+      </ul>
+    </article>
+
+    <article class="dial-tier dial-tier--full" role="listitem" data-reveal data-reveal-stagger="4">
+      <header>
+        <p class="tier-name">Full power</p>
+        <p class="tier-price">$<span class="num-anim" data-count="5" data-decimals="0">0</span><span class="tier-price-unit">&ndash;15/day</span></p>
+      </header>
+      <p class="tier-tag">Max-effort frontier &middot; leaderboard mode</p>
+      <ul class="tier-bullets">
+        <li>Opus 4.7 (max), GPT&#8209;5.5 (xhigh), Gemini 3.1 Pro Preview</li>
+        <li>All 12 personas at top tier</li>
+        <li>Extended thinking on governance</li>
+        <li>Production critical paths &middot; benchmark runs</li>
+      </ul>
+    </article>
+
+  </div>
+
+  <p class="dial-note" data-reveal>
+    The dial is a single API call: <code>POST /api/cost-tier</code> with <code>{"id":"full"}</code>. Or pick from the dropdown in the agent surface. The same prompt, the same governance, the same provenance trail &mdash; just with a different model lineup underneath. <strong>Nobody else builds this.</strong> Cursor, Copilot, Devin all bill you the maximum on every keystroke; you can&rsquo;t throttle them down for low-stakes work and you can&rsquo;t throttle them up for high-stakes work. Krentix can.
   </p>
 </section>
 
