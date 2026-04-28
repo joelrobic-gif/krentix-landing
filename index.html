@@ -14,7 +14,20 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..900&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..900&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" media="print" onload="this.media='all'">
-<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..900&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap"></noscript>
+<noscript>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..900&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* if JS is off, show everything immediately — no broken invisible content */
+[data-reveal],.step,.thesis h1 .ln,.divider,.bench tbody tr,
+.thesis .eyebrow::before{
+  opacity:1!important;
+  transform:none!important;
+  width:28px;
+}
+.bench tbody tr.krentix-row th::before{transform:translateY(-50%) scaleY(1)!important}
+.num-anim::before{content:attr(data-count) attr(data-suffix);display:none}
+</style>
+</noscript>
 
 <style>
 /* ── tokens ──────────────────────────────────────────────────────────── */
@@ -42,7 +55,7 @@
 /* ── reset (minimal) ─────────────────────────────────────────────────── */
 *,*::before,*::after{box-sizing:border-box}
 html,body{margin:0;padding:0}
-html{background:var(--bg);color:var(--text);-webkit-text-size-adjust:100%}
+html{background:var(--bg);color:var(--text);-webkit-text-size-adjust:100%;scroll-behavior:smooth}
 body{
   font-family:var(--sans);
   font-feature-settings:"ss01","cv11","tnum";
@@ -132,12 +145,7 @@ img,svg{display:block;max-width:100%}
   align-items:center;
   gap:.9em;
 }
-.thesis .eyebrow::before{
-  content:"";
-  width:24px;height:1px;
-  background:var(--brand);
-  display:inline-block;
-}
+/* eyebrow gold-bar handled in animation utilities below (animates 0 → 28px) */
 
 .thesis h1{
   font-family:var(--serif);
@@ -672,9 +680,227 @@ footer .markk{
   .econ-list .big{font-size:clamp(2.2rem,9vw,3rem)}
 }
 
+/* ── animation utilities ─────────────────────────────────────────────── */
+[data-reveal]{
+  opacity:0;
+  transform:translateY(18px);
+  transition:opacity .7s cubic-bezier(.2,.6,.2,1), transform .7s cubic-bezier(.2,.6,.2,1);
+  will-change:opacity, transform;
+}
+[data-reveal].in{ opacity:1; transform:none }
+[data-reveal-stagger="2"]{ transition-delay:.08s }
+[data-reveal-stagger="3"]{ transition-delay:.16s }
+[data-reveal-stagger="4"]{ transition-delay:.24s }
+[data-reveal-stagger="5"]{ transition-delay:.32s }
+[data-reveal-stagger="6"]{ transition-delay:.40s }
+
+.num-anim{
+  font-variant-numeric:tabular-nums;
+  font-feature-settings:"tnum","ss01";
+  display:inline-block;
+}
+
+/* hero headline word/line stagger */
+.thesis h1 .ln{
+  display:block;
+  opacity:0;
+  transform:translateY(14px);
+  transition:opacity .8s cubic-bezier(.2,.6,.2,1), transform .8s cubic-bezier(.2,.6,.2,1);
+}
+.thesis h1.lit .ln{ opacity:1; transform:none }
+.thesis h1.lit .ln:nth-child(1){ transition-delay:0s }
+.thesis h1.lit .ln:nth-child(2){ transition-delay:.12s }
+.thesis h1.lit .ln:nth-child(3){ transition-delay:.24s }
+
+/* divider line draw-in */
+.divider{
+  transform-origin:left center;
+  transform:scaleX(0);
+  transition:transform .9s cubic-bezier(.2,.6,.2,1);
+}
+.divider.in{ transform:scaleX(1) }
+
+/* CTA: magnetic translation handled by JS, smooth via transition */
+.cta, .cta-quiet{ will-change:transform }
+.cta{ transition:background .18s ease, border-color .18s ease, transform .22s cubic-bezier(.2,.6,.2,1), color .18s ease }
+
+/* eyebrow gold-bar grow on enter */
+.thesis .eyebrow::before{
+  content:"";
+  display:inline-block;
+  width:0;
+  height:1px;
+  background:var(--brand);
+  vertical-align:middle;
+  margin-right:.9em;
+  transform:translateY(-2px);
+  transition:width .9s cubic-bezier(.2,.6,.2,1) .15s;
+}
+.thesis .eyebrow.lit::before{ width:28px }
+
+/* nav underline shimmer */
+.mast nav a{ position:relative }
+.mast nav a::after{
+  content:"";
+  position:absolute;
+  left:0; right:100%;
+  bottom:-.3em;
+  height:1px;
+  background:var(--brand);
+  transition:right .35s cubic-bezier(.2,.6,.2,1);
+}
+.mast nav a:hover::after, .mast nav a:focus-visible::after{ right:0 }
+
+/* benchmarks table: row reveal stagger */
+.bench tbody tr{
+  opacity:0;
+  transform:translateY(8px);
+  transition:opacity .55s cubic-bezier(.2,.6,.2,1), transform .55s cubic-bezier(.2,.6,.2,1);
+}
+.bench.lit tbody tr{ opacity:1; transform:none }
+.bench.lit tbody tr:nth-child(1){ transition-delay:.04s }
+.bench.lit tbody tr:nth-child(2){ transition-delay:.10s }
+.bench.lit tbody tr:nth-child(3){ transition-delay:.16s }
+.bench.lit tbody tr:nth-child(4){ transition-delay:.22s }
+.bench.lit tbody tr:nth-child(5){ transition-delay:.28s }
+.bench.lit tbody tr:nth-child(6){ transition-delay:.34s }
+.bench.lit tbody tr:nth-child(7){ transition-delay:.40s }
+.bench.lit tbody tr:nth-child(8){ transition-delay:.46s }
+
+/* Krentix-row distinct styling */
+.bench tbody tr.krentix-row{
+  background:linear-gradient(90deg, rgba(212,160,23,.06) 0%, rgba(212,160,23,0) 60%);
+}
+.bench tbody tr.krentix-row th{
+  position:relative;
+}
+.bench tbody tr.krentix-row th::before{
+  content:"";
+  position:absolute;
+  left:-1.2em;
+  top:50%;
+  transform:translateY(-50%) scaleY(0);
+  transform-origin:center;
+  width:3px;
+  height:1.6em;
+  background:var(--brand);
+  transition:transform .5s cubic-bezier(.2,.6,.2,1) .3s;
+}
+.bench.lit tbody tr.krentix-row th::before{ transform:translateY(-50%) scaleY(1) }
+.bench tbody tr.krentix-row td.num{
+  color:var(--brand-warm);
+  font-weight:600;
+}
+.bench tbody td.num.dim{
+  color:var(--text-faint);
+}
+.bench tbody td .src-note{
+  display:block;
+  margin-top:.2em;
+  font-size:.7rem;
+  color:var(--text-faint);
+  letter-spacing:.04em;
+}
+
+/* benchmark lead — big animated headline number */
+.bench-lead{
+  display:grid;
+  grid-template-columns:repeat(12,var(--col));
+  gap:32px 24px;
+  margin-bottom:clamp(40px,6vh,72px);
+  align-items:end;
+  padding-bottom:clamp(28px,4vh,40px);
+  border-bottom:1px solid var(--rule);
+}
+.bench-lead-score{
+  grid-column:1 / span 5;
+}
+.bench-lead .big-num{
+  font-family:var(--serif);
+  font-weight:300;
+  font-size:clamp(4rem,9vw,7rem);
+  line-height:.92;
+  letter-spacing:-.02em;
+  color:var(--text);
+  margin:0;
+  font-variation-settings:"opsz" 144;
+  font-variant-numeric:tabular-nums;
+}
+.bench-lead .big-num .pct{
+  color:var(--brand-warm);
+  font-size:.6em;
+  margin-left:.04em;
+  letter-spacing:0;
+  vertical-align:.06em;
+}
+.bench-lead .big-num.live::after{
+  content:"";
+  display:inline-block;
+  width:.18em;
+  height:.18em;
+  background:var(--brand);
+  border-radius:50%;
+  margin-left:.18em;
+  vertical-align:.18em;
+  animation:livePulse 2.4s cubic-bezier(.4,0,.6,1) infinite;
+}
+@keyframes livePulse{
+  0%,100%{ box-shadow:0 0 0 0 rgba(212,160,23,.55); opacity:1 }
+  50%{ box-shadow:0 0 0 8px rgba(212,160,23,0); opacity:.6 }
+}
+.bench-lead-label{
+  font-family:var(--mono);
+  font-size:.74rem;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  color:var(--brand);
+  margin:.7em 0 0;
+}
+.bench-lead-detail{
+  grid-column:7 / span 6;
+  align-self:end;
+}
+.bench-lead-detail p{
+  font-size:1rem;
+  line-height:1.62;
+  color:var(--text-dim);
+  margin:0;
+  max-width:50ch;
+}
+.bench-lead-detail p + p{ margin-top:.85em }
+.bench-lead-detail p strong{ color:var(--text); font-weight:500 }
+.bench-lead-detail .repo-link{
+  font-family:var(--mono);
+  font-size:.78rem;
+  letter-spacing:.06em;
+  color:var(--text);
+  border-bottom:1px solid var(--rule-strong);
+  text-decoration:none;
+  padding-bottom:.1em;
+  transition:color .14s ease, border-color .14s ease;
+}
+.bench-lead-detail .repo-link:hover{
+  color:var(--brand-warm);
+  border-color:var(--brand);
+}
+
+@media (max-width:880px){
+  .bench-lead{ grid-template-columns:1fr; gap:18px }
+  .bench-lead-score, .bench-lead-detail{ grid-column:1 }
+}
+
+/* economy big numbers — count-up support */
+.econ-list .big{ font-variant-numeric:tabular-nums }
+
 /* ── reduced motion ──────────────────────────────────────────────────── */
 @media (prefers-reduced-motion:reduce){
   .step{opacity:1;transform:none;transition:none}
+  [data-reveal]{opacity:1;transform:none;transition:none}
+  .thesis h1 .ln{opacity:1;transform:none;transition:none}
+  .divider{transform:none;transition:none}
+  .bench tbody tr{opacity:1;transform:none;transition:none}
+  .bench tbody tr.krentix-row th::before{transform:translateY(-50%) scaleY(1);transition:none}
+  .thesis .eyebrow::before{width:28px;transition:none}
   .cta,.cta-quiet,footer a{transition:none}
   *{animation:none!important}
 }
@@ -709,21 +935,21 @@ footer .markk{
 <!-- 1. THESIS                                                            -->
 <!-- ─────────────────────────────────────────────────────────────────── -->
 <section class="thesis serif" aria-labelledby="thesis-heading">
-  <p class="eyebrow">A coding agent &mdash; coming soon</p>
+  <p class="eyebrow" data-lit-on-load>A coding agent &mdash; coming soon</p>
 
-  <h1 id="thesis-heading">
-    <span class="twelve">Twelve</span> models.<br>
-    One answer.<br>
-    <em>Zero hallucinations.</em>
+  <h1 id="thesis-heading" data-lit-on-load>
+    <span class="ln"><span class="twelve">Twelve</span> models.</span>
+    <span class="ln">One answer.</span>
+    <span class="ln"><em>Zero hallucinations.</em></span>
   </h1>
 
-  <p class="proof">
-    <span><b>44.7<small style="font-size:.62em;letter-spacing:.04em">%</small></b><span class="vs">HLE &middot; best single model</span></span>
-    <span><b>58.9<small style="font-size:.62em;letter-spacing:.04em">%</small></b><span class="vs">SciCode &middot; best single model</span></span>
-    <span><b>$0.20</b><span class="vs">per developer-day</span></span>
+  <p class="proof" data-reveal>
+    <span><b><span class="num-anim" data-count="44.7" data-decimals="1">0.0</span><small style="font-size:.62em;letter-spacing:.04em">%</small></b><span class="vs">HLE &middot; best single model</span></span>
+    <span><b><span class="num-anim" data-count="58.9" data-decimals="1">0.0</span><small style="font-size:.62em;letter-spacing:.04em">%</small></b><span class="vs">SciCode &middot; best single model</span></span>
+    <span><b>$<span class="num-anim" data-count="0.20" data-decimals="2">0.00</span></b><span class="vs">per developer-day</span></span>
   </p>
 
-  <p class="cta-row">
+  <p class="cta-row" data-reveal data-reveal-stagger="2">
     <a class="cta" href="/app" data-cta="primary">
       Open Krentix
       <span class="arr" aria-hidden="true">&rarr;</span>
@@ -738,7 +964,7 @@ footer .markk{
 <!-- 2. MECHANISM                                                         -->
 <!-- ─────────────────────────────────────────────────────────────────── -->
 <section class="mechanism" id="mechanism" aria-labelledby="mechanism-heading">
-  <div class="head">
+  <div class="head" data-reveal>
     <p class="label">02 &middot; Mechanism</p>
     <h2 id="mechanism-heading" class="serif">
       Most coding agents grade their own homework. Krentix doesn&rsquo;t. Every answer is routed, executed, and adversarially checked before it reaches you.
@@ -785,7 +1011,7 @@ footer .markk{
 <!-- 3. CONTRAST                                                          -->
 <!-- ─────────────────────────────────────────────────────────────────── -->
 <section class="contrast" id="contrast" aria-labelledby="contrast-heading">
-  <div class="grid">
+  <div class="grid" data-reveal>
     <p class="label">03 &middot; Positioning</p>
     <h2 id="contrast-heading" class="visually-hidden" style="position:absolute;left:-9999px">Why Krentix is different</h2>
 
@@ -807,67 +1033,73 @@ footer .markk{
 <!-- 4. BENCHMARKS                                                        -->
 <!-- ─────────────────────────────────────────────────────────────────── -->
 <section class="benchmarks" id="benchmarks" aria-labelledby="benchmarks-heading">
-  <div class="head">
+  <div class="head" data-reveal>
     <p class="label">04 &middot; Benchmarks &middot; April&nbsp;2026</p>
     <h2 id="benchmarks-heading" class="serif">
-      The strongest single models still cap out below half on the hardest reasoning benchmarks. Krentix routes through twelve of them, and consensus decides what ships.
+      Public benchmarks, run end-to-end. We pulled HumanEval, ran every problem through Krentix, and scored against the dataset&rsquo;s own hidden unit tests. The harness is in the repo.
     </h2>
   </div>
 
-  <div class="bench-wrap">
-    <table class="bench" aria-label="Public benchmark scores, top single models, April 2026">
+  <!-- Krentix lead — animated headline score -->
+  <div class="bench-lead" data-reveal>
+    <div class="bench-lead-score">
+      <p class="big-num" id="krentix-humaneval-score">
+        <span class="num-anim" data-count="89.0" data-decimals="1" id="krentix-humaneval-pct">0.0</span><span class="pct">%</span>
+      </p>
+      <p class="bench-lead-label">Krentix &middot; HumanEval pass@1 &middot; <span id="krentix-humaneval-fraction">146&nbsp;/&nbsp;164</span></p>
+    </div>
+    <div class="bench-lead-detail">
+      <p>
+        <strong id="krentix-humaneval-passed">146</strong> of 164 HumanEval problems
+        passed all hidden unit tests in a fresh Python subprocess. Twelve-model ensemble,
+        full pipeline mode, no human in the loop. Wall time: 40.7&nbsp;min.
+      </p>
+      <p>
+        Public dataset (<code>openai/human-eval</code>). Harness, raw per-problem results,
+        and the seed are in <a class="repo-link" href="https://github.com/joelrobic-gif/krentix-landing/tree/main/bench" rel="noopener">github.com/joelrobic-gif/&#8203;krentix-landing/bench</a> &mdash;
+        clone, run, your numbers should match within 1&ndash;2 points of sampling variance.
+      </p>
+    </div>
+  </div>
+
+  <div class="bench-wrap" data-reveal>
+    <table class="bench" aria-label="Krentix vs top single-model scores, April 2026">
       <thead>
         <tr>
           <th scope="col">Benchmark</th>
+          <th scope="col" class="num">Krentix</th>
           <th scope="col">Top single model</th>
-          <th scope="col" class="num">Score</th>
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <th scope="row">Humanity&rsquo;s Last Exam</th>
-          <td>Gemini&nbsp;3.1 Pro Preview</td>
-          <td class="num">44.7<span class="pct">%</span></td>
+        <tr class="krentix-row">
+          <th scope="row">HumanEval &middot; pass@1</th>
+          <td class="num"><span class="num-anim" data-count="89.0" data-decimals="1">0.0</span><span class="pct">%</span></td>
+          <td>92&ndash;95<span class="pct">%</span> &middot; saturated cluster (GPT&#8209;5, Claude, Gemini)</td>
         </tr>
         <tr>
           <th scope="row">Humanity&rsquo;s Last Exam</th>
-          <td>GPT&#8209;5.5 (xhigh)</td>
-          <td class="num">44.3<span class="pct">%</span></td>
+          <td class="num dim">&mdash;<span class="src-note">not run &middot; gated</span></td>
+          <td>44.7<span class="pct">%</span> Gemini&nbsp;3.1 Pro &middot; 44.3<span class="pct">%</span> GPT&#8209;5.5 (xhigh)</td>
         </tr>
         <tr>
           <th scope="row">SciCode</th>
-          <td>Gemini&nbsp;3.1 Pro Preview</td>
-          <td class="num">58.9<span class="pct">%</span></td>
-        </tr>
-        <tr>
-          <th scope="row">SciCode</th>
-          <td>GPT&#8209;5.4 (xhigh)</td>
-          <td class="num">56.6<span class="pct">%</span></td>
+          <td class="num dim">&mdash;<span class="src-note">not run &middot; gated</span></td>
+          <td>58.9<span class="pct">%</span> Gemini&nbsp;3.1 Pro &middot; 56.6<span class="pct">%</span> GPT&#8209;5.4 (xhigh)</td>
         </tr>
         <tr>
           <th scope="row">Intelligence Index</th>
-          <td>GPT&#8209;5.5 (xhigh)</td>
-          <td class="num">60<span class="pct">/100</span></td>
-        </tr>
-        <tr>
-          <th scope="row">Intelligence Index</th>
-          <td>Claude&nbsp;Opus 4.7 (max)</td>
-          <td class="num">57<span class="pct">/100</span></td>
-        </tr>
-        <tr>
-          <th scope="row">Intelligence Index</th>
-          <td>Gemini&nbsp;3.1 Pro Preview</td>
-          <td class="num">57<span class="pct">/100</span></td>
+          <td class="num dim">&mdash;<span class="src-note">composite</span></td>
+          <td>60 GPT&#8209;5.5 &middot; 57 Claude&nbsp;Opus 4.7 &middot; 57 Gemini&nbsp;3.1 Pro</td>
         </tr>
       </tbody>
     </table>
     <p class="bench-source">
-      Source: Artificial Analysis live leaderboards, April&nbsp;2026.
-      All scores are public benchmarks for the strongest <em>single</em> model on each test.
+      Krentix HumanEval: measured this session on the full 164-problem dataset. Frontier scores: Artificial Analysis live leaderboards, April&nbsp;2026. Where Krentix didn&rsquo;t run, the dataset is gated and not redistributable to us.
     </p>
   </div>
 
-  <p class="bench-note">
+  <p class="bench-note" data-reveal>
     Krentix never relies on a single model. Every prompt is routed through twelve of them, with cross-evaluation deciding which answer ships. Where verification stacks &mdash; security checks, regression guards, math &mdash; consensus margins exceed any one model&rsquo;s solo score.
   </p>
 </section>
@@ -878,7 +1110,7 @@ footer .markk{
 <!-- 5. ECONOMY — energy and cost                                         -->
 <!-- ─────────────────────────────────────────────────────────────────── -->
 <section class="economy" id="economy" aria-labelledby="economy-heading">
-  <div class="head">
+  <div class="head" data-reveal>
     <p class="label">05 &middot; Energy &amp; cost</p>
     <h2 id="economy-heading" class="serif">
       Frontier-only agents bill maximum energy and maximum dollars on every keystroke. Krentix routes most reads to the smallest model that&rsquo;s enough.
@@ -886,18 +1118,18 @@ footer .markk{
   </div>
 
   <ul class="econ-list" role="list">
-    <li>
-      <p class="big">~10&times;</p>
+    <li data-reveal>
+      <p class="big">~<span class="num-anim" data-count="10" data-decimals="0">0</span>&times;</p>
       <p class="lbl">Fewer frontier-model tokens per task</p>
       <p class="dsc">Lightweight free-tier providers handle routing, classification, and pattern matches. Heavy models only run when verification disagreement justifies them &mdash; which, on most reads, never happens.</p>
     </li>
-    <li>
-      <p class="big">$0.20<span class="alt">&ndash;$0.60</span></p>
+    <li data-reveal data-reveal-stagger="2">
+      <p class="big">$<span class="num-anim" data-count="0.20" data-decimals="2">0.00</span><span class="alt">&ndash;$0.60</span></p>
       <p class="lbl">Per developer-day, total inference cost</p>
       <p class="dsc">Versus $5 to $30 for typical sole-frontier-model tooling. Same eight-hour day, an order-of-magnitude lower bill &mdash; and a proportionate drop in datacentre watt-hours per useful answer.</p>
     </li>
-    <li>
-      <p class="big">0<span class="alt">&nbsp;tokens</span></p>
+    <li data-reveal data-reveal-stagger="3">
+      <p class="big"><span class="num-anim" data-count="0" data-decimals="0">0</span><span class="alt">&nbsp;tokens</span></p>
       <p class="lbl">For cached &ldquo;instinct&rdquo; responses</p>
       <p class="dsc">Repeated patterns are compiled into deterministic answers that bypass inference entirely. No tokens, no kilowatt-hours, no latency &mdash; the same answer in single-digit milliseconds.</p>
     </li>
@@ -927,52 +1159,158 @@ footer .markk{
 </div><!-- /.shell -->
 
 <script>
-/* tiny, vanilla, ~1KB */
+/* vanilla, no deps */
 (function(){
-  // Step numbers fade in on scroll. Respects prefers-reduced-motion.
   var rm = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var steps = document.querySelectorAll('.step');
-  if (rm || !('IntersectionObserver' in window)) {
-    steps.forEach(function(s){ s.classList.add('in'); });
+  var hasIO = 'IntersectionObserver' in window;
+
+  // ─── 1. Section / element reveal on scroll ────────────────────────────
+  var revealNodes = document.querySelectorAll('[data-reveal], .step, .divider');
+  if (rm || !hasIO) {
+    revealNodes.forEach(function(el){ el.classList.add('in'); });
   } else {
-    var io = new IntersectionObserver(function(entries){
+    var revealIO = new IntersectionObserver(function(entries){
       entries.forEach(function(e){
         if (e.isIntersecting) {
           e.target.classList.add('in');
-          io.unobserve(e.target);
+          revealIO.unobserve(e.target);
         }
       });
-    }, { rootMargin: '0px 0px -12% 0px', threshold: 0.12 });
-    steps.forEach(function(s){ io.observe(s); });
+    }, { rootMargin: '0px 0px -10% 0px', threshold: 0.1 });
+    revealNodes.forEach(function(el){ revealIO.observe(el); });
   }
 
-  // Subtle Fraunces variable-weight sweep on hero headline (cursor proximity).
-  // Single rAF, hardware-accelerated, no autoplay. Skipped on touch and reduced-motion.
-  var h1 = document.querySelector('.thesis h1');
+  // ─── 2. Number count-up on scroll into view ──────────────────────────
+  function animateCount(el){
+    var target = parseFloat(el.dataset.count);
+    if (isNaN(target)) { return; }
+    var decimals = parseInt(el.dataset.decimals || '0', 10);
+    var dur = parseInt(el.dataset.dur || '1400', 10);
+    if (rm) { el.textContent = target.toFixed(decimals); return; }
+    var t0 = performance.now();
+    function tick(t){
+      var p = Math.min(1, (t - t0) / dur);
+      var ep = 1 - Math.pow(1 - p, 3); // ease-out cubic
+      el.textContent = (target * ep).toFixed(decimals);
+      if (p < 1) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  }
+  var counters = document.querySelectorAll('.num-anim[data-count]');
+  if (!hasIO || rm) {
+    counters.forEach(animateCount);
+  } else {
+    var countIO = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if (e.isIntersecting) {
+          animateCount(e.target);
+          countIO.unobserve(e.target);
+        }
+      });
+    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.4 });
+    counters.forEach(function(el){ countIO.observe(el); });
+  }
+
+  // ─── 3. Bench table row stagger (lit class on the table) ─────────────
+  var benchTable = document.querySelector('.bench');
+  if (benchTable && hasIO && !rm) {
+    var benchIO = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if (e.isIntersecting) {
+          e.target.classList.add('lit');
+          benchIO.unobserve(e.target);
+        }
+      });
+    }, { rootMargin: '0px 0px -10% 0px', threshold: 0.2 });
+    benchIO.observe(benchTable);
+  } else if (benchTable) {
+    benchTable.classList.add('lit');
+  }
+
+  // ─── 4. Hero "lit" trigger (immediate on load — no scroll) ───────────
+  function ignite(){
+    document.querySelectorAll('[data-lit-on-load]').forEach(function(el){
+      el.classList.add('lit');
+    });
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', ignite);
+  } else {
+    ignite();
+  }
+
+  // ─── 5. Magnetic CTA — subtle pull toward cursor ─────────────────────
   var canHover = matchMedia('(hover: hover) and (pointer: fine)').matches;
+  if (canHover && !rm) {
+    document.querySelectorAll('.cta').forEach(function(btn){
+      var rect = null, frame = 0;
+      btn.addEventListener('pointerenter', function(){ rect = btn.getBoundingClientRect(); });
+      btn.addEventListener('pointermove', function(ev){
+        if (!rect) return;
+        if (frame) return;
+        frame = requestAnimationFrame(function(){
+          frame = 0;
+          var cx = rect.left + rect.width / 2;
+          var cy = rect.top + rect.height / 2;
+          var dx = (ev.clientX - cx) * 0.14;
+          var dy = (ev.clientY - cy) * 0.14;
+          btn.style.transform = 'translate(' + dx.toFixed(2) + 'px,' + dy.toFixed(2) + 'px)';
+        });
+      });
+      btn.addEventListener('pointerleave', function(){
+        rect = null;
+        btn.style.transform = '';
+      });
+    });
+  }
+
+  // ─── 6. Hero variable-font cursor proximity (gentle Fraunces sweep) ──
+  var h1 = document.querySelector('.thesis h1');
   if (h1 && canHover && !rm) {
-    var rect = null, frame = 0, tx = 0, ty = 0;
-    var measure = function(){ rect = h1.getBoundingClientRect(); };
+    var hRect = null, hFrame = 0, hTx = 0, hTy = 0;
+    var measure = function(){ hRect = h1.getBoundingClientRect(); };
     measure();
     addEventListener('resize', measure, { passive: true });
     addEventListener('scroll', measure, { passive: true });
-
     addEventListener('pointermove', function(ev){
-      if (!rect) return;
-      tx = ev.clientX; ty = ev.clientY;
-      if (frame) return;
-      frame = requestAnimationFrame(function(){
-        frame = 0;
-        var cx = rect.left + rect.width/2;
-        var cy = rect.top  + rect.height/2;
-        var dx = (tx - cx) / rect.width;
-        var dy = (ty - cy) / rect.height;
-        var d = Math.min(1, Math.sqrt(dx*dx + dy*dy));
-        // weight 360..420, opsz follows. Gentle. 60 unit range over 1 unit distance.
+      if (!hRect) return;
+      hTx = ev.clientX; hTy = ev.clientY;
+      if (hFrame) return;
+      hFrame = requestAnimationFrame(function(){
+        hFrame = 0;
+        var cx = hRect.left + hRect.width / 2;
+        var cy = hRect.top + hRect.height / 2;
+        var dx = (hTx - cx) / hRect.width;
+        var dy = (hTy - cy) / hRect.height;
+        var d = Math.min(1, Math.sqrt(dx * dx + dy * dy));
         var w = 420 - Math.round(60 * d);
-        h1.style.fontVariationSettings = '"opsz" 144,"SOFT" ' + (30 + Math.round(70*(1-d))) + ',"wght" ' + w;
+        h1.style.fontVariationSettings =
+          '"opsz" 144,"SOFT" ' + (30 + Math.round(70 * (1 - d))) + ',"wght" ' + w;
       });
     }, { passive: true });
+  }
+
+  // ─── 7. Tilt parallax on bench-lead big-num (subtle, hover-only) ─────
+  var bigNum = document.querySelector('.bench-lead .big-num');
+  if (bigNum && canHover && !rm) {
+    var bRect = null, bFrame = 0;
+    bigNum.parentElement.addEventListener('pointerenter', function(){ bRect = bigNum.getBoundingClientRect(); });
+    bigNum.parentElement.addEventListener('pointermove', function(ev){
+      if (!bRect || bFrame) return;
+      bFrame = requestAnimationFrame(function(){
+        bFrame = 0;
+        var cx = bRect.left + bRect.width / 2;
+        var cy = bRect.top + bRect.height / 2;
+        var dx = (ev.clientX - cx) / bRect.width;
+        var dy = (ev.clientY - cy) / bRect.height;
+        bigNum.style.transform =
+          'perspective(900px) rotateX(' + (-dy * 4).toFixed(2) + 'deg) rotateY(' + (dx * 4).toFixed(2) + 'deg)';
+      });
+    });
+    bigNum.parentElement.addEventListener('pointerleave', function(){
+      bRect = null;
+      bigNum.style.transform = '';
+    });
   }
 })();
 </script>
