@@ -285,13 +285,16 @@ footer a:hover{color:var(--text);border-color:var(--rule-strong)}
 <main>
 
 <section class="hero">
-  <p class="eyebrow">Reference &middot; April&nbsp;2026</p>
+  <p class="eyebrow">Reference &middot; updated 2026&#8209;04&#8209;28</p>
   <h1>Twenty benchmarks. Every <em>frontier</em> score, every source linked.</h1>
   <p>
     A standing comparison across the 20 most-cited public benchmarks for AI models. Every cell shows the model&rsquo;s score <strong>as published by the lab that built it</strong> &mdash; or, where the score comes from a third-party harness, the harness vendor. Each footnote links back to the primary source.
   </p>
   <p>
-    Krentix appears in every row. Where Krentix has been measured against the public dataset (HumanEval, today), the cell shows the score in gold. Where Krentix hasn&rsquo;t been measured yet, the cell is dashed &mdash; we don&rsquo;t fabricate numbers to fill space.
+    Krentix appears in every row. Where Krentix has been measured against the public dataset (HumanEval, full 164 problems &mdash; <strong>89.0% pass@1</strong>), the cell shows the score in gold. Where Krentix hasn&rsquo;t been measured yet, the cell is dashed &mdash; we don&rsquo;t fabricate numbers to fill space.
+  </p>
+  <p style="font-family:var(--mono);font-size:.82rem;color:var(--brand);letter-spacing:.06em;margin-top:1.4em;border-left:2px solid var(--brand);padding:.4em 0 .4em 1em">
+    <strong style="color:var(--brand-warm);font-weight:600">Live</strong> &middot; MBPP+ is running on Krentix right now (378 problems, public dataset). The score will land here automatically when the run completes; this page rebuilds on push. GSM8K queued next.
   </p>
 </section>
 
@@ -327,7 +330,7 @@ footer a:hover{color:var(--text);border-color:var(--rule-strong)}
 
         <tr>
           <th scope="row">MBPP+<span class="sub">Coding &middot; pass@1</span></th>
-          <td class="col-krentix dim">&mdash;<span class="meta">harness pending</span></td>
+          <td class="col-krentix dim">&hellip;<span class="meta">running now &middot; result tonight</span></td>
           <td class="dim">&mdash;</td>
           <td class="dim">&mdash;</td>
           <td class="dim">&mdash;</td>
@@ -363,7 +366,7 @@ footer a:hover{color:var(--text);border-color:var(--rule-strong)}
 
         <tr>
           <th scope="row">GSM8K<span class="sub">Grade-school math</span></th>
-          <td class="col-krentix dim">&mdash;<span class="meta">harness pending</span></td>
+          <td class="col-krentix dim">&hellip;<span class="meta">queued &middot; runs after MBPP+</span></td>
           <td class="dim">&mdash;<span class="meta">saturated</span></td>
           <td class="dim">&mdash;<span class="meta">saturated</span></td>
           <td class="dim">&mdash;<span class="meta">saturated</span></td>
@@ -504,7 +507,7 @@ footer a:hover{color:var(--text);border-color:var(--rule-strong)}
     <h3>How to read this table.</h3>
     <div class="body">
       <p>
-        <strong>Krentix scores</strong> are measured by us, on the public dataset, with a harness that&rsquo;s in <a href="https://github.com/joelrobic-gif/krentix-landing/tree/main/bench" rel="noopener">this repo</a>. Today the only Krentix-measured row is HumanEval (<code>89.0%</code>, <code>146/164</code>); the others say <code>&mdash;</code> because we haven&rsquo;t run them yet, not because we&rsquo;re hiding numbers. Additional Krentix runs are queued for MBPP, GSM8K, GPQA, MMLU&#8209;Pro and MATH&#8209;500.
+        <strong>Krentix scores</strong> are measured by us, on the public dataset, with a harness that&rsquo;s in <a href="https://github.com/joelrobic-gif/krentix-landing/tree/main/bench" rel="noopener">this repo</a>. Today the Krentix-measured row is HumanEval (<code>89.0%</code>, <code>146/164</code>, full set). <strong>MBPP+ is in flight</strong> as of this writing; <strong>GSM8K is queued</strong> right after it. Each completed run pushes a per-problem JSON to the bench repo and updates the cell here on the next deploy. Cells that say <code>&mdash;</code> haven&rsquo;t been run yet, not hidden.
       </p>
       <p>
         <strong>Frontier scores</strong> link to one of three sources: (a) the lab&rsquo;s own release announcement or model card, (b) <a href="https://artificialanalysis.ai" rel="noopener">Artificial Analysis</a>, which aggregates and re-runs vendor numbers, or (c) <a href="https://www.vellum.ai/llm-leaderboard" rel="noopener">Vellum&rsquo;s LLM leaderboard</a>, which consolidates lab&#8209;published scores. <em>Vendor labs in 2026 mostly stopped publishing standardised benchmark tables in their release announcements</em> &mdash; they cite saturated tests, partner benchmarks, or charts without numbers. We use AA / Vellum where the lab itself doesn&rsquo;t publish a number we can quote.
