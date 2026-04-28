@@ -252,6 +252,31 @@ footer a:hover{color:var(--text);border-color:var(--rule-strong)}
 
     <article class="entry">
       <div class="when">
+        <span class="date">Apr 28 &middot; 06:55</span>
+        <span class="commit">250e4ec</span>
+      </div>
+      <div class="what">
+        <h2>Full-power MBPP+ run &mdash; <em>lost to medium by 6pp.</em> Receipts.</h2>
+        <p>
+          First full-power tier benchmark ran on 50-task MBPP+ subset. Result: <strong>43/50 = 86.0% pass@1</strong>, vs medium tier&rsquo;s <strong>46/50 = 92.0%</strong> on the same first 50 tasks.
+          <strong style="color:#f43f5e">Full power lost by 6 percentage points</strong> &mdash; the opposite of what the marketing claimed it would do.
+        </p>
+        <p>Per-task breakdown: 43 both passed &middot; 4 same-failure parity (tasks 14, 20, 74, 92) &middot; 3 full-only fails (tasks 2, 16, 65) &middot; 0 tasks where full caught what medium missed.</p>
+        <p>
+          <strong>Diagnosis:</strong> 2 of 3 full-only fails were 240s wall-time timeouts (frontier models + 12-persona verification under load). The Moonshot Kimi K2 Thinking key returned <code>402 account suspended</code> on every call &mdash; Persona 8 was failing every prompt. xAI Grok 4 hit <code>429 rate-limit</code> when all 12 personas fanned out concurrently. Half the personas at full tier were degraded fallbacks; quorum diversity was actually <em>worse</em> than medium&rsquo;s stable mix.
+        </p>
+        <p>
+          <strong>Fix shipped (needs bridge restart):</strong> Persona 8 now routes Kimi K2.6 via Together (validated 200 OK) instead of dead Moonshot direct. Per-call timeout bumped from 240s → 420s. Six distinct labs in the full-tier lineup (anthropic, google, mistral, openai, together, xai) &mdash; Moonshot dropped from active path.
+        </p>
+        <p>
+          <strong>This entry exists to be honest about what failed.</strong> A bench number we can&rsquo;t defend is a number we don&rsquo;t publish. The next full-power re-run, when complete, will show as a new entry &mdash; pass or fail, with the same per-task breakdown.
+        </p>
+        <div class="tags"><span class="tag fix">Fix</span><span class="tag measured">Measured</span><span class="tag">Honest</span></div>
+      </div>
+    </article>
+
+    <article class="entry">
+      <div class="when">
         <span class="date">Apr 28 &middot; 02:00</span>
         <span class="commit">7103cdb</span>
       </div>
