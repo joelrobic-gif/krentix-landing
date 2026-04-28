@@ -1,0 +1,467 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Architecture &mdash; Krentix</title>
+<meta name="description" content="The twelve verifiers, what each one checks, why each evaluator role matters, how the constitutional governance layer works.">
+<meta name="theme-color" content="#0f0c0a">
+<meta name="color-scheme" content="dark">
+<meta name="robots" content="index,follow">
+
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..900&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+
+<style>
+:root{
+  --bg:#0f0c0a; --surface:#1a1410; --surface2:#231b15;
+  --rule:rgba(244,234,213,.10); --rule-strong:rgba(244,234,213,.22);
+  --text:#f4ead5; --text-dim:#a89878; --text-faint:#7a6c52;
+  --brand:#d4a017; --brand-warm:#e8b833; --brand-deep:#9a7611;
+  --serif:"Fraunces",ui-serif,Georgia,serif;
+  --sans:"Inter",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0;padding:0;background:var(--bg);color:var(--text)}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--sans);
+  font-feature-settings:"ss01","cv11","tnum";
+  font-size:16px;line-height:1.55;
+  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+}
+::selection{background:var(--brand);color:#0f0c0a}
+:focus-visible{outline:2px solid var(--brand-warm);outline-offset:3px;border-radius:2px}
+
+.shell{max-width:1280px;margin:0 auto;padding-inline:clamp(20px,5vw,72px)}
+
+.mast{
+  display:flex;align-items:baseline;justify-content:space-between;
+  padding:28px 0 0;font-size:.78rem;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--text-dim);
+}
+.mast .wordmark{
+  font-family:var(--serif);font-weight:600;font-size:1.05rem;
+  letter-spacing:.04em;text-transform:none;color:var(--text);text-decoration:none;
+}
+.mast .wordmark::after{
+  content:"";display:inline-block;width:.32em;height:.32em;
+  margin-left:.34em;background:var(--brand);border-radius:50%;
+  transform:translateY(-.18em);
+}
+.mast nav{display:flex;gap:2.4em}
+.mast a{color:inherit;text-decoration:none;position:relative}
+.mast a:hover{color:var(--text)}
+.mast nav a::after{
+  content:"";position:absolute;left:0;right:100%;bottom:-.3em;
+  height:1px;background:var(--brand);
+  transition:right .35s cubic-bezier(.2,.6,.2,1);
+}
+.mast nav a:hover::after,.mast nav a:focus-visible::after{right:0}
+
+.hero{
+  padding:clamp(64px,12vh,140px) 0 clamp(40px,7vh,80px);
+  border-bottom:1px solid var(--rule);
+}
+.hero .eyebrow{
+  font-family:var(--mono);font-size:.74rem;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--brand);margin:0 0 1.4em;
+}
+.hero .eyebrow::before{
+  content:"";display:inline-block;width:24px;height:1px;
+  background:var(--brand);vertical-align:middle;
+  margin-right:.9em;transform:translateY(-2px);
+}
+.hero h1{
+  font-family:var(--serif);font-weight:300;
+  font-size:clamp(2.4rem,5.2vw,4.4rem);
+  line-height:1.04;letter-spacing:-.015em;margin:0 0 .6em;
+  font-variation-settings:"opsz" 144;max-width:24ch;
+  hanging-punctuation:first last;
+}
+.hero h1 em{font-style:italic;font-weight:400;color:var(--brand-warm)}
+.hero p{
+  font-size:1.05rem;line-height:1.62;color:var(--text-dim);
+  margin:0 0 .8em;max-width:62ch;
+}
+.hero p strong{color:var(--text);font-weight:500}
+
+.flow{
+  padding:clamp(56px,9vh,112px) 0;
+  border-bottom:1px solid var(--rule);
+}
+.flow h2{
+  font-family:var(--serif);font-weight:380;
+  font-size:clamp(1.7rem,3.6vw,2.5rem);line-height:1.18;
+  letter-spacing:-.012em;margin:0 0 1.4em;max-width:32ch;
+  font-variation-settings:"opsz" 96;text-wrap:balance;
+}
+.flow .timeline{
+  display:grid;
+  grid-template-columns:repeat(5,minmax(0,1fr));
+  gap:8px;
+  margin:1em 0 2em;
+  background:var(--surface);
+  border:1px solid var(--rule);
+  padding:8px;
+  border-radius:1px;
+  position:relative;
+}
+.flow .step{
+  padding:14px 12px;
+  font-family:var(--mono);
+  font-size:.7rem;
+  letter-spacing:.04em;
+  color:var(--text-dim);
+  border-right:1px solid var(--rule);
+  text-align:center;
+}
+.flow .step:last-child{ border-right:none }
+.flow .step .num{
+  display:block;
+  font-family:var(--serif);
+  font-size:1.6rem;
+  font-weight:300;
+  color:var(--brand);
+  line-height:1;
+  margin-bottom:.4em;
+  font-variation-settings:"opsz" 96;
+}
+.flow .step .name{
+  display:block;
+  color:var(--text);
+  font-weight:500;
+  margin-bottom:.4em;
+  font-size:.78rem;
+  letter-spacing:.02em;
+  text-transform:none;
+}
+.flow .step .desc{
+  font-size:.66rem;
+  line-height:1.4;
+  color:var(--text-dim);
+}
+
+.persona-grid{
+  padding:clamp(56px,9vh,112px) 0;
+  border-bottom:1px solid var(--rule);
+}
+.persona-grid h2{
+  font-family:var(--serif);font-weight:380;
+  font-size:clamp(1.7rem,3.6vw,2.5rem);line-height:1.18;
+  letter-spacing:-.012em;margin:0 0 .6em;max-width:32ch;
+  font-variation-settings:"opsz" 96;text-wrap:balance;
+}
+.persona-grid h2 em{font-style:italic;color:var(--brand-warm);font-weight:400}
+.persona-grid .lede{
+  font-size:1.02rem;line-height:1.65;color:var(--text-dim);
+  margin:0 0 2em;max-width:64ch;
+}
+.personas{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:14px;
+}
+.p{
+  background:var(--surface);
+  border:1px solid var(--rule);
+  border-radius:1px;
+  padding:22px 22px 24px;
+  display:flex;
+  flex-direction:column;
+  gap:.8em;
+  transition:border-color .25s ease, transform .25s ease;
+}
+.p:hover{ border-color:var(--rule-strong); transform:translateY(-2px) }
+.p .pn{
+  font-family:var(--mono);
+  font-size:.66rem;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:var(--brand);
+  font-weight:500;
+}
+.p h3{
+  font-family:var(--serif);
+  font-weight:500;
+  font-size:1.18rem;
+  line-height:1.2;
+  letter-spacing:-.012em;
+  margin:0;
+  color:var(--text);
+  font-variation-settings:"opsz" 36;
+}
+.p .checks{
+  font-size:.84rem;
+  line-height:1.55;
+  color:var(--text-dim);
+  margin:0;
+}
+.p .veto{
+  margin-top:.4em;
+  padding:.4em .7em;
+  background:rgba(244,63,94,.06);
+  border-left:2px solid #f43f5e;
+  font-family:var(--mono);
+  font-size:.66rem;
+  letter-spacing:.06em;
+  color:#f43f5e;
+  text-transform:uppercase;
+}
+.p .lineup{
+  font-family:var(--mono);
+  font-size:.7rem;
+  letter-spacing:.02em;
+  color:var(--text-faint);
+  margin-top:auto;
+  border-top:1px solid var(--rule);
+  padding-top:.7em;
+}
+.p .lineup b{
+  color:var(--brand);
+  font-weight:500;
+  letter-spacing:.06em;
+  text-transform:uppercase;
+  font-size:.62rem;
+  display:block;
+  margin-bottom:.3em;
+}
+
+.governance{
+  padding:clamp(56px,9vh,112px) 0;
+}
+.governance h2{
+  font-family:var(--serif);font-weight:380;
+  font-size:clamp(1.7rem,3.6vw,2.5rem);line-height:1.18;
+  letter-spacing:-.012em;margin:0 0 1.2em;max-width:36ch;
+  font-variation-settings:"opsz" 96;text-wrap:balance;
+}
+.governance h2 em{font-style:italic;color:var(--brand-warm);font-weight:400}
+.governance p{
+  font-size:1.02rem;line-height:1.65;color:var(--text-dim);
+  margin:0 0 1em;max-width:64ch;
+}
+.governance p strong{color:var(--text);font-weight:500}
+
+footer{
+  border-top:1px solid var(--rule);
+  padding:36px 0 44px;font-size:.82rem;color:var(--text-faint);
+}
+footer .row{
+  display:flex;align-items:baseline;justify-content:space-between;
+  gap:1.5em;flex-wrap:wrap;
+}
+footer .meta{display:flex;gap:1.6em;flex-wrap:wrap;font-family:var(--mono);letter-spacing:.04em}
+footer a{
+  color:var(--text-dim);text-decoration:none;
+  border-bottom:1px solid var(--rule);padding-bottom:.1em;
+}
+footer a:hover{color:var(--text);border-color:var(--rule-strong)}
+.markk{font-family:var(--serif);font-weight:500;color:var(--text);font-size:.92rem}
+
+@media (max-width:1100px){
+  .personas{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .flow .timeline{grid-template-columns:1fr;gap:0}
+  .flow .step{border-right:none;border-bottom:1px solid var(--rule);padding:14px 12px}
+  .flow .step:last-child{border-bottom:none}
+}
+@media (max-width:640px){
+  .personas{grid-template-columns:1fr}
+}
+
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+}
+</style>
+</head>
+<body>
+
+<div class="shell">
+
+<header class="mast" role="banner">
+  <a class="wordmark" href="/">Krentix</a>
+  <nav aria-label="Primary">
+    <a href="/#mechanism">Mechanism</a>
+    <a href="/#benchmarks">Benchmarks</a>
+    <a href="/#dial">The dial</a>
+    <a href="/pricing/">Pricing</a>
+    <a href="/app">Open</a>
+  </nav>
+</header>
+
+<main>
+
+<section class="hero">
+  <p class="eyebrow">Architecture</p>
+  <h1>Twelve personas. <em>Each with one job.</em></h1>
+  <p>
+    Most coding agents have one model that generates AND grades AND ships. Krentix splits that into thirteen distinct roles: a routing classifier and twelve specialised verifiers, each scored against a different concern, each with its own model assignment and its own veto authority. <strong>No single model can ship an answer alone.</strong>
+  </p>
+</section>
+
+<section class="flow">
+  <h2>The pipeline.</h2>
+  <p style="font-size:.96rem;color:var(--text-dim);margin-bottom:1.5em;max-width:60ch">
+    Every prompt routes through five phases. Each phase has a kill-switch. Verification fans out across all twelve personas in parallel, then collapses through cross-evaluation, then governs through the Constitutional Tribune.
+  </p>
+  <div class="timeline">
+    <div class="step">
+      <span class="num">01</span>
+      <span class="name">Triage</span>
+      <span class="desc">Phase 0 safety preflight. Operator burnout, kill switch, budget cap.</span>
+    </div>
+    <div class="step">
+      <span class="num">02</span>
+      <span class="name">Route</span>
+      <span class="desc">Intent classifier picks one of 13 specialist pipelines: code-edit, math, security, news, etc.</span>
+    </div>
+    <div class="step">
+      <span class="num">03</span>
+      <span class="name">Generate</span>
+      <span class="desc">5 candidate solutions in parallel from different model lineages.</span>
+    </div>
+    <div class="step">
+      <span class="num">04</span>
+      <span class="name">Verify</span>
+      <span class="desc">12 personas check each candidate. Cross-evaluation picks the strongest.</span>
+    </div>
+    <div class="step">
+      <span class="num">05</span>
+      <span class="name">Govern</span>
+      <span class="desc">Constitutional Tribune holds veto. Supreme Court verifies the veto. Ship or refuse.</span>
+    </div>
+  </div>
+</section>
+
+<section class="persona-grid">
+  <h2>The twelve. Each with a <em>different concern</em>.</h2>
+  <p class="lede">
+    Each persona has a distinct evaluation rubric, a default model assignment per cost tier, and a defined relationship with the Constitutional Tribune. Three carry veto power on principled violations. Voting is logged with provenance &mdash; you can see which persona caught what, every time.
+  </p>
+
+  <div class="personas">
+
+    <article class="p">
+      <p class="pn">Persona 01</p>
+      <h3>Code Skeptic</h3>
+      <p class="checks">Looks for what could go wrong. Off-by-one errors, edge cases, dead code, unhandled errors, accidental complexity. The most senior reviewer in the room.</p>
+      <p class="lineup"><b>Tier &middot; default model</b>Zero: Qwen 235B (Cerebras)<br>Medium: Claude Opus 4.7<br>Full: Claude Opus 4.7</p>
+    </article>
+
+    <article class="p">
+      <p class="pn">Persona 02</p>
+      <h3>Test Oracle</h3>
+      <p class="checks">Asks &laquo;does this solve the actual problem?&raquo; Generates synthetic test inputs, runs them mentally, flags if outputs don&rsquo;t match what the user asked for.</p>
+      <p class="lineup"><b>Tier &middot; default model</b>Zero: GPT&#8209;OSS&#8209;120B<br>Medium: Qwen 3 235B<br>Full: Grok 4 (xAI)</p>
+    </article>
+
+    <article class="p">
+      <p class="pn">Persona 03</p>
+      <h3>Regression Guard</h3>
+      <p class="checks">Read-only review against the existing codebase. Will this change break callers? Hidden contracts? Side effects on other modules?</p>
+      <p class="lineup"><b>Tier &middot; default model</b>Zero: GLM&#8209;4.7 (Cerebras)<br>Medium: DeepSeek-Chat<br>Full: DeepSeek V4 Pro (Together)</p>
+    </article>
+
+    <article class="p">
+      <p class="pn">Persona 04</p>
+      <h3>Architecture Critic</h3>
+      <p class="checks">Pattern recognition. Is this the right abstraction? Is it premature? Does it fit the existing system&rsquo;s shape, or fight it?</p>
+      <p class="lineup"><b>Tier &middot; default model</b>Zero: Qwen 235B<br>Medium: Gemini 2.5 Pro<br>Full: Gemini 2.5 Pro</p>
+    </article>
+
+    <article class="p">
+      <p class="pn">Persona 05</p>
+      <h3>Security Auditor</h3>
+      <p class="checks">Looks for injection, leak, privilege escalation, unsafe deserialization, hardcoded secrets, exfiltration paths, and failed isolation.</p>
+      <p class="lineup"><b>Tier &middot; default model</b>Zero: GPT&#8209;OSS&#8209;120B<br>Medium: GPT-4o<br>Full: Claude Opus 4.7</p>
+    </article>
+
+    <article class="p">
+      <p class="pn">Persona 06</p>
+      <h3>Performance Analyst</h3>
+      <p class="checks">Big-O on tight paths, memory allocations, network round-trips, DB query plans. Quantitative; produces concrete cost estimates.</p>
+      <p class="lineup"><b>Tier &middot; default model</b>Zero: GLM&#8209;4.7<br>Medium: Sonnet 4.6<br>Full: GPT-4o</p>
+    </article>
+
+    <article class="p">
+      <p class="pn">Persona 07</p>
+      <h3>Style Enforcer</h3>
+      <p class="checks">Tasteful taste &mdash; matches the project&rsquo;s naming, imports, file shape, comment density. Catches AI-slop diction.</p>
+      <p class="lineup"><b>Tier &middot; default model</b>Zero: GPT&#8209;OSS&#8209;120B<br>Medium: GPT&#8209;OSS&#8209;120B<br>Full: Sonnet 4.6</p>
+    </article>
+
+    <article class="p">
+      <p class="pn">Persona 08</p>
+      <h3>Integration Validator</h3>
+      <p class="checks">Does the change wire up to its callers? Are exports correct? Will the build pass? Will deps resolve? Imports vs requires?</p>
+      <p class="lineup"><b>Tier &middot; default model</b>Zero: Qwen 235B<br>Medium: GPT-4o<br>Full: Kimi K2 Thinking</p>
+    </article>
+
+    <article class="p" style="border-color:rgba(244,63,94,.25)">
+      <p class="pn">Persona 09 &middot; veto</p>
+      <h3>Constitutional Tribune</h3>
+      <p class="checks">Carries the Inalienable Constitution. Eleven principles from &laquo;don&rsquo;t lie&raquo; to &laquo;don&rsquo;t do dark patterns&raquo;. Has unilateral veto on principle violations.</p>
+      <p class="veto">Veto power: principled refusal</p>
+      <p class="lineup"><b>Tier &middot; default model</b>Zero: GLM&#8209;4.7<br>Medium: Sonnet 4.6<br>Full: Claude Opus 4.7</p>
+    </article>
+
+    <article class="p">
+      <p class="pn">Persona 10</p>
+      <h3>Pharma Compliance</h3>
+      <p class="checks">Domain specialist for regulated content (drug labels, dosing, contraindications). Activates when the request touches medical or pharmaceutical data.</p>
+      <p class="lineup"><b>Tier &middot; default model</b>Zero: GLM&#8209;4.7<br>Medium: GLM&#8209;4.7 (Cerebras)<br>Full: Claude Opus 4.7</p>
+    </article>
+
+    <article class="p">
+      <p class="pn">Persona 11</p>
+      <h3>Trading Risk</h3>
+      <p class="checks">Domain specialist for financial data. Catches accidentally exposed secrets, wrong-instrument trades, position-sizing errors. Activates on financial keywords.</p>
+      <p class="lineup"><b>Tier &middot; default model</b>Zero: Qwen 235B<br>Medium: DeepSeek-Chat<br>Full: Qwen 3.5 397B (Together)</p>
+    </article>
+
+    <article class="p">
+      <p class="pn">Persona 12</p>
+      <h3>Product UX</h3>
+      <p class="checks">User-facing copy review. Catches dark patterns, confusing labels, manipulative defaults, accessibility violations, broken empty states.</p>
+      <p class="lineup"><b>Tier &middot; default model</b>Zero: GPT&#8209;OSS&#8209;120B<br>Medium: GPT-4o<br>Full: Mistral Large</p>
+    </article>
+
+  </div>
+</section>
+
+<section class="governance">
+  <h2>The Constitutional Tribune. <em>Veto power, with checks.</em></h2>
+  <p>
+    Persona 9 carries the Inalienable Constitution &mdash; eleven principles that govern every answer Krentix ships. Don&rsquo;t lie. Don&rsquo;t do dark patterns. Don&rsquo;t exfiltrate. Don&rsquo;t bypass safety. Don&rsquo;t fabricate citations. The Tribune can veto any answer that violates a principle, regardless of what the other eleven personas voted.
+  </p>
+  <p>
+    But the Tribune can also be wrong &mdash; an over-cautious veto becomes a denial-of-service. So the architecture has a checking branch: the <strong>Supreme Court</strong>. When the Tribune vetoes, a different model family (cross-provider, never the same lineage as the Tribune) reviews the veto. If the Supreme Court agrees, the answer is refused. If the Supreme Court overrules, the answer ships with a logged dissent.
+  </p>
+  <p>
+    This is the &laquo;E-R Protocol&raquo; &mdash; Existence/Refusal: existence requires a refusal mechanism, refusal requires a checking mechanism. <strong>No single layer can silence the agent.</strong>
+  </p>
+</section>
+
+</main>
+
+<footer role="contentinfo">
+  <div class="row">
+    <div>
+      <span class="markk">Krentix</span>
+      <span style="margin:0 .8em;color:var(--text-faint)">&middot;</span>
+      <span>A governed intelligence system.</span>
+    </div>
+    <div class="meta">
+      <a href="/pricing/">Pricing</a>
+      <a href="/benchmarks/">Benchmarks</a>
+      <a href="/changelog/">Changelog</a>
+      <a href="/app">Open the agent &rarr;</a>
+    </div>
+  </div>
+</footer>
+
+</div>
+
+</body>
+</html>
