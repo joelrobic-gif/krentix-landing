@@ -38,11 +38,9 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
-# pyarrow is the only non-stdlib import; same package powers the dataset on HF.
-import pyarrow.parquet as pq
-
 HERE = Path(__file__).resolve().parent
-DATASET = HERE / "mbpp_plus.parquet"
+DATASET_JSONL = HERE / "mbpp_plus.jsonl"
+DATASET_PARQUET = HERE / "mbpp_plus.parquet"
 REPO_ROOT = HERE.parent.parent
 REPORT_DIR = REPO_ROOT / "reports" / "bench-2026-04-28"
 REPORT_DIR.mkdir(parents=True, exist_ok=True)
@@ -53,9 +51,21 @@ TEST_TIMEOUT_S = int(os.environ.get("MBPP_TEST_TIMEOUT_S", "30"))
 
 
 def load_dataset() -> list[dict[str, Any]]:
-    if not DATASET.exists():
-        raise FileNotFoundError(f"missing dataset: {DATASET}")
-    return pq.read_table(DATASET).to_pylist()
+    """Prefer the bundled JSONL (no extra deps); fall back to parquet if pyarrow is available."""
+    if DATASET_JSONL.exists():
+        with DATASET_JSONL.open("r", encoding="utf-8") as f:
+            return [json.loads(line) for line in f if line.strip()]
+    if DATASET_PARQUET.exists():
+        try:
+            import pyarrow.parquet as pq  # type: ignore
+            return pq.read_table(DATASET_PARQUET).to_pylist()
+        except ImportError as e:
+            raise RuntimeError(
+                f"missing pyarrow and no JSONL fallback. Either: "
+                f"`pip install pyarrow`, or run the conversion in the README to "
+                f"create {DATASET_JSONL.name}"
+            ) from e
+    raise FileNotFoundError(f"no dataset found at {DATASET_JSONL} or {DATASET_PARQUET}")
 
 
 def call_krentix(prompt: str) -> dict[str, Any]:
