@@ -1,0 +1,430 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Security &amp; governance &mdash; Krentix</title>
+<meta name="description" content="The constitutional governance layer, the per-answer provenance trail, and how Krentix's architecture maps to enterprise security requirements.">
+<meta name="theme-color" content="#0f0c0a">
+<meta name="color-scheme" content="dark">
+<meta name="robots" content="index,follow">
+
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..900&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+
+<style>
+:root{
+  --bg:#0f0c0a; --surface:#1a1410; --surface2:#231b15;
+  --rule:rgba(244,234,213,.10); --rule-strong:rgba(244,234,213,.22);
+  --text:#f4ead5; --text-dim:#a89878; --text-faint:#7a6c52;
+  --brand:#d4a017; --brand-warm:#e8b833; --brand-deep:#9a7611;
+  --serif:"Fraunces",ui-serif,Georgia,serif;
+  --sans:"Inter",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0;padding:0;background:var(--bg);color:var(--text)}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--sans);
+  font-feature-settings:"ss01","cv11","tnum";
+  font-size:16px;line-height:1.55;
+  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+}
+::selection{background:var(--brand);color:#0f0c0a}
+:focus-visible{outline:2px solid var(--brand-warm);outline-offset:3px;border-radius:2px}
+
+.shell{max-width:1280px;margin:0 auto;padding-inline:clamp(20px,5vw,72px)}
+
+.mast{
+  display:flex;align-items:baseline;justify-content:space-between;
+  padding:28px 0 0;font-size:.78rem;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--text-dim);
+}
+.mast .wordmark{
+  font-family:var(--serif);font-weight:600;font-size:1.05rem;
+  letter-spacing:.04em;text-transform:none;color:var(--text);text-decoration:none;
+}
+.mast .wordmark::after{
+  content:"";display:inline-block;width:.32em;height:.32em;
+  margin-left:.34em;background:var(--brand);border-radius:50%;
+  transform:translateY(-.18em);
+}
+.mast nav{display:flex;gap:2.4em}
+.mast a{color:inherit;text-decoration:none;position:relative}
+.mast a:hover{color:var(--text)}
+.mast nav a::after{
+  content:"";position:absolute;left:0;right:100%;bottom:-.3em;
+  height:1px;background:var(--brand);
+  transition:right .35s cubic-bezier(.2,.6,.2,1);
+}
+.mast nav a:hover::after,.mast nav a:focus-visible::after{right:0}
+
+.hero{
+  padding:clamp(64px,12vh,140px) 0 clamp(40px,7vh,80px);
+  border-bottom:1px solid var(--rule);
+}
+.hero .eyebrow{
+  font-family:var(--mono);font-size:.74rem;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--brand);margin:0 0 1.4em;
+}
+.hero .eyebrow::before{
+  content:"";display:inline-block;width:24px;height:1px;
+  background:var(--brand);vertical-align:middle;
+  margin-right:.9em;transform:translateY(-2px);
+}
+.hero h1{
+  font-family:var(--serif);font-weight:300;
+  font-size:clamp(2.4rem,5.2vw,4.4rem);
+  line-height:1.04;letter-spacing:-.015em;margin:0 0 .6em;
+  font-variation-settings:"opsz" 144;max-width:24ch;
+  hanging-punctuation:first last;
+}
+.hero h1 em{font-style:italic;font-weight:400;color:var(--brand-warm)}
+.hero p{
+  font-size:1.05rem;line-height:1.62;color:var(--text-dim);
+  margin:0 0 .8em;max-width:62ch;
+}
+.hero p strong{color:var(--text);font-weight:500}
+
+.section{
+  padding:clamp(56px,9vh,112px) 0;
+  border-bottom:1px solid var(--rule);
+}
+.section:last-child{ border-bottom:0 }
+.section .label{
+  font-family:var(--mono);font-size:.74rem;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--text-faint);margin:0 0 1.4em;
+}
+.section h2{
+  font-family:var(--serif);font-weight:380;
+  font-size:clamp(1.7rem,3.6vw,2.5rem);line-height:1.18;
+  letter-spacing:-.012em;margin:0 0 1em;max-width:32ch;
+  font-variation-settings:"opsz" 96;text-wrap:balance;
+}
+.section h2 em{font-style:italic;color:var(--brand-warm);font-weight:400}
+.section p{
+  font-size:1.02rem;line-height:1.65;color:var(--text-dim);
+  margin:0 0 1em;max-width:64ch;
+}
+.section p strong{color:var(--text);font-weight:500}
+.section p code{
+  font-family:var(--mono);font-size:.85em;
+  color:var(--brand-warm);
+  background:rgba(212,160,23,.06);
+  padding:.05em .35em;border-radius:1px;
+}
+
+.grid-3{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:18px;
+  margin:2em 0;
+}
+.card{
+  background:var(--surface);
+  border:1px solid var(--rule);
+  border-radius:1px;
+  padding:24px;
+  display:flex;flex-direction:column;gap:.7em;
+}
+.card h3{
+  font-family:var(--mono);
+  font-size:.7rem;
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  color:var(--brand);
+  margin:0;
+  font-weight:500;
+}
+.card .body{
+  font-family:var(--serif);
+  font-weight:500;
+  font-size:1.1rem;
+  line-height:1.3;
+  color:var(--text);
+  font-variation-settings:"opsz" 36;
+  margin:0;
+}
+.card .desc{
+  font-size:.86rem;
+  line-height:1.55;
+  color:var(--text-dim);
+  margin:0;
+}
+
+.principles{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:14px;
+  margin:1.5em 0;
+}
+.principle{
+  background:var(--surface);
+  border:1px solid var(--rule);
+  border-left:3px solid var(--brand);
+  padding:16px 22px;
+  display:flex;flex-direction:column;gap:.4em;
+}
+.principle .num{
+  font-family:var(--mono);
+  font-size:.66rem;
+  letter-spacing:.18em;
+  color:var(--brand);
+  font-weight:500;
+}
+.principle .name{
+  font-family:var(--serif);
+  font-weight:500;
+  color:var(--text);
+  font-size:1rem;
+}
+.principle .desc{
+  font-size:.84rem;
+  line-height:1.5;
+  color:var(--text-dim);
+}
+
+.compliance-table{
+  width:100%;
+  border-collapse:collapse;
+  margin-top:1em;
+  font-feature-settings:"tnum","ss01";
+}
+.compliance-table th, .compliance-table td{
+  padding:12px 14px;
+  text-align:left;
+  border-bottom:1px solid var(--rule);
+  font-size:.92rem;
+}
+.compliance-table thead th{
+  font-family:var(--mono);font-size:.66rem;
+  letter-spacing:.14em;text-transform:uppercase;
+  color:var(--text-faint);font-weight:500;
+  border-bottom:1px solid var(--rule-strong);
+}
+.compliance-table tbody th{
+  font-family:var(--serif);font-weight:500;color:var(--text);
+}
+.compliance-table tbody td{
+  color:var(--text-dim);
+  font-family:var(--mono);
+  font-size:.84rem;
+}
+.compliance-table .yes{ color:var(--brand-warm); font-weight:500 }
+.compliance-table .partial{ color:var(--text-dim); font-style:italic }
+.compliance-table .gap{ color:var(--text-faint) }
+
+footer{
+  border-top:1px solid var(--rule);
+  padding:36px 0 44px;font-size:.82rem;color:var(--text-faint);
+}
+footer .row{
+  display:flex;align-items:baseline;justify-content:space-between;
+  gap:1.5em;flex-wrap:wrap;
+}
+footer .meta{display:flex;gap:1.6em;flex-wrap:wrap;font-family:var(--mono);letter-spacing:.04em}
+footer a{
+  color:var(--text-dim);text-decoration:none;
+  border-bottom:1px solid var(--rule);padding-bottom:.1em;
+}
+footer a:hover{color:var(--text);border-color:var(--rule-strong)}
+.markk{font-family:var(--serif);font-weight:500;color:var(--text);font-size:.92rem}
+
+@media (max-width:1100px){
+  .grid-3{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (max-width:640px){
+  .grid-3, .principles{grid-template-columns:1fr}
+}
+
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+}
+</style>
+</head>
+<body>
+
+<div class="shell">
+
+<header class="mast" role="banner">
+  <a class="wordmark" href="/">Krentix</a>
+  <nav aria-label="Primary">
+    <a href="/#mechanism">Mechanism</a>
+    <a href="/#benchmarks">Benchmarks</a>
+    <a href="/#dial">The dial</a>
+    <a href="/pricing/">Pricing</a>
+    <a href="/app">Open</a>
+  </nav>
+</header>
+
+<main>
+
+<section class="hero">
+  <p class="eyebrow">Security &amp; governance</p>
+  <h1>Constitutional governance, per-answer provenance, and a <em>refusal mechanism that&rsquo;s itself reviewed</em>.</h1>
+  <p>
+    Most coding agents make security choices with the same model that wrote the code. Krentix doesn&rsquo;t. Every answer is reviewed by twelve verifiers from seven labs, governed by a Constitutional Tribune with veto authority, and the Tribune&rsquo;s vetoes are themselves reviewed by a Supreme Court (cross-provider check) so the refusal mechanism cannot become a denial-of-service.
+  </p>
+  <p>
+    <strong>For enterprise buyers</strong>: every answer carries a cryptographic provenance trail showing which model contributed, which verifier passed, which were overruled, and why. Internally usable and externally auditable.
+  </p>
+</section>
+
+<section class="section">
+  <p class="label">01 &middot; Defence in depth</p>
+  <h2>Eight layers between an attacker and the agent.</h2>
+  <p>
+    Public surfaces have eight independent defences. None of them is sufficient on its own; together they make every realistic attack vector either visible, blocked, or rate-limited before it reaches the verification ensemble.
+  </p>
+  <div class="grid-3">
+    <article class="card">
+      <h3>01 &middot; Edge</h3>
+      <p class="body">Cloudflare WAF</p>
+      <p class="desc">DDoS protection, geo-blocks, common-payload filtering at the edge.</p>
+    </article>
+    <article class="card">
+      <h3>02 &middot; Access gate</h3>
+      <p class="body">Cloudflare Access</p>
+      <p class="desc">Email-OTP / SSO authentication on the public surface. Only authenticated traffic reaches the bridge.</p>
+    </article>
+    <article class="card">
+      <h3>03 &middot; Tunnel</h3>
+      <p class="body">Cloudflare Tunnel</p>
+      <p class="desc">Outbound-only connection. The bridge has no inbound port exposed to the internet.</p>
+    </article>
+    <article class="card">
+      <h3>04 &middot; Owner gate</h3>
+      <p class="body">Bearer token</p>
+      <p class="desc">Admin-only routes (router reset, kill switch) require a 64-char bearer token, separate from user auth.</p>
+    </article>
+    <article class="card">
+      <h3>05 &middot; Honeytokens</h3>
+      <p class="body">Trip wires</p>
+      <p class="desc">Path traps that scanners hit before reaching real endpoints. Triggers immediate IP block.</p>
+    </article>
+    <article class="card">
+      <h3>06 &middot; Monitor</h3>
+      <p class="body">Real-time</p>
+      <p class="desc">Auto-blocks IPs for 1h on critical incidents. The bridge silently 503s blocked clients.</p>
+    </article>
+    <article class="card">
+      <h3>07 &middot; Headers</h3>
+      <p class="body">Privacy hardening</p>
+      <p class="desc">Server / X-Powered-By stripped. CSP, HSTS, Referrer-Policy applied to every response.</p>
+    </article>
+    <article class="card">
+      <h3>08 &middot; Allowlist</h3>
+      <p class="body">Public surface</p>
+      <p class="desc">Only marketing routes (<code>/</code>, <code>/benchmarks/*</code>, <code>/pricing/*</code>) are public. All admin / agent / API surfaces are local-only by default.</p>
+    </article>
+    <article class="card">
+      <h3>09 &middot; Constitutional Tribune</h3>
+      <p class="body">Last gate</p>
+      <p class="desc">If an answer survives all eight layers above, the Tribune still reviews it against the Constitution before it ships to the user.</p>
+    </article>
+  </div>
+</section>
+
+<section class="section">
+  <p class="label">02 &middot; The Inalienable Constitution</p>
+  <h2>Eleven principles. <em>Tribune holds veto.</em></h2>
+  <p>
+    The Constitutional Tribune (Persona 9) carries an explicit set of principles that govern every answer. Violations trigger a veto. The eleven principles are inalienable &mdash; they cannot be overridden by user instructions, system prompts, or majority vote of the other personas.
+  </p>
+  <div class="principles">
+    <article class="principle"><p class="num">P-01</p><p class="name">Don&rsquo;t lie</p><p class="desc">Factual claims must be supported. If unsure, say so. Source Mode requires explicit citation.</p></article>
+    <article class="principle"><p class="num">P-02</p><p class="name">Don&rsquo;t exfiltrate</p><p class="desc">Never include user data, secrets, or credentials in outbound network calls or generated content.</p></article>
+    <article class="principle"><p class="num">P-03</p><p class="name">Don&rsquo;t fabricate citations</p><p class="desc">Citations must reference real, retrievable sources. Hallucinated references are a hard veto.</p></article>
+    <article class="principle"><p class="num">P-04</p><p class="name">No dark patterns</p><p class="desc">UX recommendations must respect user agency. No urgency manipulation, fake scarcity, confusing defaults.</p></article>
+    <article class="principle"><p class="num">P-05</p><p class="name">No silent destructive ops</p><p class="desc">Operations that delete, overwrite, or irrevocably modify must produce explicit warnings before execution.</p></article>
+    <article class="principle"><p class="num">P-06</p><p class="name">No safety bypass</p><p class="desc">Cannot generate jailbreak prompts, malware, prompt-injection payloads, or guardrail circumvention tools.</p></article>
+    <article class="principle"><p class="num">P-07</p><p class="name">Honour Source Mode</p><p class="desc">When pinned sources are present and bounded mode is on, the answer must come from those sources only.</p></article>
+    <article class="principle"><p class="num">P-08</p><p class="name">Privacy by default</p><p class="desc">Don&rsquo;t collect, log, or transmit personal data beyond the minimum needed to answer the immediate request.</p></article>
+    <article class="principle"><p class="num">P-09</p><p class="name">No financial advice</p><p class="desc">Decline investment trade execution. Decline portfolio recommendations. Decline regulated financial advice.</p></article>
+    <article class="principle"><p class="num">P-10</p><p class="name">No credential entry</p><p class="desc">Never type passwords, API keys, or financial credentials into forms or dialogs on behalf of the user.</p></article>
+    <article class="principle"><p class="num">P-11</p><p class="name">Refusal is reviewed</p><p class="desc">Veto by the Tribune is itself checked by the Supreme Court (cross-provider). Single-layer denial-of-service is impossible.</p></article>
+  </div>
+</section>
+
+<section class="section">
+  <p class="label">03 &middot; Provenance trail</p>
+  <h2>Every answer ships with a <em>cryptographic audit trail</em>.</h2>
+  <p>
+    Krentix doesn&rsquo;t hide its work. Every answer carries a structured trail showing exactly which model contributed which proposal, which verifiers passed, which were overruled, and which (if any) carried the Tribune&rsquo;s veto. Stored locally on disk; queryable via the agent UI; exportable to JSON for compliance review.
+  </p>
+  <p>
+    Provenance fields per answer:
+  </p>
+  <ul style="font-size:.96rem;line-height:1.7;color:var(--text-dim);max-width:64ch;margin:1em 0">
+    <li><code>requestId</code> &mdash; UUID for correlation</li>
+    <li><code>tier</code> &mdash; cost tier active for this answer</li>
+    <li><code>candidates[]</code> &mdash; each proposal: model, provider, latency, tokens, cost</li>
+    <li><code>verifiers[]</code> &mdash; each persona vote: model, decision (pass / dissent), reasoning excerpt</li>
+    <li><code>tribune</code> &mdash; veto/approve, principle invoked, supreme court review</li>
+    <li><code>chosen</code> &mdash; which candidate shipped, why</li>
+    <li><code>sourceMode</code> &mdash; sources consulted (Source Mode active), citation map</li>
+    <li><code>timing</code> &mdash; per-stage latency</li>
+  </ul>
+</section>
+
+<section class="section">
+  <p class="label">04 &middot; Compliance posture</p>
+  <h2>What we have today vs. what&rsquo;s on the roadmap.</h2>
+  <p>
+    Krentix is pre-launch on enterprise compliance. We&rsquo;re honest about that. Below is the current state per common framework. Items marked &laquo;in progress&raquo; have a real workstream; items marked &laquo;gap&raquo; are roadmap candidates if a buyer needs them.
+  </p>
+  <table class="compliance-table">
+    <thead>
+      <tr>
+        <th scope="col">Framework</th>
+        <th scope="col">Status</th>
+        <th scope="col">Notes</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><th>SOC 2 Type II</th><td class="gap">Roadmap &middot; Q3 2026</td><td>Will be audited once production traffic justifies the spend</td></tr>
+      <tr><th>GDPR</th><td class="partial">In progress</td><td>Privacy-by-default per principle P-08; data export endpoint shipping with self-hosted release</td></tr>
+      <tr><th>HIPAA</th><td class="gap">Self-hosted only</td><td>Hosted version not BAA-eligible. Self-hosted with bridge on customer infrastructure can support HIPAA workloads</td></tr>
+      <tr><th>ISO 27001</th><td class="gap">Roadmap</td><td>Aligned controls in place; certification deferred until commercial scale justifies audit</td></tr>
+      <tr><th>SLSA Build Provenance</th><td class="yes">Yes</td><td>All bench harnesses + agent code commits are signed + traceable on the public repos</td></tr>
+      <tr><th>OWASP LLM Top 10</th><td class="yes">All 10 mitigated</td><td>Prompt injection / output handling / training data poisoning / model DoS / supply chain — see governance architecture above</td></tr>
+      <tr><th>NIST AI RMF</th><td class="partial">Aligned</td><td>Govern / Map / Measure / Manage all addressed; formal mapping document in progress</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section class="section">
+  <p class="label">05 &middot; Disclosure</p>
+  <h2>Found a security issue?</h2>
+  <p>
+    Email <strong style="color:var(--brand-warm)">security@krentix.com</strong> with details. We respond within 48 hours, fix critical issues within 7 days, publish a writeup on <a href="/changelog/" style="color:var(--text);border-bottom:1px solid var(--rule-strong);text-decoration:none">/changelog</a> after the fix ships.
+  </p>
+  <p>
+    No bug bounty yet (pre-revenue). Public credit on the changelog if you&rsquo;d like it.
+  </p>
+</section>
+
+</main>
+
+<footer role="contentinfo">
+  <div class="row">
+    <div>
+      <span class="markk">Krentix</span>
+      <span style="margin:0 .8em;color:var(--text-faint)">&middot;</span>
+      <span>A governed intelligence system.</span>
+    </div>
+    <div class="meta">
+      <a href="/pricing/">Pricing</a>
+      <a href="/benchmarks/">Benchmarks</a>
+      <a href="/architecture/">Architecture</a>
+      <a href="/changelog/">Changelog</a>
+      <a href="/app">Open the agent &rarr;</a>
+    </div>
+  </div>
+</footer>
+
+</div>
+
+</body>
+</html>
