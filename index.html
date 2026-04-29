@@ -1349,7 +1349,7 @@ footer .markk{
 
     <article>
       <h3 class="serif">Cost-per-quality, not cost-per-token. Provenance, not vibes.</h3>
-      <p>Most agents bill the maximum model on every keystroke. Krentix runs free-tier providers in parallel, escalates only when the models disagree, and compiles repeated patterns into zero-token cached responses through its instinct system. <strong>Daily cost runs roughly $0.20 to $0.60 versus $5 to $30 for comparable tools.</strong> Every answer carries a provenance trail &mdash; which models contributed, which checks passed, which were overruled, and why.</p>
+      <p>Most agents bill the maximum model on every keystroke. Krentix runs free-tier providers in parallel, escalates only when the models disagree, and compiles repeated patterns into zero-token cached responses through its instinct system. <strong>An order-of-magnitude lower aggregate inference cost than always-on frontier-only tooling.</strong> Every answer carries a provenance trail &mdash; which models contributed, which checks passed, which were overruled, and why.</p>
     </article>
   </div>
 </section>
@@ -1453,9 +1453,9 @@ footer .markk{
       <p class="dsc">Lightweight free-tier providers handle routing, classification, and pattern matches. Heavy models only run when verification disagreement justifies them &mdash; which, on most reads, never happens.</p>
     </li>
     <li data-reveal data-reveal-stagger="2">
-      <p class="big">$<span class="num-anim" data-count="0.20" data-decimals="2">0.00</span><span class="alt">&ndash;$0.60</span></p>
-      <p class="lbl">Per developer-day, total inference cost</p>
-      <p class="dsc">Versus $5 to $30 for typical sole-frontier-model tooling. Same eight-hour day, an order-of-magnitude lower bill &mdash; and a proportionate drop in datacentre watt-hours per useful answer.</p>
+      <p class="big">~<span class="num-anim" data-count="10" data-decimals="0">0</span>&times;</p>
+      <p class="lbl">Lower aggregate inference cost vs always-on frontier</p>
+      <p class="dsc">Same eight-hour day, an order-of-magnitude lower aggregate bill &mdash; and a proportionate drop in datacentre watt-hours per useful answer. Move the dial up only when verification disagreement justifies it.</p>
     </li>
     <li data-reveal data-reveal-stagger="3">
       <p class="big"><span class="num-anim" data-count="0" data-decimals="0">0</span><span class="alt">&nbsp;tokens</span></p>
@@ -1483,7 +1483,7 @@ footer .markk{
   </div>
 
   <p class="dial-lede" data-reveal>
-    The same twelve-verifier architecture, four power levels. At <strong>full power</strong>, Krentix runs Claude Opus 4.7, GPT&#8209;5.5 (xhigh), and Gemini 3.1 Pro Preview side by side &mdash; the entire frontier in concert, with cross-evaluation deciding what ships. At <strong>zero</strong>, it runs open-weights models on free providers &mdash; Alibaba&rsquo;s Qwen 3 235B, OpenAI&rsquo;s GPT-OSS-120B, Zhipu&rsquo;s GLM-4.7, and Ollama if you have it locally &mdash; <em>real inference at $0/day forever</em>, not a trial. Every other agent picks one fixed point on the price-quality curve and bills you. Krentix puts the curve in your hand.
+    The same twelve-verifier architecture, four power levels. At <strong>full power</strong>, Krentix runs Claude Opus 4.7, GPT&#8209;5.5 (xhigh), and Gemini 3.1 Pro Preview side by side &mdash; the entire frontier in concert, with cross-evaluation deciding what ships. At <strong>zero</strong>, it runs open-weights models on free providers &mdash; Alibaba&rsquo;s Qwen 3 235B, OpenAI&rsquo;s GPT-OSS-120B, Zhipu&rsquo;s GLM-4.7, and Ollama if you have it locally &mdash; <em>real inference on free providers, not a trial</em>. Every other agent picks one fixed point on the curve. Krentix puts the curve in your hand.
   </p>
 
   <div class="dial-grid" role="list">
