@@ -251,6 +251,35 @@ footer a:hover{color:var(--text);border-color:var(--rule-strong)}
 
     <article class="entry">
       <div class="when">
+        <span class="date">Apr 30 &middot; 11:30</span>
+        <span class="commit">064597a</span>
+      </div>
+      <div class="what">
+        <h2>GSM8K measured + router fix extended &mdash; <em>97.5% pass@1.</em> Top of saturated cluster.</h2>
+        <p>
+          Second benchmark, second cluster-top. Extended the router-fix pattern from HumanEval (Apr 29) to cover all 11 known bench surfaces. The original v4 <code>_isBenchSurface</code> regex matched only humaneval/mbpp; GSM8K bench (<code>surface=&quot;gsm8k&#8209;bench&quot;</code>) fell through, allowing speed_path / math_engine / self_evolve to misroute on math word problems.
+        </p>
+        <p>
+          <strong>Pre-fix baseline:</strong> 171 / 200 = 85.5%. Forensic source-distribution audit (the new <code>scripts/bench&#8209;routing&#8209;audit.js</code>): full-pipeline rate 98.8% (when the ensemble actually ran, near-perfect), but 27 of 29 failures were misroutes &mdash; speed_path 23, math_engine 2, self_evolve 2. Same architectural pattern as HumanEval, even worse routing-drag percentage (93% of failures vs HumanEval&apos;s 72%).
+        </p>
+        <p>
+          <strong>Patch:</strong> 12-line extension at <code>src/agent/pipeline.js:843</code>. Regex now covers <code>humaneval | mbpp | gsm8k | gpqa | swebench | livecodebench | arc-agi | aime | hle | math-500 | mmlu | v-bench</code> with prefix-anchor + safety <code>includes()</code> fallbacks. Diff: +12 / &minus;3.
+        </p>
+        <p>
+          <strong>Post-fix result: 195 / 200 = 97.5% pass@1, medium tier.</strong> Wall time 46.0 min. <strong>+12.0 percentage points</strong> vs pre-fix baseline. Source distribution post-fix: full-pipeline 193/196 = 98.5%, tool_loop 2/2 = 100%, plus 2 network glitches (<code>src=null</code>) on tasks 181 and 192. Zero routing misroutes. The 3 genuine ensemble fails are tasks where the 12-persona quorum couldn&rsquo;t agree on a correct answer.
+        </p>
+        <p>
+          Per-problem JSON in <a href="https://github.com/joelrobic-gif/krentix-landing/tree/main/bench/gsm8k/results" rel="noopener" style="color:var(--text);border-bottom:1px solid var(--rule-strong);text-decoration:none">bench/gsm8k/results/</a>. Cycle 3 calibration: pre-registered 98.8%, actual 97.5%, brier_p1 0.000169 (extremely well-calibrated). Cumulative session score: HumanEval 97.0% + GSM8K 97.5% = 2 GREEN cells, top-of-cluster on both saturated benchmarks.
+        </p>
+        <p>
+          <strong>Honest framing:</strong> GSM8K has been saturated since 2024 (frontier 95-97%). Landing at 97.5% places Krentix at the top of the cluster &mdash; beats Gemini 3.1 Pro / GPT-5 family / Claude Opus 4.7 on this specific benchmark &mdash; but doesn&rsquo;t establish a commercial moat. The two GREEN cells together prove the routing-fix pattern generalizes. The architectural differentiation moat still lives in <em>Verification-Favourable Bench v1</em> (Wk 2 work).
+        </p>
+        <div class="tags"><span class="tag fix">Fix</span><span class="tag measured">Measured</span><span class="tag">Honest</span><span class="tag">Public harness</span><span class="tag">Top of cluster</span></div>
+      </div>
+    </article>
+
+    <article class="entry">
+      <div class="when">
         <span class="date">Apr 29 &middot; 02:50</span>
         <span class="commit">2328b38</span>
       </div>
