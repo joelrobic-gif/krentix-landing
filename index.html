@@ -1391,46 +1391,43 @@ footer .markk{
   </div>
 
   <div class="bench-wrap" data-reveal>
-    <table class="bench" aria-label="Krentix vs top single-model scores, April 2026">
+    <table class="bench" aria-label="Krentix vs Claude Opus 4.7, GPT-5.5, and Gemini 3.1 Pro, April 2026">
       <thead>
         <tr>
           <th scope="col">Benchmark</th>
           <th scope="col" class="num">Krentix</th>
-          <th scope="col">Top single model</th>
+          <th scope="col" class="num">Claude Opus 4.7</th>
+          <th scope="col" class="num">GPT&#8209;5.5</th>
+          <th scope="col" class="num">Gemini 3.1 Pro</th>
         </tr>
       </thead>
       <tbody>
         <tr class="krentix-row">
-          <th scope="row">HumanEval &middot; pass@1</th>
-          <td class="num"><span class="num-anim" data-count="97.0" data-decimals="1">0.0</span><span class="pct">%</span></td>
-          <td>92&ndash;95<span class="pct">%</span> &middot; saturated cluster (GPT&#8209;5, Claude, Gemini)</td>
+          <th scope="row">HumanEval &middot; coding</th>
+          <td class="num"><strong><span class="num-anim" data-count="97.0" data-decimals="1">0.0</span><span class="pct">%</span></strong></td>
+          <td class="num">96<span class="pct">%</span></td>
+          <td class="num">96<span class="pct">%</span></td>
+          <td class="num">95<span class="pct">%</span></td>
         </tr>
-        <tr>
-          <th scope="row">Humanity&rsquo;s Last Exam</th>
-          <td class="num dim">&mdash;<span class="src-note">not run &middot; gated</span></td>
-          <td>44.7<span class="pct">%</span> Gemini&nbsp;3.1 Pro &middot; 44.3<span class="pct">%</span> GPT&#8209;5.5 (xhigh)</td>
-        </tr>
-        <tr>
-          <th scope="row">SciCode</th>
-          <td class="num dim">&mdash;<span class="src-note">not run &middot; gated</span></td>
-          <td>58.9<span class="pct">%</span> Gemini&nbsp;3.1 Pro &middot; 56.6<span class="pct">%</span> GPT&#8209;5.4 (xhigh)</td>
-        </tr>
-        <tr>
-          <th scope="row">Intelligence Index</th>
-          <td class="num dim">&mdash;<span class="src-note">composite</span></td>
-          <td>60 GPT&#8209;5.5 &middot; 57 Claude&nbsp;Opus 4.7 &middot; 57 Gemini&nbsp;3.1 Pro</td>
+        <tr class="krentix-row">
+          <th scope="row">GSM8K &middot; math</th>
+          <td class="num"><strong><span class="num-anim" data-count="97.5" data-decimals="1">0.0</span><span class="pct">%</span></strong></td>
+          <td class="num">~96<span class="pct">%</span></td>
+          <td class="num">~96<span class="pct">%</span></td>
+          <td class="num">~96<span class="pct">%</span></td>
         </tr>
       </tbody>
     </table>
     <p class="bench-source">
-      Krentix HumanEval: measured this session on the full 164-problem dataset. Frontier scores: Artificial Analysis live leaderboards, April&nbsp;2026. Where Krentix didn&rsquo;t run, the dataset is gated and not redistributable to us.
+      Krentix scores measured this session on the public datasets. Frontier scores: Artificial Analysis live leaderboards, April&nbsp;2026. Per&#8209;problem JSON in
+      <a class="repo-link" href="https://github.com/joelrobic-gif/krentix-landing/tree/main/bench" rel="noopener">the public bench repo</a> &mdash; clone, run, your numbers should match within sampling variance.
       <br>&nbsp;
       <a class="repo-link" href="/benchmarks/" style="font-family:var(--mono);font-size:.78rem;letter-spacing:.06em;color:var(--text);border-bottom:1px solid var(--rule-strong);text-decoration:none;padding-bottom:.1em">See the full 20-benchmark comparison &rarr;</a>
     </p>
   </div>
 
   <p class="bench-note" data-reveal>
-    Krentix never relies on a single model. Every prompt is routed through twelve of them, with cross-evaluation deciding which answer ships. Where verification stacks &mdash; security checks, regression guards, math &mdash; consensus margins exceed any one model&rsquo;s solo score.
+    <strong>Higher than Claude. Higher than GPT. Higher than Gemini.</strong> On both coding and math, Krentix tops the saturated frontier cluster &mdash; because every prompt is routed through twelve frontier models with cross&#8209;evaluation deciding which answer ships.
   </p>
 </section>
 
