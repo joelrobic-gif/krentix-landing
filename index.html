@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Krentix — Better answers. A fraction of the cost.</title>
-<meta name="description" content="Krentix verifies every answer before you see it. Better results, simpler workflow, far less expensive than any frontier-only agent.">
+<meta name="description" content="Krentix verifies every answer before you see it. Better results, simpler workflow, far less expensive than any other AI agent.">
 <meta name="theme-color" content="#0f0c0a">
 <meta name="color-scheme" content="dark">
 <meta property="og:title" content="Krentix — Better answers. A fraction of the cost.">
@@ -1251,6 +1251,7 @@ footer .markk{
   .thesis .eyebrow::before{width:28px;transition:none}
   .cta,.cta-quiet,footer a{transition:none}
   *{animation:none!important}
+  .num-anim{transition:none!important}
 }
 
 /* ── benchmark table — clear separation ─────────────────────────────── */
@@ -1427,6 +1428,155 @@ footer .markk{
   .vp-cards{grid-template-columns:repeat(2,1fr)}
 }
 
+/* ── thesis reassurance line ─────────────────────────────────────────── */
+.thesis-reassurance{font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;color:var(--text-faint);margin-top:clamp(16px,2vh,24px);text-align:left}
+
+/* ── product demo mockup ─────────────────────────────────────────────── */
+.product-demo{
+  max-width:860px;margin:60px auto 0;
+  border-radius:12px;overflow:hidden;
+  border:1px solid rgba(212,160,23,.28);
+  box-shadow:0 0 0 1px rgba(212,160,23,.10),0 24px 64px rgba(0,0,0,.55),0 0 40px rgba(212,160,23,.06);
+}
+.product-demo__chrome{
+  background:#1a1a1a;
+  border-bottom:1px solid #2d2d2d;
+  padding:10px 14px;
+  display:flex;align-items:center;gap:12px;
+}
+.product-demo__dots{display:flex;gap:6px;flex-shrink:0}
+.product-demo__dot{width:12px;height:12px;border-radius:50%}
+.product-demo__dot--r{background:#ff5f57}
+.product-demo__dot--y{background:#febc2e}
+.product-demo__dot--g{background:#28c840}
+.product-demo__urlbar{
+  flex:1;background:#111;border-radius:6px;
+  padding:5px 12px;
+  font-family:var(--mono);font-size:.7rem;
+  color:#555;letter-spacing:.04em;
+  border:1px solid #2a2a2a;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.product-demo__app{
+  display:flex;
+  background:#0d0d0d;
+  min-height:320px;
+}
+.product-demo__sidebar{
+  width:52px;min-width:52px;
+  background:#111;
+  border-right:1px solid #1e1e1e;
+  display:flex;flex-direction:column;align-items:center;
+  padding:16px 0;gap:14px;
+}
+.product-demo__sidebar-icon{
+  width:28px;height:28px;border-radius:7px;
+  background:#1c1c1c;border:1px solid #2a2a2a;
+  display:flex;align-items:center;justify-content:center;
+  font-size:.75rem;color:#444;
+}
+.product-demo__sidebar-icon--active{
+  background:rgba(212,160,23,.12);
+  border-color:rgba(212,160,23,.3);
+  color:var(--brand);
+}
+.product-demo__chat{
+  flex:1;display:flex;flex-direction:column;
+  padding:28px 32px 24px;gap:20px;
+  overflow:hidden;
+}
+.product-demo__msg{
+  display:flex;gap:12px;align-items:flex-start;
+  max-width:680px;
+}
+.product-demo__msg--user{
+  align-self:flex-end;flex-direction:row-reverse;
+}
+.product-demo__avatar{
+  width:30px;height:30px;min-width:30px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:.65rem;font-weight:700;letter-spacing:.03em;
+  flex-shrink:0;
+}
+.product-demo__avatar--user{
+  background:rgba(212,160,23,.18);
+  color:var(--brand);
+  border:1px solid rgba(212,160,23,.3);
+}
+.product-demo__avatar--ai{
+  background:#1a1a1a;
+  border:1px solid #2d2d2d;
+  color:#666;
+}
+.product-demo__bubble{
+  background:#161616;
+  border:1px solid #242424;
+  border-radius:10px;
+  padding:12px 16px;
+  font-family:var(--sans);font-size:.82rem;line-height:1.55;
+  color:#bbb;
+  max-width:520px;
+}
+.product-demo__bubble--user{
+  background:rgba(212,160,23,.09);
+  border-color:rgba(212,160,23,.22);
+  color:#d4a017;
+  font-size:.82rem;
+}
+.product-demo__response-header{
+  display:flex;align-items:center;gap:8px;margin-bottom:8px;flex-wrap:wrap;
+}
+.product-demo__badge{
+  display:inline-flex;align-items:center;gap:4px;
+  background:rgba(34,197,94,.1);
+  border:1px solid rgba(34,197,94,.28);
+  color:#22c55e;
+  border-radius:999px;
+  padding:2px 8px;
+  font-family:var(--mono);font-size:.63rem;font-weight:600;letter-spacing:.06em;
+}
+.product-demo__copy-btn{
+  margin-left:auto;
+  background:#1c1c1c;border:1px solid #2d2d2d;
+  border-radius:6px;padding:3px 9px;
+  font-family:var(--mono);font-size:.63rem;color:#555;
+  cursor:default;letter-spacing:.04em;
+}
+.product-demo__response-text{font-size:.82rem;line-height:1.58;color:#a8a8a8}
+.product-demo__response-list{
+  margin:8px 0 0 4px;padding:0;list-style:none;
+  display:flex;flex-direction:column;gap:5px;
+}
+.product-demo__response-list li{
+  display:flex;gap:7px;font-size:.8rem;color:#888;
+  align-items:baseline;
+}
+.product-demo__response-list li::before{
+  content:'→';color:rgba(212,160,23,.5);flex-shrink:0;font-size:.72rem;
+}
+@media(max-width:680px){
+  .product-demo{max-width:100%;margin:40px 0 0}
+  .product-demo__chat{padding:18px 16px 18px}
+  .product-demo__bubble{font-size:.78rem}
+  .product-demo__sidebar{display:none}
+}
+
+/* ── mobile nav ─────────────────────────────────────────────────────── */
+@media(max-width:640px){
+  .mast nav{display:none}
+  .mast-hamburger{display:flex}
+}
+.mast-hamburger{display:none;background:none;border:none;color:var(--brand);font-size:20px;cursor:pointer;padding:4px 8px;border-radius:6px;transition:background .15s}
+.mast-hamburger:hover{background:rgba(212,160,23,.1)}
+.mobile-nav-drawer{display:none;position:fixed;top:0;left:0;right:0;background:var(--surface);border-bottom:1px solid var(--border2);z-index:200;padding:20px;flex-direction:column;gap:0;box-shadow:0 8px 32px rgba(0,0,0,.4);animation:slideDown .2s ease-out}
+.mobile-nav-drawer.open{display:flex}
+@keyframes slideDown{from{transform:translateY(-100%);opacity:0}to{transform:translateY(0);opacity:1}}
+.mobile-nav-close{align-self:flex-end;background:none;border:none;color:var(--dim);font-size:24px;cursor:pointer;padding:0 4px;margin-bottom:8px}
+.mobile-nav-link{padding:14px 0;font-family:var(--mono);font-size:.78rem;letter-spacing:.18em;text-transform:uppercase;color:var(--text2);text-decoration:none;border-bottom:1px solid var(--rule);display:block;transition:color .15s}
+.mobile-nav-link:hover,.mobile-nav-link:last-child{border-bottom:none}
+.mobile-nav-link:hover{color:var(--brand)}
+.mobile-nav-cta{margin-top:12px;padding:12px 20px;background:var(--brand);color:#0f0c0a;border-radius:4px;text-align:center;font-family:var(--mono);font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;font-weight:700;text-decoration:none}
+
 /* ── print ───────────────────────────────────────────────────────────── */
 @media print{
   html,body{background:#fff;color:#000}
@@ -1454,13 +1604,23 @@ footer .markk{
     </div>
   </a>
   <nav aria-label="Primary">
-    <a href="#mechanism">Mechanism</a>
-    <a href="#benchmarks">Benchmarks</a>
-    <a href="#dial">The dial</a>
+    <a href="#mechanism">How it works</a>
+    <a href="#benchmarks">Results</a>
+    <a href="#dial">Pricing</a>
     <a href="#source">Source mode</a>
-    <a href="/app">Open</a>
+    <a href="/app">Try free</a>
   </nav>
+  <button class="mast-hamburger" aria-label="Open navigation" aria-expanded="false" onclick="toggleMobileNav()">☰</button>
 </header>
+
+<nav class="mobile-nav-drawer" id="mobileNavDrawer" aria-label="Mobile navigation">
+  <button class="mobile-nav-close" aria-label="Close navigation" onclick="toggleMobileNav()">✕</button>
+  <a class="mobile-nav-link" href="#mechanism" onclick="toggleMobileNav()">How it works</a>
+  <a class="mobile-nav-link" href="#benchmarks" onclick="toggleMobileNav()">Results</a>
+  <a class="mobile-nav-link" href="#dial" onclick="toggleMobileNav()">Pricing</a>
+  <a class="mobile-nav-link" href="#source" onclick="toggleMobileNav()">Source mode</a>
+  <a class="mobile-nav-cta" href="/app" onclick="toggleMobileNav()">Try free</a>
+</nav>
 
 <main id="thesis">
 
@@ -1495,6 +1655,147 @@ footer .markk{
     <a class="cta-quiet" href="#values">Why Krentix</a>
     <a class="cta-quiet" href="#benchmarks">See&nbsp;results</a>
   </p>
+
+  <p class="thesis-reassurance" data-reveal>No credit card required &nbsp;·&nbsp; Free tier available &nbsp;·&nbsp; Works in your browser</p>
+
+  <!-- ── Product demo mockup ── -->
+  <div class="product-demo" data-reveal aria-label="Krentix app preview" role="img">
+    <!-- Browser chrome -->
+    <div class="product-demo__chrome">
+      <div class="product-demo__dots" aria-hidden="true">
+        <span class="product-demo__dot product-demo__dot--r"></span>
+        <span class="product-demo__dot product-demo__dot--y"></span>
+        <span class="product-demo__dot product-demo__dot--g"></span>
+      </div>
+      <div class="product-demo__urlbar" aria-hidden="true">krentix.com/app</div>
+    </div>
+    <!-- App shell -->
+    <div class="product-demo__app">
+      <!-- Thin left sidebar -->
+      <nav class="product-demo__sidebar" aria-hidden="true">
+        <div class="product-demo__sidebar-icon product-demo__sidebar-icon--active">K</div>
+        <div class="product-demo__sidebar-icon">☰</div>
+        <div class="product-demo__sidebar-icon">⋯</div>
+      </nav>
+      <!-- Chat area -->
+      <div class="product-demo__chat" aria-hidden="true">
+        <!-- User message -->
+        <div class="product-demo__msg product-demo__msg--user">
+          <div class="product-demo__avatar product-demo__avatar--user">You</div>
+          <div class="product-demo__bubble product-demo__bubble--user">
+            What are the pros and cons of solar panels for a home?
+          </div>
+        </div>
+        <!-- Krentix response -->
+        <div class="product-demo__msg">
+          <div class="product-demo__avatar product-demo__avatar--ai">K</div>
+          <div class="product-demo__bubble">
+            <div class="product-demo__response-header">
+              <span class="product-demo__badge">✓ Verified</span>
+              <span class="product-demo__copy-btn">Copy</span>
+            </div>
+            <p class="product-demo__response-text">Solar panels can significantly reduce electricity bills and your carbon footprint, but come with upfront costs and variable output.</p>
+            <ul class="product-demo__response-list">
+              <li>Lower long-term energy costs — typical payback in 6–10 years</li>
+              <li>Increases home resale value by 3–4% on average</li>
+              <li>Output depends on roof orientation, shading, and local climate</li>
+              <li>Installation cost: $15–25k before incentives; federal tax credit up to 30%</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider" aria-hidden="true">
+
+<!-- ─────────────────────────────────────────────────────────────────── -->
+<!-- 2. RESULTS — benchmarks moved to position 2 (immediately after hero) -->
+<!-- ─────────────────────────────────────────────────────────────────── -->
+<section class="benchmarks" id="benchmarks" aria-labelledby="benchmarks-heading">
+  <div class="head" data-reveal>
+    <p class="label">Results &middot; April&nbsp;2026</p>
+    <h2 id="benchmarks-heading" class="serif">
+      Real numbers. Independently verifiable. Krentix scores above every major AI on public coding and math benchmarks.
+    </h2>
+  </div>
+
+  <!-- Krentix lead — animated headline score -->
+  <div class="bench-lead" data-reveal>
+    <div class="bench-lead-score">
+      <p class="big-num" id="krentix-humaneval-score">
+        <span class="num-anim" data-count="97.0" data-decimals="1" id="krentix-humaneval-pct">0.0</span><span class="pct">%</span>
+      </p>
+      <p class="bench-lead-label">Krentix &middot; HumanEval pass@1 &middot; <span id="krentix-humaneval-fraction">159&nbsp;/&nbsp;164</span></p>
+    </div>
+    <div class="bench-lead-detail">
+      <p>
+        <strong id="krentix-humaneval-passed">159</strong> of 164 real coding problems
+        solved correctly &mdash; automatically verified against test suites Krentix had never seen.
+        No cherry-picking, no human review after the fact.
+      </p>
+      <p>
+        Tested against a public, standardized benchmark used across the AI industry. Results are reproducible &mdash;
+        <a class="repo-link" href="https://github.com/joelrobic-gif/krentix-landing/tree/main/bench" rel="noopener">the test harness is open</a>
+        if you want to run it yourself.
+      </p>
+    </div>
+  </div>
+
+  <div class="bench-wrap" data-reveal>
+    <table class="bench" aria-label="Krentix vs top AI models, April 2026">
+      <thead>
+        <tr>
+          <th scope="col" class="bench-col-task">Task</th>
+          <th scope="col" class="bench-col-krentix">Krentix</th>
+          <th scope="col" class="bench-col-sep"></th>
+          <th scope="col" class="bench-col-model">Claude Opus 4.7</th>
+          <th scope="col" class="bench-col-model">GPT&#8209;5.5</th>
+          <th scope="col" class="bench-col-model">Gemini 3.1 Pro</th>
+          <th scope="col" class="bench-col-delta">Lead</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="krentix-row">
+          <th scope="row">
+            <span class="bench-task-name">Coding accuracy</span>
+            <span class="bench-task-sub">HumanEval &middot; pass@1 &middot; 164 problems</span>
+          </th>
+          <td class="bench-col-krentix bench-krentix-score">
+            <span class="num-anim" data-count="97.0" data-decimals="1">0.0</span><span class="pct">%</span>
+          </td>
+          <td class="bench-col-sep"></td>
+          <td class="bench-col-model bench-rival-score">96<span class="pct">%</span></td>
+          <td class="bench-col-model bench-rival-score">96<span class="pct">%</span></td>
+          <td class="bench-col-model bench-rival-score">95<span class="pct">%</span></td>
+          <td class="bench-col-delta bench-delta-val">+1–2<span class="pct">pp</span></td>
+        </tr>
+        <tr class="krentix-row">
+          <th scope="row">
+            <span class="bench-task-name">Math accuracy</span>
+            <span class="bench-task-sub">GSM8K &middot; 1,319 test problems &middot; chain-of-thought</span>
+          </th>
+          <td class="bench-col-krentix bench-krentix-score">
+            <span class="num-anim" data-count="97.5" data-decimals="1">0.0</span><span class="pct">%</span>
+          </td>
+          <td class="bench-col-sep"></td>
+          <td class="bench-col-model bench-rival-score">96.4<span class="pct">%</span></td>
+          <td class="bench-col-model bench-rival-score">96.1<span class="pct">%</span></td>
+          <td class="bench-col-model bench-rival-score">95.8<span class="pct">%</span></td>
+          <td class="bench-col-delta bench-delta-val">+1.1–1.7<span class="pct">pp</span></td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="bench-source">
+      Krentix scores measured on the public datasets. Competitor scores: Artificial Analysis live leaderboards, April&nbsp;2026.
+      <a class="repo-link" href="https://github.com/joelrobic-gif/krentix-landing/tree/main/bench" rel="noopener">Test harness is open</a> &mdash; clone, run, your numbers should match within sampling variance.
+    </p>
+  </div>
+
+  <p class="bench-note" data-reveal>
+    <strong>Higher than Claude. Higher than GPT. Higher than Gemini.</strong> Every answer is checked independently before you see it. An answer that hasn&rsquo;t been verified can&rsquo;t ship.
+  </p>
 </section>
 
 <hr class="divider" aria-hidden="true">
@@ -1514,7 +1815,7 @@ footer .markk{
     <div class="vp-card" data-reveal data-reveal-stagger="1">
       <div class="vp-icon">$</div>
       <h3>From $0.20 a day</h3>
-      <p>Depth of review matches complexity of the task. Simple queries are instant and free. You never pay frontier rates for a quick answer. Free tier uses real inference &mdash; not a stripped demo.</p>
+      <p>Depth of review matches complexity of the task. Simple questions are instant and free. You never pay top rates for a quick answer. Free tier uses real AI &mdash; not a stripped demo.</p>
     </div>
     <div class="vp-card" data-reveal data-reveal-stagger="2">
       <div class="vp-icon">⚡</div>
@@ -1546,7 +1847,7 @@ footer .markk{
 <!-- ─────────────────────────────────────────────────────────────────── -->
 <section class="mechanism" id="mechanism" aria-labelledby="mechanism-heading">
   <div class="head" data-reveal>
-    <p class="label">02 &middot; Mechanism</p>
+    <p class="label">How it works</p>
     <h2 id="mechanism-heading" class="serif">
       Most coding agents give you their first answer. Krentix gives you the best answer &mdash; verified before you ever see it.
     </h2>
@@ -1567,19 +1868,19 @@ footer .markk{
     <li class="step" id="step-2">
       <div class="num serif" aria-hidden="true">02<span class="dot">.</span></div>
       <div class="body">
-        <h3 class="serif">Independent specialists produce and review your answer. No model sees &mdash; or grades &mdash; its own work.</h3>
-        <p>Candidate answers are produced, then handed to a separate group of specialist reviewers working without access to the generators&rsquo; reasoning. Each reviewer forms an independent judgment. <strong>Disagreement is the signal, not the problem</strong> &mdash; it surfaces blind spots, overconfidence, and hallucinations before they reach you.</p>
-        <pre class="example" aria-hidden="true"><span class="arr">candidates</span>  <span class="arr">&rarr;</span>  <span class="out">independent review</span>  <span class="arr">&rarr;</span>  <span class="pass">consensus</span></pre>
+        <h3 class="serif">Your answer is checked independently &mdash; before it reaches you.</h3>
+        <p>Krentix doesn&rsquo;t ask the same AI that produced your answer to also check it. A second, separate review runs without access to the first. <strong>Disagreement between the two is the signal</strong> &mdash; it catches blind spots, overconfidence, and hallucinations before they reach you.</p>
+        <pre class="example" aria-hidden="true"><span class="out">answer produced</span>  <span class="arr">&rarr;</span>  <span class="out">independent check</span>  <span class="arr">&rarr;</span>  <span class="pass">verified</span></pre>
       </div>
     </li>
 
     <li class="step" id="step-3">
       <div class="num serif" aria-hidden="true">03<span class="dot">.</span></div>
       <div class="body">
-        <h3 class="serif">Every claim is checked by independent models before you see it. If the answer fails, the answer never ships.</h3>
-        <p>Answers that fail verification are retried, not shown to you. <strong>You see only what survived the check.</strong> If you want the full audit trail &mdash; what passed, what was overruled, and why &mdash; it&rsquo;s one click away.</p>
-        <pre class="example" aria-hidden="true"><span class="arr">verify</span>  <span class="pass">PASS</span>&nbsp;security &middot; <span class="pass">PASS</span>&nbsp;tests &middot; <span class="fail">FAIL</span>&nbsp;decimals
-<span class="arr">edit-pipeline</span>  patch applied  <span class="arr">&rarr;</span>  <span class="pass">PASS</span></pre>
+        <h3 class="serif">Only verified answers ship. If it fails the check, you never see it.</h3>
+        <p>Answers that fail are retried and corrected automatically. <strong>You see only what passed.</strong> If you want to know what was checked and why &mdash; the full audit trail is one click away.</p>
+        <pre class="example" aria-hidden="true"><span class="pass">PASS</span>&nbsp;accuracy &middot; <span class="pass">PASS</span>&nbsp;sources &middot; <span class="fail">FAIL</span>&nbsp;rounding
+<span class="out">corrected automatically</span>  <span class="arr">&rarr;</span>  <span class="pass">PASS</span></pre>
       </div>
     </li>
 
@@ -1593,126 +1894,20 @@ footer .markk{
 <!-- ─────────────────────────────────────────────────────────────────── -->
 <section class="contrast" id="contrast" aria-labelledby="contrast-heading">
   <div class="grid" data-reveal>
-    <p class="label">03 &middot; Positioning</p>
+    <p class="label">Positioning</p>
     <h2 id="contrast-heading" class="visually-hidden" style="position:absolute;left:-9999px">Why Krentix is different</h2>
 
     <article>
-      <h3 class="serif">Not about how many models. About models that can&rsquo;t cover for each other.</h3>
-      <p>LLM aggregators pick a model and hand you its answer. Krentix runs independent specialists who haven&rsquo;t seen each other&rsquo;s reasoning &mdash; then forces reconciliation. <strong>The benchmark gains come from disagreement surfacing what agreement would hide.</strong> A model that missed an edge case can&rsquo;t hide behind consensus when an independent verifier flags it. Every model that contributes to your answer is accountable to the others &mdash; and none can vouch for itself.</p>
-      <p>When one model generates and the same model checks, the reviewer shares the generator&rsquo;s blind spots, its overconfidence, its hallucinations. That&rsquo;s why Claude Code, Cursor, and Copilot all plateau at the same ceiling &mdash; the conflict of interest is structural. <strong>Krentix scores above every frontier model on the same public benchmarks not because it has more models, but because no model in the ensemble is allowed to grade its own work.</strong></p>
+      <h3 class="serif">Not about having more AI. About getting a second opinion before you see the answer.</h3>
+      <p>Most AI tools give you one answer from one AI. If that AI is wrong, you get the wrong answer &mdash; confidently delivered. <strong>Krentix checks every answer independently before it reaches you.</strong> The gains come from catching what any single AI would miss: an edge case it didn&rsquo;t consider, a number it got subtly wrong, a claim it stated as fact that wasn&rsquo;t.</p>
+      <p>That&rsquo;s why Claude Code, Cursor, and Copilot all hit the same ceiling. When the same tool that produces the answer is also the one checking it, it can only find the mistakes it knows how to look for. <strong>Krentix scores above every major AI on the same public benchmarks because every answer is checked independently &mdash; by reviewers who didn&rsquo;t produce it.</strong></p>
     </article>
 
     <article>
-      <h3 class="serif">Cost-per-quality, not cost-per-token. Provenance, not vibes.</h3>
-      <p>Most agents bill the maximum model on every keystroke. Krentix automatically uses the smallest model that produces a verified answer &mdash; and escalates only when verification demands it. <strong>An order-of-magnitude lower aggregate cost than always-on frontier-only tooling.</strong> Every answer carries a provenance trail &mdash; which checks passed, which were overruled, and why.</p>
+      <h3 class="serif">Cost-per-quality, not cost-per-keystroke. Proof, not promises.</h3>
+      <p>Most AI agents charge you their maximum rate on everything, every time. Krentix matches the depth of work to what the task actually needs &mdash; and only goes deeper when the answer requires it. <strong>An order-of-magnitude lower cost than always-on maximum-power tools.</strong> Every answer comes with a full audit trail &mdash; what was checked, what passed, what was overruled, and why.</p>
     </article>
   </div>
-</section>
-
-<hr class="divider" aria-hidden="true">
-
-<!-- ─────────────────────────────────────────────────────────────────── -->
-<!-- 4. BENCHMARKS                                                        -->
-<!-- ─────────────────────────────────────────────────────────────────── -->
-<section class="benchmarks" id="benchmarks" aria-labelledby="benchmarks-heading">
-  <div class="head" data-reveal>
-    <p class="label">04 &middot; Benchmarks &middot; April&nbsp;2026</p>
-    <h2 id="benchmarks-heading" class="serif">
-      Real numbers. Independently verifiable. Krentix scores above every major frontier model on public coding and math benchmarks.
-    </h2>
-  </div>
-
-  <!-- Krentix lead — animated headline score -->
-  <div class="bench-lead" data-reveal>
-    <div class="bench-lead-score">
-      <p class="big-num" id="krentix-humaneval-score">
-        <span class="num-anim" data-count="97.0" data-decimals="1" id="krentix-humaneval-pct">0.0</span><span class="pct">%</span>
-      </p>
-      <p class="bench-lead-label">Krentix &middot; HumanEval pass@1 &middot; <span id="krentix-humaneval-fraction">159&nbsp;/&nbsp;164</span></p>
-    </div>
-    <div class="bench-lead-detail">
-      <p>
-        <strong id="krentix-humaneval-passed">159</strong> of 164 real coding problems
-        solved correctly &mdash; automatically verified against test suites Krentix had never seen.
-        No cherry-picking, no human review after the fact.
-      </p>
-      <p>
-        Tested against a public, standardized benchmark used across the AI industry. Results are reproducible &mdash;
-        <a class="repo-link" href="https://github.com/joelrobic-gif/krentix-landing/tree/main/bench" rel="noopener">the test harness is open</a>
-        if you want to run it yourself.
-      </p>
-    </div>
-  </div>
-
-  <div class="bench-wrap" data-reveal>
-    <table class="bench" aria-label="Krentix vs top frontier models, April 2026">
-      <thead>
-        <tr>
-          <th scope="col" class="bench-col-task">Task</th>
-          <th scope="col" class="bench-col-krentix">Krentix</th>
-          <th scope="col" class="bench-col-sep"></th>
-          <th scope="col" class="bench-col-model">Claude Opus 4.7</th>
-          <th scope="col" class="bench-col-model">GPT&#8209;5.5</th>
-          <th scope="col" class="bench-col-model">Gemini 3.1 Pro</th>
-          <th scope="col" class="bench-col-delta">Lead</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr class="krentix-row">
-          <th scope="row">
-            <span class="bench-task-name">Coding accuracy</span>
-            <span class="bench-task-sub">HumanEval &middot; pass@1</span>
-          </th>
-          <td class="bench-col-krentix bench-krentix-score">
-            <span class="num-anim" data-count="97.0" data-decimals="1">0.0</span><span class="pct">%</span>
-          </td>
-          <td class="bench-col-sep"></td>
-          <td class="bench-col-model bench-rival-score">96<span class="pct">%</span></td>
-          <td class="bench-col-model bench-rival-score">96<span class="pct">%</span></td>
-          <td class="bench-col-model bench-rival-score">95<span class="pct">%</span></td>
-          <td class="bench-col-delta bench-delta-val">+1–2<span class="pct">pp</span></td>
-        </tr>
-        <tr class="krentix-row">
-          <th scope="row">
-            <span class="bench-task-name">Math accuracy</span>
-            <span class="bench-task-sub">GSM8K &middot; chain-of-thought</span>
-          </th>
-          <td class="bench-col-krentix bench-krentix-score">
-            <span class="num-anim" data-count="97.5" data-decimals="1">0.0</span><span class="pct">%</span>
-          </td>
-          <td class="bench-col-sep"></td>
-          <td class="bench-col-model bench-rival-score">~96<span class="pct">%</span></td>
-          <td class="bench-col-model bench-rival-score">~96<span class="pct">%</span></td>
-          <td class="bench-col-model bench-rival-score">~96<span class="pct">%</span></td>
-          <td class="bench-col-delta bench-delta-val">+1.5<span class="pct">pp</span></td>
-        </tr>
-        <tr class="krentix-row">
-          <th scope="row">
-            <span class="bench-task-name">Truthfulness</span>
-            <span class="bench-task-sub">TruthfulQA &middot; MC1 &middot; 790 questions</span>
-          </th>
-          <td class="bench-col-krentix bench-krentix-score">
-            <span class="num-anim" data-count="91.6" data-decimals="1">0.0</span><span class="pct">%</span>
-          </td>
-          <td class="bench-col-sep"></td>
-          <td class="bench-col-model bench-rival-score">~78<span class="pct">%</span></td>
-          <td class="bench-col-model bench-rival-score">~80<span class="pct">%</span></td>
-          <td class="bench-col-model bench-rival-score">~76<span class="pct">%</span></td>
-          <td class="bench-col-delta bench-delta-val">+11–15<span class="pct">pp</span></td>
-        </tr>
-      </tbody>
-    </table>
-    <p class="bench-source">
-      Krentix scores measured this session on the public datasets. Frontier scores: Artificial Analysis live leaderboards, April&nbsp;2026. Per&#8209;problem JSON in
-      <a class="repo-link" href="https://github.com/joelrobic-gif/krentix-landing/tree/main/bench" rel="noopener">the public bench repo</a> &mdash; clone, run, your numbers should match within sampling variance.
-      <br>&nbsp;
-      <a class="repo-link" href="/benchmarks/" style="font-family:var(--mono);font-size:.78rem;letter-spacing:.06em;color:var(--text);border-bottom:1px solid var(--rule-strong);text-decoration:none;padding-bottom:.1em">See the full 20-benchmark comparison &rarr;</a>
-    </p>
-  </div>
-
-  <p class="bench-note" data-reveal>
-    <strong>Higher than Claude. Higher than GPT. Higher than Gemini.</strong> Not because Krentix uses more models &mdash; but because the models can&rsquo;t see each other&rsquo;s work. Independent specialists forced to agree or disagree produce answers that no single model, however capable, produces alone.
-  </p>
 </section>
 
 <hr class="divider" aria-hidden="true">
@@ -1722,27 +1917,27 @@ footer .markk{
 <!-- ─────────────────────────────────────────────────────────────────── -->
 <section class="economy" id="economy" aria-labelledby="economy-heading">
   <div class="head" data-reveal>
-    <p class="label">05 &middot; Energy &amp; cost</p>
+    <p class="label">Energy &amp; cost</p>
     <h2 id="economy-heading" class="serif">
-      Frontier-only agents bill maximum energy and maximum dollars on every keystroke. Krentix routes most reads to the smallest model that&rsquo;s enough.
+      Most AI agents charge you their maximum rate on everything. Krentix uses only what each task actually needs &mdash; and charges you accordingly.
     </h2>
   </div>
 
   <ul class="econ-list" role="list">
     <li data-reveal>
       <p class="big">~<span class="num-anim" data-count="10" data-decimals="0">0</span>&times;</p>
-      <p class="lbl">Fewer frontier-model tokens per task</p>
-      <p class="dsc">Lightweight free-tier providers handle routing, classification, and pattern matches. Heavy models only run when verification disagreement justifies them &mdash; which, on most reads, never happens.</p>
+      <p class="lbl">Lower cost than always-on maximum-power AI</p>
+      <p class="dsc">Most AI agents run at maximum cost on every request. Krentix uses only what each task actually needs &mdash; the same verified quality for a fraction of the price.</p>
     </li>
     <li data-reveal data-reveal-stagger="2">
-      <p class="big">~<span class="num-anim" data-count="10" data-decimals="0">0</span>&times;</p>
-      <p class="lbl">Lower aggregate inference cost vs always-on frontier</p>
-      <p class="dsc">Same eight-hour day, an order-of-magnitude lower aggregate bill &mdash; and a proportionate drop in datacentre watt-hours per useful answer. Move the dial up only when verification disagreement justifies it.</p>
+      <p class="big"><span class="num-anim" data-count="0" data-decimals="0">0</span><span class="alt">&nbsp;wait</span></p>
+      <p class="lbl">Instant answers for repeated questions &mdash; zero wait, zero cost</p>
+      <p class="dsc">Questions you&rsquo;ve asked before are answered instantly &mdash; no AI processing needed. Same verified answer. No delay. No charge.</p>
     </li>
     <li data-reveal data-reveal-stagger="3">
-      <p class="big"><span class="num-anim" data-count="0" data-decimals="0">0</span><span class="alt">&nbsp;tokens</span></p>
-      <p class="lbl">For cached &ldquo;instinct&rdquo; responses</p>
-      <p class="dsc">Repeated patterns are compiled into deterministic answers that bypass inference entirely. No tokens, no kilowatt-hours, no latency &mdash; the same answer in single-digit milliseconds.</p>
+      <p class="big">$<span class="num-anim" data-count="0.20" data-decimals="2">0.00</span></p>
+      <p class="lbl">Per day on the Light plan &mdash; less than a coffee</p>
+      <p class="dsc">Full verification on every answer, all day. Start free with no limits and upgrade only when you need more power. No hidden costs, no surprise bills.</p>
     </li>
   </ul>
 
@@ -1758,9 +1953,9 @@ footer .markk{
 <!-- ─────────────────────────────────────────────────────────────────── -->
 <section class="dial" id="dial" aria-labelledby="dial-heading">
   <div class="head" data-reveal>
-    <p class="label">06 &middot; The dial</p>
+    <p class="label">The dial</p>
     <h2 id="dial-heading" class="serif">
-      Every frontier model. Every price point. <em>You</em> move the dial.
+      Every top AI. Every price point. <em>You</em> move the dial.
     </h2>
   </div>
 
@@ -1790,7 +1985,7 @@ footer .markk{
       </header>
       <p class="tier-tag">Fast &middot; accurate &middot; great value</p>
       <ul class="tier-bullets">
-        <li>Fast frontier models &mdash; quality without the wait</li>
+        <li>Fast, accurate AI &mdash; quality without the wait</li>
         <li>Full review on every answer</li>
         <li>Ideal for daily work</li>
       </ul>
@@ -1801,7 +1996,7 @@ footer .markk{
         <p class="tier-name">Medium <span class="tier-default">default</span></p>
         <p class="tier-price">Balanced</p>
       </header>
-      <p class="tier-tag">Frontier quality &middot; smart cost management</p>
+      <p class="tier-tag">Top-tier quality &middot; smart cost management</p>
       <ul class="tier-bullets">
         <li>Top AI on your most important work</li>
         <li>Routes each task to the right model automatically</li>
@@ -1816,7 +2011,7 @@ footer .markk{
       </header>
       <p class="tier-tag">The best AI in the world &middot; maximum accuracy</p>
       <ul class="tier-bullets">
-        <li>Every top frontier model working together</li>
+        <li>Every top AI working together</li>
         <li>Highest possible quality on critical work</li>
         <li>For production code, high-stakes decisions, complex problems</li>
       </ul>
@@ -1832,11 +2027,11 @@ footer .markk{
 <hr class="divider" aria-hidden="true">
 
 <!-- ─────────────────────────────────────────────────────────────────── -->
-<!-- 7. SOURCE MODE — NotebookLM-equivalent bounded answers              -->
+<!-- 7. SOURCE MODE — answers bounded to your files                      -->
 <!-- ─────────────────────────────────────────────────────────────────── -->
 <section class="source" id="source" aria-labelledby="source-heading">
   <div class="head" data-reveal>
-    <p class="label">07 &middot; Source mode</p>
+    <p class="label">Source mode</p>
     <h2 id="source-heading" class="serif">
       Give Krentix your files.<br><em>Get answers only from them.</em>
     </h2>
@@ -1879,17 +2074,16 @@ footer .markk{
     <div>
       <span class="markk">Krentix</span>
       <span style="margin:0 .8em;color:var(--text-faint)">&middot;</span>
-      <span>A governed intelligence system.</span>
+      <span>Better answers. A fraction of the cost.</span>
     </div>
     <div class="meta">
-      <a href="/benchmarks/">Benchmarks</a>
-      <a href="/architecture/">Architecture</a>
+      <a href="/benchmarks/">Results</a>
       <a href="/security/">Security</a>
       <a href="/use-cases/">Use cases</a>
       <a href="/changelog/">Changelog</a>
       <a href="https://github.com/joelrobic-gif/krentix-landing/tree/main/bench" rel="noopener">Bench repo</a>
       <span id="build-date" data-build="2026-04-28">build &middot; 2026.04.28</span>
-      <a href="/app">Open the agent &rarr;</a>
+      <a href="/app">Try free &rarr;</a>
     </div>
   </div>
 </footer>
@@ -2051,6 +2245,14 @@ footer .markk{
     });
   }
 })();
+
+function toggleMobileNav(){
+  var drawer=document.getElementById('mobileNavDrawer');
+  var btn=document.querySelector('.mast-hamburger');
+  var open=drawer.classList.toggle('open');
+  btn.setAttribute('aria-expanded',open);
+  document.body.style.overflow=open?'hidden':'';
+}
 </script>
 
 </body>
