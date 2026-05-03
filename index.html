@@ -113,19 +113,48 @@ a:hover{color:var(--ink);}
 .network-svg .center-node{fill:var(--signal);animation:centerPulse 3s ease-in-out infinite;}
 @keyframes centerPulse{0%,100%{filter:drop-shadow(0 0 0 rgba(26,58,107,0));}50%{filter:drop-shadow(0 0 12px rgba(26,58,107,0.6));}}
 
-/* ── Arrow-flow background animation ─────────────────────────────────────── */
+/* ── Cinematic energy convergence + laser stream ─────────────────────────── */
 .hero-bg-arrows{position:absolute;inset:0;z-index:-1;overflow:hidden;pointer-events:none;}
 .hero-bg-arrows svg{position:absolute;inset:0;width:100%;height:100%;}
-@keyframes arrowDrift{0%{transform:translateX(0) translateY(0);opacity:0;}8%{opacity:1;}85%{opacity:0.7;}100%{transform:translateX(160px) translateY(-60px);opacity:0;}}
-@keyframes arrowDriftSlow{0%{transform:translateX(0) translateY(0);opacity:0;}10%{opacity:0.6;}90%{opacity:0.3;}100%{transform:translateX(120px) translateY(-90px);opacity:0;}}
-@keyframes arrowPulse{0%,100%{opacity:0.04;}50%{opacity:0.11;}}
-.arr-group{animation:arrowDrift 14s linear infinite;}
-.arr-group:nth-child(2){animation-duration:18s;animation-delay:-5s;animation-name:arrowDriftSlow;}
-.arr-group:nth-child(3){animation-duration:11s;animation-delay:-3s;}
-.arr-group:nth-child(4){animation-duration:16s;animation-delay:-9s;animation-name:arrowDriftSlow;}
-.arr-group:nth-child(5){animation-duration:13s;animation-delay:-7s;}
-.arr-group:nth-child(6){animation-duration:20s;animation-delay:-12s;animation-name:arrowDriftSlow;}
-@media (prefers-reduced-motion: reduce){.arr-group{animation:arrowPulse 8s ease-in-out infinite;}}
+
+/* Stream flow — animated dashes drifting toward convergence */
+@keyframes streamFlow{from{stroke-dashoffset:0;}to{stroke-dashoffset:-220;}}
+@keyframes streamFlowReverse{from{stroke-dashoffset:0;}to{stroke-dashoffset:220;}}
+
+/* Convergence node — breathing pulse */
+@keyframes nodeBreath{0%,100%{opacity:0.85;transform:scale(1);}50%{opacity:1;transform:scale(1.18);}}
+
+/* Laser beam — shimmering exit */
+@keyframes laserShimmer{0%,100%{opacity:0.55;}50%{opacity:0.95;}}
+@keyframes laserPulse{0%{opacity:0;transform:translateX(-40px);}25%{opacity:0.9;}75%{opacity:0.4;}100%{opacity:0;transform:translateX(60px);}}
+
+/* Ambient atmosphere drift */
+@keyframes ambientDrift{0%,100%{transform:translate(0,0) scale(1);}50%{transform:translate(-2%,1%) scale(1.04);}}
+
+.energy-streams .stream{animation:streamFlow 9s linear infinite;}
+.energy-streams .stream:nth-child(1){animation-duration:7s;}
+.energy-streams .stream:nth-child(2){animation-duration:11s;animation-delay:-2s;}
+.energy-streams .stream:nth-child(3){animation-duration:8s;animation-delay:-4s;}
+.energy-streams .stream:nth-child(4){animation-duration:10s;animation-delay:-1s;}
+.energy-streams .stream:nth-child(5){animation-duration:9s;animation-delay:-3s;}
+.energy-streams .stream:nth-child(6){animation-duration:12s;animation-delay:-5s;}
+.energy-streams .stream:nth-child(7){animation-duration:8s;animation-delay:-6s;}
+.energy-streams .stream:nth-child(8){animation-duration:13s;animation-delay:-2.5s;}
+
+.convergence-node{transform-origin:center;transform-box:fill-box;animation:nodeBreath 3.2s cubic-bezier(0.4,0,0.4,1) infinite;}
+.laser-beam{animation:laserShimmer 4s ease-in-out infinite;}
+.laser-pulse{animation:laserPulse 3s cubic-bezier(0.5,0,0.7,0.4) infinite;}
+.laser-pulse-2{animation:laserPulse 3s cubic-bezier(0.5,0,0.7,0.4) infinite;animation-delay:-1.5s;}
+.ambient-halo{transform-origin:center;animation:ambientDrift 14s ease-in-out infinite;}
+
+/* Particles travel along stream paths */
+.energy-particle{animation:particleFlow 5s linear infinite;}
+@keyframes particleFlow{0%{offset-distance:0%;opacity:0;}10%{opacity:1;}90%{opacity:1;}100%{offset-distance:100%;opacity:0;}}
+
+@media (prefers-reduced-motion: reduce){
+  .energy-streams .stream{animation:none;stroke-dashoffset:0;}
+  .convergence-node,.laser-beam,.laser-pulse,.laser-pulse-2,.ambient-halo,.energy-particle{animation:none;}
+}
 
 /* ── Floating energy badge ─────────────────────────────────────────────────── */
 @keyframes badgeSlideIn{from{transform:translateY(24px);opacity:0;}to{transform:translateY(0);opacity:1;}}
@@ -370,63 +399,127 @@ footer .legal{border-top:1px solid var(--rule);margin-top:36px;padding-top:24px;
   <div class="hero-bg" aria-hidden="true">
     <div class="hero-bg-mesh"></div>
     <div class="hero-bg-grain"></div>
-    <!-- Arrow-flow animation layer — flowing → arrows = energy/direction motif -->
+    <!-- Cinematic energy convergence — organic streams → focused laser beam -->
     <div class="hero-bg-arrows">
       <svg viewBox="0 0 1200 600" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
         <defs>
-          <!-- Krentix mark at 18-unit scale: 8-line wedge + stem (C-8 v1.0 geometry) -->
-          <g id="arr">
-            <line x1="0" y1="0"   x2="7.5" y2="4.5" stroke="#1A3A6B" stroke-width="0.6" stroke-linecap="round"/>
-            <line x1="0" y1="1.5" x2="7.5" y2="4.5" stroke="#1A3A6B" stroke-width="0.6" stroke-linecap="round"/>
-            <line x1="0" y1="3"   x2="7.5" y2="4.5" stroke="#1A3A6B" stroke-width="0.6" stroke-linecap="round"/>
-            <line x1="0" y1="4.5" x2="7.5" y2="4.5" stroke="#1A3A6B" stroke-width="0.6" stroke-linecap="round"/>
-            <line x1="0" y1="6"   x2="7.5" y2="4.5" stroke="#1A3A6B" stroke-width="0.6" stroke-linecap="round"/>
-            <line x1="0" y1="7.5" x2="7.5" y2="4.5" stroke="#1A3A6B" stroke-width="0.6" stroke-linecap="round"/>
-            <line x1="0" y1="9"   x2="7.5" y2="4.5" stroke="#1A3A6B" stroke-width="0.6" stroke-linecap="round"/>
-            <line x1="0" y1="10.5" x2="7.5" y2="4.5" stroke="#1A3A6B" stroke-width="0.6" stroke-linecap="round"/>
-            <line x1="10.5" y1="4.5" x2="17.5" y2="4.5" stroke="#1A3A6B" stroke-width="1.35" stroke-linecap="round"/>
-          </g>
+          <!-- Soft glow for energy streams -->
+          <filter id="soft-glow" x="-30%" y="-30%" width="160%" height="160%">
+            <feGaussianBlur stdDeviation="2.5" result="blur"/>
+            <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+          <!-- Strong glow for convergence node and laser core -->
+          <filter id="laser-glow" x="-100%" y="-100%" width="300%" height="300%">
+            <feGaussianBlur stdDeviation="8" result="b1"/>
+            <feGaussianBlur stdDeviation="20" result="b2"/>
+            <feMerge>
+              <feMergeNode in="b2"/>
+              <feMergeNode in="b1"/>
+              <feMergeNode in="SourceGraphic"/>
+            </feMerge>
+          </filter>
+          <!-- Stream gradient: dim origin → bright at convergence -->
+          <linearGradient id="stream-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#1A3A6B" stop-opacity="0"/>
+            <stop offset="35%" stop-color="#5C7AB8" stop-opacity="0.3"/>
+            <stop offset="78%" stop-color="#8FB1E0" stop-opacity="0.7"/>
+            <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0.95"/>
+          </linearGradient>
+          <!-- Laser exit gradient -->
+          <linearGradient id="laser-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#FFFFFF" stop-opacity="1"/>
+            <stop offset="15%" stop-color="#A8C5E8" stop-opacity="0.85"/>
+            <stop offset="50%" stop-color="#5C7AB8" stop-opacity="0.45"/>
+            <stop offset="100%" stop-color="#1A3A6B" stop-opacity="0"/>
+          </linearGradient>
+          <!-- Ambient halo radial -->
+          <radialGradient id="ambient-grad" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#A8C5E8" stop-opacity="0.32"/>
+            <stop offset="40%" stop-color="#5C7AB8" stop-opacity="0.12"/>
+            <stop offset="100%" stop-color="#1A3A6B" stop-opacity="0"/>
+          </radialGradient>
+          <!-- Vignette darkening at edges to focus eye -->
+          <radialGradient id="vignette" cx="50%" cy="50%" r="65%">
+            <stop offset="60%" stop-color="#000000" stop-opacity="0"/>
+            <stop offset="100%" stop-color="#000000" stop-opacity="0.04"/>
+          </radialGradient>
         </defs>
-        <!-- Group 1: upper band -->
-        <g class="arr-group" opacity="0.07">
-          <use href="#arr" x="80" y="60"/><use href="#arr" x="110" y="60"/><use href="#arr" x="140" y="60"/>
-          <use href="#arr" x="80" y="90"/><use href="#arr" x="110" y="90"/><use href="#arr" x="140" y="90"/>
-          <use href="#arr" x="200" y="45"/><use href="#arr" x="230" y="45"/>
-          <use href="#arr" x="300" y="70"/><use href="#arr" x="330" y="70"/><use href="#arr" x="360" y="70"/>
-          <use href="#arr" x="420" y="55"/><use href="#arr" x="450" y="55"/>
+
+        <!-- Background vignette for cinematic focus -->
+        <rect width="1200" height="600" fill="url(#vignette)"/>
+
+        <!-- Layer 1: Ambient atmospheric halo at convergence (drifts subtly) -->
+        <g class="ambient-halo" style="transform-origin:920px 300px;">
+          <ellipse cx="920" cy="300" rx="280" ry="220" fill="url(#ambient-grad)"/>
+          <ellipse cx="920" cy="300" rx="160" ry="120" fill="url(#ambient-grad)" opacity="0.6"/>
         </g>
-        <!-- Group 2: mid-left -->
-        <g class="arr-group" opacity="0.055">
-          <use href="#arr" x="30" y="180"/><use href="#arr" x="60" y="180"/><use href="#arr" x="90" y="180"/>
-          <use href="#arr" x="30" y="210"/><use href="#arr" x="60" y="210"/>
-          <use href="#arr" x="150" y="200"/><use href="#arr" x="180" y="200"/><use href="#arr" x="210" y="200"/>
-          <use href="#arr" x="260" y="185"/><use href="#arr" x="290" y="185"/>
+
+        <!-- Layer 2: 8 organic energy streams converging to (920, 300) -->
+        <g class="energy-streams" filter="url(#soft-glow)" fill="none" stroke="url(#stream-grad)" stroke-linecap="round">
+          <!-- Each path: organic curved Bezier from edge → convergence point -->
+          <path class="stream" d="M -20 80   Q 320 160 600 220 T 920 300" stroke-width="1.4" stroke-dasharray="3 14" opacity="0.85"/>
+          <path class="stream" d="M -20 180  Q 280 200 580 240 T 920 300" stroke-width="1.6" stroke-dasharray="2 16" opacity="0.9"/>
+          <path class="stream" d="M -20 280  Q 320 280 620 290 T 920 300" stroke-width="1.5" stroke-dasharray="3 12" opacity="0.95"/>
+          <path class="stream" d="M -20 380  Q 300 360 600 330 T 920 300" stroke-width="1.6" stroke-dasharray="2 18" opacity="0.9"/>
+          <path class="stream" d="M -20 480  Q 320 440 620 360 T 920 300" stroke-width="1.4" stroke-dasharray="3 14" opacity="0.85"/>
+          <path class="stream" d="M 80 -20   Q 380 100 660 200 T 920 300" stroke-width="1.5" stroke-dasharray="3 14" opacity="0.8"/>
+          <path class="stream" d="M 180 620  Q 480 520 720 380 T 920 300" stroke-width="1.5" stroke-dasharray="2 16" opacity="0.8"/>
+          <path class="stream" d="M 320 -20  Q 580 80 780 220 T 920 300" stroke-width="1.3" stroke-dasharray="3 12" opacity="0.75"/>
         </g>
-        <!-- Group 3: lower band -->
-        <g class="arr-group" opacity="0.065">
-          <use href="#arr" x="100" y="340"/><use href="#arr" x="130" y="340"/><use href="#arr" x="160" y="340"/>
-          <use href="#arr" x="100" y="370"/><use href="#arr" x="130" y="370"/>
-          <use href="#arr" x="240" y="355"/><use href="#arr" x="270" y="355"/><use href="#arr" x="300" y="355"/>
-          <use href="#arr" x="380" y="345"/><use href="#arr" x="410" y="345"/>
+
+        <!-- Layer 3: Convergence node — multi-layered glowing core -->
+        <g class="convergence-node" style="transform-origin:920px 300px;">
+          <circle cx="920" cy="300" r="22" fill="#A8C5E8" opacity="0.18" filter="url(#laser-glow)"/>
+          <circle cx="920" cy="300" r="10" fill="#FFFFFF" opacity="0.6" filter="url(#laser-glow)"/>
+          <circle cx="920" cy="300" r="4" fill="#FFFFFF" opacity="0.95"/>
+          <!-- 4-point lens flare -->
+          <line x1="888" y1="300" x2="952" y2="300" stroke="#FFFFFF" stroke-width="0.8" opacity="0.5" stroke-linecap="round"/>
+          <line x1="920" y1="282" x2="920" y2="318" stroke="#FFFFFF" stroke-width="0.6" opacity="0.4" stroke-linecap="round"/>
         </g>
-        <!-- Group 4: right diagonal band -->
-        <g class="arr-group" opacity="0.05">
-          <use href="#arr" x="500" y="120"/><use href="#arr" x="530" y="120"/>
-          <use href="#arr" x="490" y="150"/><use href="#arr" x="520" y="150"/><use href="#arr" x="550" y="150"/>
-          <use href="#arr" x="600" y="100"/><use href="#arr" x="630" y="100"/>
-          <use href="#arr" x="680" y="130"/><use href="#arr" x="710" y="130"/>
+
+        <!-- Layer 4: Laser beam exit — bright focused stream right -->
+        <g>
+          <!-- Outer glow halo of beam -->
+          <line x1="920" y1="300" x2="1230" y2="300" stroke="url(#laser-grad)" stroke-width="14" stroke-linecap="round" filter="url(#laser-glow)" opacity="0.4"/>
+          <!-- Mid-tone beam -->
+          <line x1="920" y1="300" x2="1230" y2="300" stroke="url(#laser-grad)" stroke-width="3.5" stroke-linecap="round" class="laser-beam"/>
+          <!-- Bright core -->
+          <line x1="920" y1="300" x2="1230" y2="300" stroke="#FFFFFF" stroke-width="1" stroke-linecap="round" opacity="0.85" class="laser-beam"/>
+          <!-- Pulse traveling along the beam (concentrated highlight) -->
+          <circle cx="920" cy="300" r="3" fill="#FFFFFF" class="laser-pulse" filter="url(#laser-glow)"/>
+          <circle cx="920" cy="300" r="2.5" fill="#FFFFFF" class="laser-pulse-2" filter="url(#laser-glow)"/>
         </g>
-        <!-- Group 5: scattered accent -->
-        <g class="arr-group" opacity="0.04">
-          <use href="#arr" x="350" y="260"/><use href="#arr" x="380" y="260"/>
-          <use href="#arr" x="440" y="290"/><use href="#arr" x="470" y="290"/>
-          <use href="#arr" x="520" y="270"/><use href="#arr" x="550" y="270"/>
-        </g>
-        <!-- Group 6: far right -->
-        <g class="arr-group" opacity="0.045">
-          <use href="#arr" x="700" y="200"/><use href="#arr" x="730" y="200"/>
-          <use href="#arr" x="690" y="230"/><use href="#arr" x="720" y="230"/>
-          <use href="#arr" x="780" y="190"/><use href="#arr" x="810" y="190"/>
+
+        <!-- Layer 5: Energy particles traveling along streams -->
+        <g class="particles" filter="url(#soft-glow)">
+          <circle r="2" fill="#FFFFFF" opacity="0.9">
+            <animateMotion dur="6s" repeatCount="indefinite" path="M -20 80 Q 320 160 600 220 T 920 300"/>
+            <animate attributeName="opacity" values="0;0.95;0.95;0" keyTimes="0;0.1;0.85;1" dur="6s" repeatCount="indefinite"/>
+          </circle>
+          <circle r="1.8" fill="#A8C5E8" opacity="0.85">
+            <animateMotion dur="7s" begin="-2s" repeatCount="indefinite" path="M -20 180 Q 280 200 580 240 T 920 300"/>
+            <animate attributeName="opacity" values="0;0.9;0.9;0" keyTimes="0;0.1;0.85;1" dur="7s" begin="-2s" repeatCount="indefinite"/>
+          </circle>
+          <circle r="2.2" fill="#FFFFFF" opacity="0.95">
+            <animateMotion dur="5.5s" begin="-1s" repeatCount="indefinite" path="M -20 280 Q 320 280 620 290 T 920 300"/>
+            <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.1;0.85;1" dur="5.5s" begin="-1s" repeatCount="indefinite"/>
+          </circle>
+          <circle r="1.6" fill="#A8C5E8" opacity="0.8">
+            <animateMotion dur="8s" begin="-4s" repeatCount="indefinite" path="M -20 380 Q 300 360 600 330 T 920 300"/>
+            <animate attributeName="opacity" values="0;0.85;0.85;0" keyTimes="0;0.1;0.85;1" dur="8s" begin="-4s" repeatCount="indefinite"/>
+          </circle>
+          <circle r="1.8" fill="#FFFFFF" opacity="0.85">
+            <animateMotion dur="6.5s" begin="-3s" repeatCount="indefinite" path="M -20 480 Q 320 440 620 360 T 920 300"/>
+            <animate attributeName="opacity" values="0;0.9;0.9;0" keyTimes="0;0.1;0.85;1" dur="6.5s" begin="-3s" repeatCount="indefinite"/>
+          </circle>
+          <circle r="1.5" fill="#A8C5E8" opacity="0.75">
+            <animateMotion dur="7.5s" begin="-2.5s" repeatCount="indefinite" path="M 80 -20 Q 380 100 660 200 T 920 300"/>
+            <animate attributeName="opacity" values="0;0.8;0.8;0" keyTimes="0;0.1;0.85;1" dur="7.5s" begin="-2.5s" repeatCount="indefinite"/>
+          </circle>
+          <circle r="1.5" fill="#FFFFFF" opacity="0.8">
+            <animateMotion dur="9s" begin="-5s" repeatCount="indefinite" path="M 180 620 Q 480 520 720 380 T 920 300"/>
+            <animate attributeName="opacity" values="0;0.85;0.85;0" keyTimes="0;0.1;0.85;1" dur="9s" begin="-5s" repeatCount="indefinite"/>
+          </circle>
         </g>
       </svg>
     </div>
