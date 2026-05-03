@@ -329,6 +329,7 @@ footer .legal{border-top:1px solid var(--rule);margin-top:36px;padding-top:24px;
         <div class="hero-proof-item"><span class="num">25,200</span><span class="label">Configurations · managed for you</span></div>
         <div class="hero-proof-item"><span class="num">12</span><span class="label">Specialists · 8 distinct AI labs</span></div>
         <div class="hero-proof-item"><span class="num">97.0%</span><span class="label">Coding accuracy · verified</span></div>
+        <div class="hero-proof-item"><span class="num" id="hero-kwh-saved" title="kWh saved by Krentix shared recall network">0</span><span class="label">kWh saved · shared recall network</span></div>
         <div class="hero-proof-item"><span class="num">$0</span><span class="label">Free tier · real AI · no trial limits</span></div>
       </div>
       <div class="hero-ctas">
@@ -473,6 +474,23 @@ footer .legal{border-top:1px solid var(--rule);margin-top:36px;padding-top:24px;
   </div>
 </section>
 
+<section class="s-block" id="network" aria-labelledby="network-h" style="background:linear-gradient(180deg,var(--paper-2) 0%,var(--paper) 100%);">
+  <div class="shell">
+    <p class="s-eyebrow" data-reveal>Shared intelligence · Network effect</p>
+    <h2 class="s-h2" id="network-h" data-reveal>The more people use Krentix, the less energy <em>everyone</em> uses.</h2>
+    <p class="s-lede" data-reveal>When a question is verified by 12 specialists and passes with full confidence, it enters the shared recall pool — anonymised, no user data. The next person who asks the same thing can accept that verified answer instantly: zero compute, zero wait, zero cost. Opt out anytime.</p>
+    <div class="econ-grid" data-reveal style="margin-top:32px;">
+      <div class="econ-card"><p class="big">0<span class="alt"> compute</span></p><p class="lbl">For every shared recall hit</p><p class="dsc">A cached verified answer skips the entire pipeline — no generation, no evaluation, no GPU. The answer is already checked. It just needs to be delivered.</p></div>
+      <div class="econ-card"><p class="big">~0.02<span class="alt"> kWh</span></p><p class="lbl">Saved per shared answer delivered</p><p class="dsc">The average Krentix query consumes ~0.02 kWh across generation and evaluation. Every shared recall hit avoids that entirely. At scale, this is measurable.</p></div>
+      <div class="econ-card" id="network-impact-card"><p class="big" id="net-kwh">—</p><p class="lbl" id="net-kwh-label">kWh saved by Krentix users so far</p><p class="dsc" id="net-desc">Loading live network impact data…</p></div>
+    </div>
+    <div style="margin-top:28px;padding:18px 22px;background:var(--paper-2);border-left:3px solid var(--signal);border-radius:0 6px 6px 0;max-width:66ch;" data-reveal>
+      <p style="font:400 14px/1.65 var(--font-body);color:var(--ink-2);margin:0;"><strong style="color:var(--ink);">Privacy by design.</strong> Shared recall stores only a cryptographic fingerprint of the question (16 characters, one-way hash) alongside the anonymised answer. No user identity, no session data, no query history. One toggle to opt out. The energy impact is collective — the data is not.</p>
+    </div>
+  </div>
+</section>
+<!-- Network impact populated by unified loadImpact() script at page bottom -->
+
 <section class="s-block" id="contrast" aria-labelledby="contrast-h">
   <div class="shell">
     <p class="s-eyebrow" data-reveal>Positioning</p>
@@ -534,6 +552,69 @@ footer .legal{border-top:1px solid var(--rule);margin-top:36px;padding-top:24px;
     <p class="source-note" data-reveal><strong>Works at every price level — including free.</strong> Toggle it on from the chat interface. No setup required.</p>
   </div>
 </section>
+
+<!-- FINAL CTA — energy + companion mission close -->
+<section style="background:linear-gradient(180deg,var(--paper) 0%,var(--paper-2) 100%);border-top:1px solid var(--rule);padding:80px 0 64px;" aria-labelledby="close-h">
+  <div class="shell" style="text-align:center;max-width:680px;margin:0 auto;">
+    <p style="font:500 11px/1 var(--font-mono);letter-spacing:0.16em;text-transform:uppercase;color:var(--signal);margin-bottom:20px;" data-reveal>The AI that works for everyone · evolves overnight · saves energy together</p>
+    <h2 style="font:500 44px/1.08 var(--font-display);letter-spacing:-0.028em;color:var(--ink);margin-bottom:20px;text-wrap:balance;" id="close-h" data-reveal>
+      The more people use Krentix,<br><em style="font-style:italic;color:var(--signal);">the better it gets for everyone.</em>
+    </h2>
+    <p style="font:400 18px/1.55 var(--font-body);color:var(--ink-2);max-width:52ch;margin:0 auto 36px;letter-spacing:-0.01em;" data-reveal>Every verified answer joins the shared recall network. Every shared answer saves compute. Every saved computation is real energy not spent. At scale — millions of questions, thousands of users — this becomes a measurable contribution to a problem everyone shares.</p>
+    <div style="display:flex;flex-wrap:wrap;gap:14px;justify-content:center;margin-bottom:20px;" data-reveal>
+      <a class="btn btn-primary" href="/app" style="font-size:16px;padding:16px 32px;">Start free — join the network <span class="arr">→</span></a>
+      <a class="btn btn-ghost" href="#network" style="font-size:15px;padding:15px 24px;">See energy impact</a>
+    </div>
+    <p style="font:400 12px/1.6 var(--font-mono);color:var(--ink-4);letter-spacing:0.02em;" data-reveal>No credit card · Free tier · Opt out of shared recall anytime · A governed intelligence system</p>
+    <div style="margin-top:48px;display:flex;flex-wrap:wrap;gap:32px;justify-content:center;" data-reveal>
+      <div style="text-align:center;">
+        <div style="font:300 36px/1 var(--font-display);letter-spacing:-0.028em;color:var(--ink);" id="close-kwh">—</div>
+        <div style="font:500 10px/1.4 var(--font-mono);letter-spacing:0.1em;text-transform:uppercase;color:var(--ink-3);margin-top:4px;">kWh saved so far</div>
+      </div>
+      <div style="text-align:center;">
+        <div style="font:300 36px/1 var(--font-display);letter-spacing:-0.028em;color:var(--ink);" id="close-hits">—</div>
+        <div style="font:500 10px/1.4 var(--font-mono);letter-spacing:0.1em;text-transform:uppercase;color:var(--ink-3);margin-top:4px;">shared answers delivered</div>
+      </div>
+      <div style="text-align:center;">
+        <div style="font:300 36px/1 var(--font-display);letter-spacing:-0.028em;color:var(--ink);" id="close-pool">—</div>
+        <div style="font:500 10px/1.4 var(--font-mono);letter-spacing:0.1em;text-transform:uppercase;color:var(--ink-3);margin-top:4px;">questions in shared pool</div>
+      </div>
+    </div>
+  </div>
+</section>
+<script>
+// Populate live energy counters across landing page
+(function loadImpact() {
+  fetch('/api/recall/impact').then(r => r.ok ? r.json() : null).then(d => {
+    if (!d) return;
+    const kwh = (d.kwhSaved || 0).toFixed(2);
+    const hits = (d.totalHits || 0).toLocaleString();
+    const pool = (d.uniqueQuestions || 0).toLocaleString();
+    // Hero stat
+    const heroKwh = document.getElementById('hero-kwh-saved');
+    if (heroKwh) heroKwh.textContent = kwh;
+    // Mid-page section
+    const netKwh = document.getElementById('net-kwh');
+    if (netKwh) netKwh.textContent = kwh;
+    const netLbl = document.getElementById('net-kwh-label');
+    if (netLbl) netLbl.textContent = 'kWh saved · ' + hits + ' shared answers delivered';
+    const netDesc = document.getElementById('net-desc');
+    if (netDesc && d.co2KgSaved > 0) netDesc.textContent = (d.co2KgSaved).toFixed(3) + ' kg CO₂ avoided · ' + pool + ' questions in shared pool';
+    // Close section
+    const closeKwh = document.getElementById('close-kwh');
+    if (closeKwh) closeKwh.textContent = kwh;
+    const closeHits = document.getElementById('close-hits');
+    if (closeHits) closeHits.textContent = hits;
+    const closePool = document.getElementById('close-pool');
+    if (closePool) closePool.textContent = pool;
+  }).catch(() => {
+    ['close-kwh','close-hits','close-pool','hero-kwh-saved'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.textContent = id === 'hero-kwh-saved' ? '0' : '0';
+    });
+  });
+})();
+</script>
 
 </main>
 
