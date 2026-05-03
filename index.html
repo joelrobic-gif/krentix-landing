@@ -1,2259 +1,347 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Krentix — Better answers. A fraction of the cost.</title>
-<meta name="description" content="Krentix verifies every answer before you see it. Better results, simpler workflow, far less expensive than any other AI agent.">
-<meta name="theme-color" content="#0f0c0a">
-<meta name="color-scheme" content="dark">
-<meta property="og:title" content="Krentix — Better answers. A fraction of the cost.">
-<meta property="og:description" content="The coding agent that independently verifies every answer before it reaches you. Better. Faster. Simpler. Less expensive.">
+<title>Krentix — Twelve verifiers. One answer.</title>
+<meta name="description" content="Krentix is a local-first AI agent that synthesises an answer through twelve specialised verifiers before it reaches you. Cheaper, calmer, more sovereign than any cloud agent.">
+<meta name="theme-color" content="#1A3A6B">
+<meta name="color-scheme" content="light dark">
+<meta property="og:title" content="Krentix — Twelve verifiers. One answer.">
+<meta property="og:description" content="Local-first AI. Twelve verifiers cross-check every answer before it reaches you. $0.20–0.60 a day, not $30.">
 <meta property="og:type" content="website">
+<meta property="og:url" content="https://www.krentix.com">
 
-<!-- SRI NOTE: Google Fonts URLs dynamically generate CSS per-request (varies by User-Agent,
-     display=swap, subset, etc.) so the response body is non-deterministic — a fixed sha384
-     hash cannot be computed. SRI is not applicable to fonts.googleapis.com or
-     fonts.gstatic.com links. To enforce SRI on fonts, self-host the WOFF2 files and serve
-     them from your own origin with a static integrity hash. -->
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..900&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..900&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" media="print" onload="this.media='all'">
-<noscript>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..900&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
-<style>
-/* if JS is off, show everything immediately — no broken invisible content */
-[data-reveal],.step,.thesis h1 .ln,.divider,.bench tbody tr,
-.thesis .eyebrow::before{
-  opacity:1!important;
-  transform:none!important;
-  width:28px;
-}
-.bench tbody tr.krentix-row th::before{transform:translateY(-50%) scaleY(1)!important}
-.num-anim::before{content:attr(data-count) attr(data-suffix);display:none}
-</style>
-</noscript>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231A3A6B' stroke-linecap='round'%3E%3Cg stroke-width='1'%3E%3Cline x1='2' y1='6' x2='11' y2='11.4'/%3E%3Cline x1='2' y1='8' x2='11' y2='11.6'/%3E%3Cline x1='2' y1='10' x2='11' y2='11.8'/%3E%3Cline x1='2' y1='11.5' x2='11' y2='12'/%3E%3Cline x1='2' y1='12.5' x2='11' y2='12'/%3E%3Cline x1='2' y1='14' x2='11' y2='12.2'/%3E%3Cline x1='2' y1='16' x2='11' y2='12.4'/%3E%3Cline x1='2' y1='18' x2='11' y2='12.6'/%3E%3C/g%3E%3Ccircle cx='12' cy='12' r='1.25' fill='%231A3A6B'/%3E%3Cline x1='13.25' y1='12' x2='22' y2='12' stroke-width='1.8'/%3E%3C/svg%3E">
+<link rel="canonical" href="https://www.krentix.com/">
 
+<link rel="preconnect" href="https://rsms.me" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="https://rsms.me/inter/font-files/InterVariable.woff2" crossorigin>
 <style>
-/* ── tokens ──────────────────────────────────────────────────────────── */
+@font-face{font-family:"InterVariable";font-style:normal;font-weight:100 900;font-display:swap;src:url("https://rsms.me/inter/font-files/InterVariable.woff2") format("woff2-variations");}
+@font-face{font-family:"JetBrainsMonoVariable";font-style:normal;font-weight:100 800;font-display:swap;src:url("https://cdn.jsdelivr.net/gh/JetBrains/JetBrainsMono@2.304/fonts/variable/JetBrainsMono[wght].woff2") format("woff2-variations");}
+
 :root{
-  --bg:#0f0c0a;
-  --surface:#1a1410;
-  --surface-2:#231b15;
-  --rule:rgba(244,234,213,.10);
-  --rule-strong:rgba(244,234,213,.22);
-  --text:#f4ead5;
-  --text-dim:#a89878;
-  --text-faint:#7a6c52;
-  --brand:#d4a017;
-  --brand-warm:#e8b833;
-  --brand-deep:#9a7611;
-
-  --serif:"Fraunces",ui-serif,"Iowan Old Style","Apple Garamond",Georgia,Cambria,"Times New Roman",serif;
-  --sans:"Inter",ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
-  --mono:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,Consolas,monospace;
-
-  --measure:64ch;
-  --col:minmax(0,1fr);
+  --paper:#FAFAF7; --paper-2:#F4F3EE; --paper-3:#EEEDE7;
+  --ink:#14141A; --ink-2:#2E2E36; --ink-3:#525258; --ink-4:#8A8A92;
+  --rule:#E0DEDA; --rule-strong:#C8C6C0;
+  --signal:#1A3A6B; --signal-ink:#FAFAF7; --signal-2:#DCE2EE;
+  --warn:#7A4F10; --ok:#1F5235;
+  --font-display:"InterVariable","Inter",-apple-system,system-ui,sans-serif;
+  --font-body:"InterVariable","Inter",-apple-system,system-ui,sans-serif;
+  --font-mono:"JetBrainsMonoVariable","JetBrains Mono",ui-monospace,monospace;
+  --col:680px; --col-wide:880px;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --paper:#0C0C0F; --paper-2:#15151A; --paper-3:#1D1D22;
+    --ink:#F2F1EC; --ink-2:#C4C3BD; --ink-3:#94938E; --ink-4:#6B6B66;
+    --rule:#2A2A2E; --rule-strong:#3A3A3E;
+    --signal:#8FB1E0; --signal-ink:#0C0C0F; --signal-2:#1F2A40;
+    --warn:#D4A356;
+  }
+}
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation-duration:0.01ms!important;transition-duration:0.01ms!important;scroll-behavior:auto!important;}
 }
 
-/* ── reset (minimal) ─────────────────────────────────────────────────── */
-*,*::before,*::after{box-sizing:border-box}
-html,body{margin:0;padding:0}
-html{background:var(--bg);color:var(--text);-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{background:var(--paper);scroll-behavior:smooth;}
 body{
-  font-family:var(--sans);
-  font-feature-settings:"ss01","cv11","tnum";
-  font-size:16px;
-  line-height:1.5;
-  -webkit-font-smoothing:antialiased;
-  text-rendering:optimizeLegibility;
-}
-img,svg{display:block;max-width:100%}
-
-::selection{background:var(--brand);color:#0f0c0a}
-
-/* hung punctuation + serif tuning where it matters */
-.serif{font-family:var(--serif);font-optical-sizing:auto;hanging-punctuation:first last}
-
-/* ── focus ring (keyboard only, AAA contrast on oak) ─────────────────── */
-:focus{outline:none}
-:focus-visible{
-  outline:2px solid var(--brand-warm);
-  outline-offset:3px;
-  border-radius:2px;
-}
-
-/* ── skip link ───────────────────────────────────────────────────────── */
-.skip{
-  position:absolute;left:-9999px;top:0;
-  background:var(--brand);color:#0f0c0a;
-  padding:.6em 1em;font-weight:600;font-size:.9rem;
-  text-decoration:none;
-}
-.skip:focus{left:1rem;top:1rem;z-index:50}
-
-/* ── shell ───────────────────────────────────────────────────────────── */
-.shell{
-  max-width:1280px;
-  margin:0 auto;
-  padding-inline:clamp(20px,5vw,72px);
-}
-
-/* ── masthead ────────────────────────────────────────────────────────── */
-.mast{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding:28px 0 0;
-  font-size:.78rem;
-  letter-spacing:.16em;
-  text-transform:uppercase;
-  color:var(--text-dim);
-}
-.mast-brand{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  text-decoration:none;
-  color:inherit;
-}
-.mast-brand .logo-icon{
-  width:32px;height:32px;border-radius:6px;
-  background:linear-gradient(145deg,#5b46f5 0%,#3730a3 100%);
-  display:flex;align-items:center;justify-content:center;flex-shrink:0;
-  box-shadow:0 1px 3px rgba(0,0,0,.4),0 1px 2px rgba(0,0,0,.24),inset 0 0 0 1px hsla(243,74%,70%,.20);
-}
-.mast-brand .logo-icon svg{width:22px;height:22px}
-.mast-brand .logo-text{display:flex;flex-direction:column}
-.mast-brand .wordmark{
-  font-family:var(--serif);
-  font-weight:600;
-  font-size:1.05rem;
-  letter-spacing:.04em;
-  text-transform:none;
-  color:var(--text);
-  line-height:1.15;
-}
-.mast-brand .tagline{
-  font-family:var(--serif);
-  font-style:italic;
-  font-weight:400;
-  font-size:10.5px;
-  line-height:1.25;
-  color:var(--text-dim);
-  margin-top:2px;
-  letter-spacing:.01em;
-  white-space:nowrap;
-  text-transform:none;
-}
-.mast nav{display:flex;gap:2.4em}
-.mast a{color:inherit;text-decoration:none}
-.mast a:hover{color:var(--text)}
-
-/* ── section 1 — thesis ──────────────────────────────────────────────── */
-.thesis{
-  padding-top:clamp(72px,14vh,180px);
-  padding-bottom:clamp(96px,16vh,200px);
-  position:relative;
-}
-.thesis .eyebrow{
-  font-family:var(--mono);
-  font-size:.74rem;
-  font-weight:500;
-  letter-spacing:.22em;
-  text-transform:uppercase;
-  color:var(--brand);
-  margin-bottom:clamp(28px,4vh,52px);
-  display:flex;
-  align-items:center;
-  gap:.9em;
-}
-/* eyebrow gold-bar handled in animation utilities below (animates 0 → 28px) */
-
-.thesis h1{
-  font-family:var(--serif);
-  font-weight:380;
-  font-size:clamp(2.6rem,8.4vw,7.2rem);
-  line-height:1.02;
-  letter-spacing:-0.022em;
-  color:var(--text);
-  margin:0;
-  font-variation-settings:"opsz" 144,"SOFT" 30;
-  max-width:18ch;
-  text-wrap:balance;
-}
-.thesis h1 em{
-  font-style:italic;
-  font-weight:340;
-  color:var(--brand-warm);
-  font-variation-settings:"opsz" 144,"SOFT" 100;
-}
-.thesis h1 .twelve{
-  font-feature-settings:"tnum","ss01";
-  font-style:normal;
-}
-
-.thesis .proof{
-  margin-top:clamp(40px,6vh,72px);
-  display:flex;
-  flex-wrap:wrap;
-  align-items:baseline;
-  gap:1em 2.8em;
-  font-family:var(--mono);
-  font-size:.86rem;
-  letter-spacing:.04em;
-  color:var(--text-dim);
-}
-.thesis .proof b{
-  font-family:var(--serif);
-  font-weight:600;
-  font-size:1.4rem;
-  font-feature-settings:"tnum";
-  color:var(--text);
-  margin-right:.4em;
-  letter-spacing:-.01em;
-}
-.thesis .proof span{
-  display:inline-flex;
-  align-items:baseline;
-  gap:.45em;
-}
-.thesis .proof .vs{
-  color:var(--text-faint);
-  font-size:.78rem;
-  letter-spacing:.08em;
-}
-
-.thesis .cta-row{
-  margin-top:clamp(48px,7vh,96px);
-  display:flex;
-  align-items:center;
-  gap:2.2em;
-  flex-wrap:wrap;
-}
-.cta{
-  display:inline-flex;
-  align-items:center;
-  gap:.7em;
-  padding:.95em 1.6em;
-  background:var(--brand);
-  color:#0f0c0a;
-  font-family:var(--sans);
-  font-weight:600;
-  font-size:.98rem;
-  letter-spacing:-.005em;
-  text-decoration:none;
-  border:1px solid var(--brand);
-  border-radius:2px;
-  transition:background-color .2s ease,color .2s ease,border-color .2s ease;
-  will-change:background-color;
-}
-.cta:hover{background:var(--brand-warm);border-color:var(--brand-warm)}
-.cta:focus-visible{outline-offset:4px}
-.cta .arr{font-family:var(--mono);font-weight:400;transform:translateY(-.04em)}
-.cta-quiet{
-  font-family:var(--mono);
-  font-size:.78rem;
-  letter-spacing:.16em;
-  text-transform:uppercase;
-  color:var(--text-faint);
-  text-decoration:none;
-  border-bottom:1px solid var(--rule);
-  padding-bottom:.18em;
-  transition:color .2s ease,border-color .2s ease;
-}
-.cta-quiet:hover{color:var(--text);border-color:var(--rule-strong)}
-
-/* horizontal rule between sections */
-.divider{
-  border:0;
-  height:1px;
-  background:var(--rule);
-  margin:0;
-}
-
-/* ── section 2 — mechanism ───────────────────────────────────────────── */
-.mechanism{
-  padding-top:clamp(64px,10vh,120px);
-  padding-bottom:clamp(64px,10vh,120px);
-}
-.mechanism > .head{
-  display:grid;
-  grid-template-columns:repeat(12,var(--col));
-  gap:24px;
-  margin-bottom:clamp(56px,9vh,112px);
-  align-items:end;
-}
-.mechanism .head .label{
-  grid-column:1 / span 3;
-  font-family:var(--mono);
-  font-size:.74rem;
-  letter-spacing:.22em;
-  text-transform:uppercase;
-  color:var(--text-faint);
-}
-.mechanism .head h2{
-  grid-column:5 / span 8;
-  font-family:var(--serif);
-  font-weight:380;
-  font-size:clamp(1.7rem,3.6vw,2.6rem);
-  line-height:1.18;
-  letter-spacing:-.012em;
-  font-variation-settings:"opsz" 96;
-  max-width:30ch;
-  margin:0;
-  text-wrap:balance;
-}
-
-.steps{
-  display:flex;
-  flex-direction:column;
-  gap:clamp(56px,8vh,96px);
-}
-.step{
-  display:grid;
-  grid-template-columns:repeat(12,var(--col));
-  gap:24px 32px;
-  align-items:start;
-  border-top:1px solid var(--rule);
-  padding-top:clamp(40px,5vh,64px);
-  opacity:0;
-  transform:translateY(12px);
-  transition:opacity .55s cubic-bezier(.2,.6,.2,1),transform .55s cubic-bezier(.2,.6,.2,1);
-}
-.step.in{opacity:1;transform:none}
-.step .num{
-  grid-column:1 / span 3;
-  font-family:var(--serif);
-  font-weight:300;
-  font-size:clamp(4.4rem,9vw,8.4rem);
-  line-height:.86;
-  letter-spacing:-.03em;
-  color:var(--text);
-  font-variation-settings:"opsz" 144;
-  font-feature-settings:"tnum";
-}
-.step .num .dot{color:var(--brand);font-style:normal}
-.step .body{grid-column:5 / span 8;display:flex;flex-direction:column;gap:1.2em}
-.step .body h3{
-  font-family:var(--serif);
-  font-weight:500;
-  font-size:clamp(1.25rem,2.2vw,1.7rem);
-  line-height:1.25;
-  letter-spacing:-.008em;
-  margin:0;
-  color:var(--text);
-  font-variation-settings:"opsz" 48;
-  max-width:28ch;
-  text-wrap:balance;
-}
-.step .body p{
-  margin:0;
-  font-size:1.02rem;
-  line-height:1.62;
-  color:var(--text-dim);
-  max-width:60ch;
-}
-.step .body p strong{color:var(--text);font-weight:500}
-.step .example{
-  margin-top:.4em;
-  padding:18px 22px;
-  background:var(--surface);
-  border-left:2px solid var(--brand);
-  font-family:var(--mono);
-  font-size:.84rem;
-  line-height:1.7;
-  color:var(--text-dim);
-  max-width:60ch;
-  border-radius:0 2px 2px 0;
-}
-.step .example .you{color:var(--text-faint)}
-.step .example .out{color:var(--text)}
-.step .example .pass{color:var(--brand-warm)}
-.step .example .fail{color:#e87a47}
-.step .example .arr{color:var(--text-faint)}
-
-/* ── section 3 — contrast ────────────────────────────────────────────── */
-.contrast{
-  padding-top:clamp(64px,10vh,120px);
-  padding-bottom:clamp(96px,12vh,160px);
-}
-.contrast .grid{
-  display:grid;
-  grid-template-columns:repeat(12,var(--col));
-  gap:32px;
-}
-.contrast .label{
-  grid-column:1 / span 3;
-  font-family:var(--mono);
-  font-size:.74rem;
-  letter-spacing:.22em;
-  text-transform:uppercase;
-  color:var(--text-faint);
-  padding-top:.4em;
-}
-.contrast article{
-  grid-column:5 / span 7;
-  border-top:1px solid var(--rule);
-  padding-top:clamp(28px,4vh,40px);
-}
-.contrast article + article{margin-top:clamp(40px,5vh,56px)}
-.contrast h3{
-  font-family:var(--serif);
-  font-weight:500;
-  font-size:clamp(1.25rem,2vw,1.55rem);
-  line-height:1.3;
-  letter-spacing:-.008em;
-  margin:0 0 .9em;
-  color:var(--text);
-  font-variation-settings:"opsz" 48;
-  max-width:30ch;
-}
-.contrast p{
-  margin:0;
-  font-size:1.02rem;
-  line-height:1.65;
-  color:var(--text-dim);
-  max-width:62ch;
-}
-.contrast p + p{margin-top:1em}
-.contrast p strong{color:var(--text);font-weight:500}
-
-/* ── section 4 — benchmarks ─────────────────────────────────────────── */
-.benchmarks{
-  padding-top:clamp(64px,10vh,120px);
-  padding-bottom:clamp(72px,11vh,140px);
-}
-.benchmarks > .head{
-  display:grid;
-  grid-template-columns:repeat(12,var(--col));
-  gap:24px;
-  margin-bottom:clamp(48px,7vh,88px);
-  align-items:end;
-}
-.benchmarks .head .label{
-  grid-column:1 / span 3;
-  font-family:var(--mono);
-  font-size:.74rem;
-  letter-spacing:.22em;
-  text-transform:uppercase;
-  color:var(--text-faint);
-}
-.benchmarks .head h2{
-  grid-column:5 / span 8;
-  font-family:var(--serif);
-  font-weight:380;
-  font-size:clamp(1.7rem,3.6vw,2.6rem);
-  line-height:1.18;
-  letter-spacing:-.012em;
-  font-variation-settings:"opsz" 96;
-  max-width:32ch;
-  margin:0;
-  text-wrap:balance;
-}
-.bench-wrap{
-  display:grid;
-  grid-template-columns:repeat(12,var(--col));
-  gap:32px;
-  margin-bottom:clamp(40px,6vh,72px);
-}
-.bench{
-  grid-column:5 / span 8;
-  width:100%;
-  border-collapse:collapse;
-  font-feature-settings:"tnum","ss01";
-}
-.bench thead th{
-  font-family:var(--mono);
-  font-size:.7rem;
-  letter-spacing:.18em;
-  text-transform:uppercase;
-  color:var(--text-faint);
-  font-weight:500;
-  text-align:left;
-  padding:0 0 .9em;
-  border-bottom:1px solid var(--rule-strong);
-}
-.bench thead th.num{text-align:right}
-.bench tbody tr{
-  border-bottom:1px solid var(--rule);
-}
-.bench tbody tr:last-child{border-bottom:0}
-.bench tbody th{
-  font-family:var(--serif);
-  font-weight:500;
-  font-size:1rem;
-  text-align:left;
-  padding:1.05em 0;
-  color:var(--text);
-  font-variation-settings:"opsz" 24;
-  vertical-align:baseline;
-}
-.bench tbody td{
-  padding:1.05em 0;
-  font-size:.96rem;
-  color:var(--text-dim);
-  vertical-align:baseline;
-}
-.bench tbody td.num{
-  text-align:right;
-  font-family:var(--mono);
-  color:var(--brand-warm);
-  font-weight:500;
-  font-feature-settings:"tnum";
-  white-space:nowrap;
-}
-.bench .pct{
-  color:var(--text-faint);
-  font-size:.78em;
-  margin-left:.05em;
-}
-.bench-source{
-  grid-column:5 / span 8;
-  margin:0;
-  font-family:var(--mono);
-  font-size:.74rem;
-  letter-spacing:.04em;
-  color:var(--text-faint);
-  margin-top:.6em;
-}
-.bench-source em{font-style:italic;color:var(--text-dim)}
-.bench-note{
-  display:block;
-  max-width:62ch;
-  margin:0 auto;
-  margin-left:calc((100% / 12) * 4 + 8px);
-  font-size:1.02rem;
-  line-height:1.62;
-  color:var(--text-dim);
-  border-left:2px solid var(--brand);
-  padding:.4em 0 .4em 1.4em;
-}
-
-/* ── section 5 — economy (energy & cost) ────────────────────────────── */
-.economy{
-  padding-top:clamp(64px,10vh,120px);
-  padding-bottom:clamp(96px,12vh,160px);
-}
-.economy > .head{
-  display:grid;
-  grid-template-columns:repeat(12,var(--col));
-  gap:24px;
-  margin-bottom:clamp(48px,7vh,88px);
-  align-items:end;
-}
-.economy .head .label{
-  grid-column:1 / span 3;
-  font-family:var(--mono);
-  font-size:.74rem;
-  letter-spacing:.22em;
-  text-transform:uppercase;
-  color:var(--text-faint);
-}
-.economy .head h2{
-  grid-column:5 / span 8;
-  font-family:var(--serif);
-  font-weight:380;
-  font-size:clamp(1.7rem,3.6vw,2.6rem);
-  line-height:1.18;
-  letter-spacing:-.012em;
-  font-variation-settings:"opsz" 96;
-  max-width:30ch;
-  margin:0;
-  text-wrap:balance;
-}
-.econ-list{
-  display:grid;
-  grid-template-columns:repeat(3,minmax(0,1fr));
-  gap:32px 28px;
-  list-style:none;
-  padding:0;
-  margin:0 0 clamp(32px,5vh,56px);
-  border-top:1px solid var(--rule);
-}
-.econ-list li{
-  padding-top:clamp(24px,4vh,40px);
-  border-top:0;
-  display:flex;
-  flex-direction:column;
-  gap:.7em;
-}
-.econ-list .big{
-  font-family:var(--serif);
-  font-weight:300;
-  font-size:clamp(2.6rem,5vw,4rem);
-  line-height:.92;
-  letter-spacing:-.02em;
-  color:var(--text);
-  font-variation-settings:"opsz" 144;
-  margin:0;
-}
-.econ-list .big .alt{
-  font-family:var(--serif);
-  font-weight:300;
-  font-size:.5em;
-  letter-spacing:0;
-  color:var(--text-faint);
-  margin-left:.05em;
-  font-variation-settings:"opsz" 48;
-}
-.econ-list .lbl{
-  font-family:var(--mono);
-  font-size:.74rem;
-  letter-spacing:.14em;
-  text-transform:uppercase;
-  color:var(--brand);
-  margin:0;
-}
-.econ-list .dsc{
-  margin:0;
-  font-size:.96rem;
-  line-height:1.6;
-  color:var(--text-dim);
-}
-.econ-note{
-  display:block;
-  max-width:62ch;
-  margin:0;
-  margin-left:calc((100% / 12) * 4 + 8px);
-  font-size:1.02rem;
-  line-height:1.62;
-  color:var(--text-dim);
-  border-left:2px solid var(--brand);
-  padding:.4em 0 .4em 1.4em;
-}
-
-/* ── footer ──────────────────────────────────────────────────────────── */
-footer{
-  border-top:1px solid var(--rule);
-  padding:36px 0 44px;
-  font-size:.82rem;
-  color:var(--text-faint);
-}
-footer .row{
-  display:flex;
-  align-items:baseline;
-  justify-content:space-between;
-  gap:1.5em;
-  flex-wrap:wrap;
-}
-footer .meta{
-  display:flex;
-  gap:1.6em;
-  flex-wrap:wrap;
-  font-family:var(--mono);
-  letter-spacing:.04em;
-}
-footer a{
-  color:var(--text-dim);
-  text-decoration:none;
-  border-bottom:1px solid var(--rule);
-  padding-bottom:.1em;
-  transition:color .2s ease,border-color .2s ease;
-}
-footer a:hover{color:var(--text);border-color:var(--rule-strong)}
-footer .markk{
-  font-family:var(--serif);
-  font-weight:500;
-  color:var(--text);
-  font-size:.92rem;
-  letter-spacing:.02em;
-}
-
-/* ── responsive ──────────────────────────────────────────────────────── */
-@media (max-width:880px){
-  .mast nav{gap:1.4em;font-size:.72rem}
-  .mast nav a:nth-child(1){display:none} /* hide one nav item, keep three */
-  .mechanism .head{grid-template-columns:1fr}
-  .mechanism .head .label{grid-column:1;margin-bottom:1em}
-  .mechanism .head h2{grid-column:1;font-size:clamp(1.5rem,5.4vw,2.2rem)}
-  .step{grid-template-columns:1fr;gap:18px}
-  .step .num{grid-column:1;font-size:clamp(3.6rem,18vw,5.6rem);line-height:1}
-  .step .body{grid-column:1}
-  .contrast .grid{grid-template-columns:1fr}
-  .contrast .label{grid-column:1;margin-bottom:.6em}
-  .contrast article{grid-column:1}
-  .benchmarks .head{grid-template-columns:1fr}
-  .benchmarks .head .label{grid-column:1;margin-bottom:1em}
-  .benchmarks .head h2{grid-column:1;font-size:clamp(1.5rem,5.4vw,2.2rem)}
-  .bench-wrap{grid-template-columns:1fr}
-  .bench{grid-column:1}
-  .bench-source{grid-column:1}
-  .bench-note{margin-left:0}
-  .economy .head{grid-template-columns:1fr}
-  .economy .head .label{grid-column:1;margin-bottom:1em}
-  .economy .head h2{grid-column:1;font-size:clamp(1.5rem,5.4vw,2.2rem)}
-  .econ-list{grid-template-columns:1fr}
-  .econ-note{margin-left:0}
-}
-@media (max-width:480px){
-  .mast{font-size:.7rem}
-  .mast nav{gap:1.1em}
-  .mast nav a:nth-child(2){display:none} /* on tiny screens drop another */
-  .thesis .eyebrow{font-size:.68rem;letter-spacing:.18em}
-  .thesis .proof{gap:.6em 1.6em;font-size:.78rem}
-  .thesis .proof b{font-size:1.15rem}
-  .cta{width:100%;justify-content:center}
-  .cta-quiet{margin-top:.4em}
-  .step .example{font-size:.78rem;padding:14px 16px}
-  .bench tbody th{font-size:.92rem}
-  .bench tbody td{font-size:.86rem}
-  .bench tbody td.num{font-size:.92rem}
-  .bench thead th{font-size:.62rem;letter-spacing:.14em}
-  .econ-list .big{font-size:clamp(2.2rem,9vw,3rem)}
-}
-
-/* ── animation utilities ─────────────────────────────────────────────── */
-[data-reveal]{
-  opacity:0;
-  transform:translateY(18px);
-  transition:opacity .7s cubic-bezier(.2,.6,.2,1), transform .7s cubic-bezier(.2,.6,.2,1);
-  will-change:opacity, transform;
-}
-[data-reveal].in{ opacity:1; transform:none }
-[data-reveal-stagger="2"]{ transition-delay:.08s }
-[data-reveal-stagger="3"]{ transition-delay:.16s }
-[data-reveal-stagger="4"]{ transition-delay:.24s }
-[data-reveal-stagger="5"]{ transition-delay:.32s }
-[data-reveal-stagger="6"]{ transition-delay:.40s }
-
-.num-anim{
+  background:var(--paper);color:var(--ink);
+  font-family:var(--font-body);font-size:15px;line-height:1.55;letter-spacing:-0.011em;
   font-variant-numeric:tabular-nums;
-  font-feature-settings:"tnum","ss01";
-  display:inline-block;
+  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
 }
+body :where(*){box-shadow:none;}
 
-/* hero headline word/line stagger */
-.thesis h1 .ln{
-  display:block;
-  opacity:0;
-  transform:translateY(14px);
-  transition:opacity .8s cubic-bezier(.2,.6,.2,1), transform .8s cubic-bezier(.2,.6,.2,1);
-}
-.thesis h1.lit .ln{ opacity:1; transform:none }
-.thesis h1.lit .ln:nth-child(1){ transition-delay:0s }
-.thesis h1.lit .ln:nth-child(2){ transition-delay:.12s }
-.thesis h1.lit .ln:nth-child(3){ transition-delay:.24s }
+a{color:var(--signal);text-decoration:underline;text-underline-offset:2px;}
+a:hover{color:var(--ink);}
+:focus-visible{outline:2px solid var(--signal);outline-offset:2px;border-radius:4px;}
+::selection{background:var(--signal-2);color:var(--ink);}
 
-/* divider line draw-in */
-.divider{
-  transform-origin:left center;
-  transform:scaleX(0);
-  transition:transform .9s cubic-bezier(.2,.6,.2,1);
-}
-.divider.in{ transform:scaleX(1) }
+.shell{max-width:1080px;margin:0 auto;padding:0 24px;}
+.col{max-width:var(--col);margin:0 auto;}
+.col-wide{max-width:var(--col-wide);margin:0 auto;}
 
-/* CTA: magnetic translation handled by JS, smooth via transition */
-.cta, .cta-quiet{ will-change:transform }
-.cta{ transition:background .18s ease, border-color .18s ease, transform .22s cubic-bezier(.2,.6,.2,1), color .18s ease }
-
-/* eyebrow gold-bar grow on enter */
-.thesis .eyebrow::before{
-  content:"";
-  display:inline-block;
-  width:0;
-  height:1px;
-  background:var(--brand);
-  vertical-align:middle;
-  margin-right:.9em;
-  transform:translateY(-2px);
-  transition:width .9s cubic-bezier(.2,.6,.2,1) .15s;
-}
-.thesis .eyebrow.lit::before{ width:28px }
-
-/* nav underline shimmer */
-.mast nav a{ position:relative }
-.mast nav a::after{
-  content:"";
-  position:absolute;
-  left:0; right:100%;
-  bottom:-.3em;
-  height:1px;
-  background:var(--brand);
-  transition:right .35s cubic-bezier(.2,.6,.2,1);
-}
-.mast nav a:hover::after, .mast nav a:focus-visible::after{ right:0 }
-
-/* benchmarks table: row reveal stagger */
-.bench tbody tr{
-  opacity:0;
-  transform:translateY(8px);
-  transition:opacity .55s cubic-bezier(.2,.6,.2,1), transform .55s cubic-bezier(.2,.6,.2,1);
-}
-.bench.lit tbody tr{ opacity:1; transform:none }
-.bench.lit tbody tr:nth-child(1){ transition-delay:.04s }
-.bench.lit tbody tr:nth-child(2){ transition-delay:.10s }
-.bench.lit tbody tr:nth-child(3){ transition-delay:.16s }
-.bench.lit tbody tr:nth-child(4){ transition-delay:.22s }
-.bench.lit tbody tr:nth-child(5){ transition-delay:.28s }
-.bench.lit tbody tr:nth-child(6){ transition-delay:.34s }
-.bench.lit tbody tr:nth-child(7){ transition-delay:.40s }
-.bench.lit tbody tr:nth-child(8){ transition-delay:.46s }
-
-/* Krentix-row distinct styling */
-.bench tbody tr.krentix-row{
-  background:linear-gradient(90deg, rgba(212,160,23,.06) 0%, rgba(212,160,23,0) 60%);
-}
-.bench tbody tr.krentix-row th{
-  position:relative;
-}
-.bench tbody tr.krentix-row th::before{
-  content:"";
-  position:absolute;
-  left:-1.2em;
-  top:50%;
-  transform:translateY(-50%) scaleY(0);
-  transform-origin:center;
-  width:3px;
-  height:1.6em;
-  background:var(--brand);
-  transition:transform .5s cubic-bezier(.2,.6,.2,1) .3s;
-}
-.bench.lit tbody tr.krentix-row th::before{ transform:translateY(-50%) scaleY(1) }
-.bench tbody tr.krentix-row td.num{
-  color:var(--brand-warm);
-  font-weight:600;
-}
-.bench tbody td.num.dim{
-  color:var(--text-faint);
-}
-.bench tbody td .src-note{
-  display:block;
-  margin-top:.2em;
-  font-size:.7rem;
-  color:var(--text-faint);
-  letter-spacing:.04em;
-}
-
-/* benchmark lead — big animated headline number */
-.bench-lead{
-  display:grid;
-  grid-template-columns:repeat(12,var(--col));
-  gap:32px 24px;
-  margin-bottom:clamp(40px,6vh,72px);
-  align-items:end;
-  padding-bottom:clamp(28px,4vh,40px);
+/* Header */
+.kx-mast{
+  height:64px;display:flex;align-items:center;justify-content:space-between;
   border-bottom:1px solid var(--rule);
 }
-.bench-lead-score{
-  grid-column:1 / span 5;
+.kx-brand{
+  display:inline-flex;align-items:center;gap:10px;
+  font:500 17px/1 var(--font-display);letter-spacing:-0.022em;
+  color:var(--ink);text-decoration:none;
 }
-.bench-lead .big-num{
-  font-family:var(--serif);
-  font-weight:300;
-  font-size:clamp(4rem,9vw,7rem);
-  line-height:.92;
-  letter-spacing:-.02em;
-  color:var(--text);
-  margin:0;
-  font-variation-settings:"opsz" 144;
+.kx-brand svg{width:20px;height:20px;color:var(--signal);}
+.kx-mast nav{display:flex;gap:24px;}
+.kx-mast nav a{
+  font:400 13px/1 var(--font-body);
+  color:var(--ink-3);text-decoration:none;letter-spacing:-0.011em;
+}
+.kx-mast nav a:hover{color:var(--ink);}
+
+/* Hero */
+.hero{padding:96px 0 64px;}
+.hero h1{
+  font:500 52px/1.08 var(--font-display);letter-spacing:-0.028em;
+  color:var(--ink);margin-bottom:24px;max-width:14ch;
+}
+@media (max-width:720px){.hero h1{font-size:36px;}}
+.hero .sub{
+  font:400 19px/1.5 var(--font-body);letter-spacing:-0.011em;
+  color:var(--ink-2);max-width:54ch;margin-bottom:48px;
+}
+.hero .ctas{display:flex;gap:16px;flex-wrap:wrap;align-items:center;}
+.btn{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:10px 16px;border-radius:4px;border:0;cursor:pointer;
+  font:500 14px/1 var(--font-body);letter-spacing:-0.011em;text-decoration:none;
+  transition:background 120ms cubic-bezier(0.4,0,0.2,1),color 120ms cubic-bezier(0.4,0,0.2,1);
+  min-height:36px;
+}
+.btn-primary{background:var(--signal);color:var(--signal-ink);}
+.btn-primary:hover{background:#14305A;color:var(--signal-ink);}
+@media (prefers-color-scheme:dark){.btn-primary:hover{background:#A6C4EB;}}
+.btn-ghost{background:transparent;color:var(--ink-2);}
+.btn-ghost:hover{color:var(--signal);}
+
+/* Eyebrow */
+.eyebrow{
+  font:500 11px/1 var(--font-body);letter-spacing:0.08em;
+  text-transform:uppercase;color:var(--ink-3);
+  margin-bottom:16px;display:block;
+}
+
+/* Section */
+section{padding:80px 0;border-top:1px solid var(--rule);}
+section h2{
+  font:500 32px/1.15 var(--font-display);letter-spacing:-0.022em;
+  color:var(--ink);margin-bottom:24px;
+}
+section p{
+  font:400 17px/1.55 var(--font-body);
+  color:var(--ink-2);margin-bottom:16px;
+}
+
+/* Comparison table */
+.cmp{
+  width:100%;border-collapse:collapse;
   font-variant-numeric:tabular-nums;
+  font:400 14px/1.5 var(--font-body);
 }
-.bench-lead .big-num .pct{
-  color:var(--brand-warm);
-  font-size:.6em;
-  margin-left:.04em;
-  letter-spacing:0;
-  vertical-align:.06em;
+.cmp th, .cmp td{
+  padding:14px 16px;border-bottom:1px solid var(--rule);text-align:left;
 }
-.bench-lead .big-num.live::after{
-  content:"";
-  display:inline-block;
-  width:.18em;
-  height:.18em;
-  background:var(--brand);
-  border-radius:50%;
-  margin-left:.18em;
-  vertical-align:.18em;
-  animation:livePulse 2.4s cubic-bezier(.4,0,.6,1) infinite;
+.cmp thead th{
+  font:500 11px/1 var(--font-body);letter-spacing:0.08em;
+  text-transform:uppercase;color:var(--ink-3);
 }
-@keyframes livePulse{
-  0%,100%{ box-shadow:0 0 0 0 rgba(212,160,23,.55); opacity:1 }
-  50%{ box-shadow:0 0 0 8px rgba(212,160,23,0); opacity:.6 }
-}
-.bench-lead-label{
-  font-family:var(--mono);
-  font-size:.74rem;
-  letter-spacing:.16em;
-  text-transform:uppercase;
-  color:var(--brand);
-  margin:.7em 0 0;
-}
-.bench-lead-detail{
-  grid-column:7 / span 6;
-  align-self:end;
-}
-.bench-lead-detail p{
-  font-size:1rem;
-  line-height:1.62;
-  color:var(--text-dim);
-  margin:0;
-  max-width:50ch;
-}
-.bench-lead-detail p + p{ margin-top:.85em }
-.bench-lead-detail p strong{ color:var(--text); font-weight:500 }
-.bench-lead-detail .repo-link{
-  font-family:var(--mono);
-  font-size:.78rem;
-  letter-spacing:.06em;
-  color:var(--text);
-  border-bottom:1px solid var(--rule-strong);
-  text-decoration:none;
-  padding-bottom:.1em;
-  transition:color .14s ease, border-color .14s ease;
-}
-.bench-lead-detail .repo-link:hover{
-  color:var(--brand-warm);
-  border-color:var(--brand);
-}
+.cmp tbody td:first-child{color:var(--ink-3);}
+.cmp tbody tr.krentix-row td{background:var(--signal-2);}
+.cmp .num{font-family:var(--font-mono);text-align:right;}
 
-@media (max-width:880px){
-  .bench-lead{ grid-template-columns:1fr; gap:18px }
-  .bench-lead-score, .bench-lead-detail{ grid-column:1 }
+/* How */
+.steps{display:grid;grid-template-columns:1fr;gap:32px;}
+@media(min-width:720px){.steps{grid-template-columns:repeat(4,1fr);gap:32px;}}
+.step .n{
+  font:500 13px/1 var(--font-mono);color:var(--signal);
+  margin-bottom:8px;
 }
+.step h3{font:500 17px/1.3 var(--font-display);letter-spacing:-0.011em;color:var(--ink);margin-bottom:8px;}
+.step p{font:400 14px/1.55 var(--font-body);color:var(--ink-3);margin:0;}
 
-/* economy big numbers — count-up support */
-.econ-list .big{ font-variant-numeric:tabular-nums }
+/* FAQ */
+.faq{display:flex;flex-direction:column;gap:0;border-top:1px solid var(--rule);}
+.faq details{border-bottom:1px solid var(--rule);padding:20px 0;}
+.faq summary{
+  font:500 17px/1.4 var(--font-display);letter-spacing:-0.011em;
+  color:var(--ink);cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;
+}
+.faq summary::-webkit-details-marker{display:none;}
+.faq summary::after{content:"+";color:var(--ink-3);font-weight:400;}
+.faq details[open] summary::after{content:"−";}
+.faq details p{margin-top:12px;color:var(--ink-2);font-size:15px;}
 
-/* ── section 7 — source mode ────────────────────────────────────────── */
-.source{
-  padding-top:clamp(64px,10vh,120px);
-  padding-bottom:clamp(96px,12vh,160px);
+/* Footer */
+.foot{
+  padding:48px 0 64px;border-top:1px solid var(--rule);
+  display:flex;flex-wrap:wrap;gap:32px;justify-content:space-between;align-items:flex-start;
+  color:var(--ink-3);font-size:13px;
 }
-.source > .head{
-  display:grid;
-  grid-template-columns:repeat(12,var(--col));
-  gap:24px;
-  margin-bottom:clamp(28px,4vh,48px);
-  align-items:end;
-}
-.source .head .label{
-  grid-column:1 / span 3;
-  font-family:var(--mono);
-  font-size:.74rem;
-  letter-spacing:.22em;
-  text-transform:uppercase;
-  color:var(--text-faint);
-}
-.source .head h2{
-  grid-column:5 / span 8;
-  font-family:var(--serif);
-  font-weight:380;
-  font-size:clamp(1.7rem,3.6vw,2.6rem);
-  line-height:1.18;
-  letter-spacing:-.012em;
-  font-variation-settings:"opsz" 96;
-  max-width:32ch;
-  margin:0;
-  text-wrap:balance;
-}
-.source .head h2 em{font-style:italic;color:var(--brand-warm);font-weight:400}
-.source-lede{
-  font-size:1.02rem;line-height:1.65;color:var(--text-dim);
-  margin:0 auto;
-  margin-left:calc((100% / 12) * 4 + 8px);
-  max-width:62ch;
-  margin-bottom:clamp(40px,6vh,72px);
-  border-left:2px solid var(--brand);
-  padding:.4em 0 .4em 1.4em;
-}
-.source-lede strong{color:var(--text);font-weight:500}
-.source-lede code{
-  font-family:var(--mono);
-  font-size:.85em;
-  color:var(--brand-warm);
-  background:rgba(212,160,23,.06);
-  padding:.05em .35em;
-  border-radius:1px;
-}
+.foot a{color:var(--ink-3);text-decoration:none;}
+.foot a:hover{color:var(--signal);}
+.foot-group{display:flex;flex-direction:column;gap:6px;}
+.foot-group strong{color:var(--ink-2);font-weight:500;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:6px;}
 
-.source-grid{
-  display:grid;
-  grid-template-columns:repeat(4,minmax(0,1fr));
-  gap:18px;
-  margin:0 0 clamp(40px,6vh,72px);
-}
-.source-card{
-  background:var(--surface);
-  border:1px solid var(--rule);
-  border-radius:2px;
-  padding:22px 22px 26px;
-  display:flex;
-  flex-direction:column;
-  gap:.7em;
-  transition:border-color .25s ease, transform .25s ease;
-}
-.source-card:hover{
-  border-color:var(--rule-strong);
-  transform:translateY(-2px);
-}
-.source-card .src-label{
-  font-family:var(--mono);
-  font-size:.7rem;
-  letter-spacing:.16em;
-  text-transform:uppercase;
-  color:var(--brand);
-  margin:0 0 .2em;
-  font-weight:500;
-  border-bottom:1px solid var(--rule);
-  padding-bottom:.7em;
-}
-.source-card .src-body{
-  font-size:.92rem;
-  line-height:1.55;
-  color:var(--text-dim);
-  margin:0;
-}
-.source-card code{
-  font-family:var(--mono);
-  font-size:.85em;
-  color:var(--brand-warm);
-  background:rgba(212,160,23,.06);
-  padding:.05em .28em;
-  border-radius:1px;
-}
-.source-note{
-  display:block;
-  max-width:78ch;
-  margin:0 auto;
-  margin-left:calc((100% / 12) * 4 + 8px);
-  font-size:1.02rem;
-  line-height:1.62;
-  color:var(--text-dim);
-  border-left:2px solid var(--brand);
-  padding:.4em 0 .4em 1.4em;
-}
-.source-note strong{color:var(--text);font-weight:500}
-.source-note code{
-  font-family:var(--mono);
-  font-size:.85em;
-  color:var(--brand-warm);
-  background:rgba(212,160,23,.06);
-  padding:.05em .35em;
-  border-radius:1px;
-}
+/* Skip link */
+.kx-sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;}
+.skip:focus{position:static;width:auto;height:auto;clip:auto;padding:.6em 1em;background:var(--signal);color:var(--signal-ink);font-weight:500;}
 
-@media (max-width:1100px){
-  .source-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
-}
-@media (max-width:880px){
-  .source .head{grid-template-columns:1fr}
-  .source .head .label{grid-column:1;margin-bottom:1em}
-  .source .head h2{grid-column:1;font-size:clamp(1.5rem,5.4vw,2.2rem)}
-  .source-lede{margin-left:0}
-  .source-note{margin-left:0}
-}
-@media (max-width:640px){
-  .source-grid{grid-template-columns:1fr}
-}
-
-/* ── section 6 — power dial ─────────────────────────────────────────── */
-.dial{
-  padding-top:clamp(64px,10vh,120px);
-  padding-bottom:clamp(96px,12vh,160px);
-}
-.dial > .head{
-  display:grid;
-  grid-template-columns:repeat(12,var(--col));
-  gap:24px;
-  margin-bottom:clamp(28px,4vh,48px);
-  align-items:end;
-}
-.dial .head .label{
-  grid-column:1 / span 3;
-  font-family:var(--mono);
-  font-size:.74rem;
-  letter-spacing:.22em;
-  text-transform:uppercase;
-  color:var(--text-faint);
-}
-.dial .head h2{
-  grid-column:5 / span 8;
-  font-family:var(--serif);
-  font-weight:380;
-  font-size:clamp(1.7rem,3.6vw,2.6rem);
-  line-height:1.18;
-  letter-spacing:-.012em;
-  font-variation-settings:"opsz" 96;
-  max-width:32ch;
-  margin:0;
-  text-wrap:balance;
-}
-.dial .head h2 em{font-style:italic;color:var(--brand-warm);font-weight:400}
-.dial-lede{
-  font-size:1.02rem;line-height:1.65;color:var(--text-dim);
-  margin:0 auto 0;
-  margin-left:calc((100% / 12) * 4 + 8px);
-  max-width:62ch;
-  margin-bottom:clamp(40px,6vh,72px);
-  border-left:2px solid var(--brand);
-  padding:.4em 0 .4em 1.4em;
-}
-.dial-lede strong{color:var(--text);font-weight:500}
-
-.dial-grid{
-  display:grid;
-  grid-template-columns:repeat(4,minmax(0,1fr));
-  gap:18px;
-  margin:0 0 clamp(40px,6vh,72px);
-}
-.dial-tier{
-  background:var(--surface);
-  border:1px solid var(--rule);
-  border-radius:2px;
-  padding:24px 22px 26px;
-  display:flex;
-  flex-direction:column;
-  gap:1.2em;
-  transition:border-color .25s ease, transform .25s ease, background .25s ease;
-}
-.dial-tier:hover{
-  border-color:var(--rule-strong);
-  transform:translateY(-2px);
-}
-.dial-tier--full{
-  border-color:rgba(212,160,23,.35);
-  background:linear-gradient(180deg, rgba(212,160,23,.04), var(--surface));
-}
-.dial-tier--full:hover{
-  border-color:var(--brand);
-}
-.dial-tier--zero{
-  background:linear-gradient(180deg, rgba(244,234,213,.02), var(--surface));
-}
-.dial-tier header{
-  display:flex;
-  flex-direction:column;
-  gap:.4em;
-  border-bottom:1px solid var(--rule);
-  padding-bottom:1em;
-}
-.dial-tier .tier-name{
-  font-family:var(--mono);
-  font-size:.72rem;
-  letter-spacing:.18em;
-  text-transform:uppercase;
-  color:var(--brand);
-  margin:0;
-  display:flex;
-  align-items:baseline;
-  gap:.6em;
-}
-.dial-tier .tier-default{
-  font-family:var(--mono);
-  font-size:.62rem;
-  letter-spacing:.14em;
-  color:var(--text-faint);
-  border:1px solid var(--rule);
-  padding:.1em .4em;
-  border-radius:1px;
-  font-weight:400;
-}
-.dial-tier .tier-price{
-  font-family:var(--serif);
-  font-weight:300;
-  font-size:clamp(2rem,3.4vw,2.8rem);
-  line-height:.95;
-  letter-spacing:-.02em;
-  color:var(--text);
-  font-variation-settings:"opsz" 96;
-  font-variant-numeric:tabular-nums;
-  margin:0;
-}
-.dial-tier .tier-price-unit{
-  font-family:var(--mono);
-  font-size:.36em;
-  font-weight:400;
-  letter-spacing:.04em;
-  color:var(--text-faint);
-  margin-left:.05em;
-  vertical-align:.4em;
-}
-.dial-tier--full .tier-price{color:var(--brand-warm)}
-.dial-tier .tier-tag{
-  font-family:var(--mono);
-  font-size:.72rem;
-  letter-spacing:.06em;
-  color:var(--text-dim);
-  margin:0;
-  text-transform:uppercase;
-}
-.dial-tier .tier-bullets{
-  list-style:none;
-  padding:0;
-  margin:0;
-  display:flex;
-  flex-direction:column;
-  gap:.6em;
-}
-.dial-tier .tier-bullets li{
-  font-size:.86rem;
-  line-height:1.5;
-  color:var(--text-dim);
-  padding-left:1em;
-  position:relative;
-}
-.dial-tier .tier-bullets li::before{
-  content:"·";
-  position:absolute;
-  left:.1em;
-  top:-.05em;
-  color:var(--brand);
-  font-size:1.2em;
-  font-weight:600;
-}
-.dial-tier--full .tier-bullets li::before{color:var(--brand-warm)}
-
-.dial-note{
-  display:block;
-  max-width:78ch;
-  margin:0 auto 0;
-  margin-left:calc((100% / 12) * 4 + 8px);
-  font-size:1.02rem;
-  line-height:1.62;
-  color:var(--text-dim);
-  border-left:2px solid var(--brand);
-  padding:.4em 0 .4em 1.4em;
-}
-.dial-note strong{color:var(--text);font-weight:500}
-.dial-note code{
-  font-family:var(--mono);
-  font-size:.85em;
-  color:var(--brand-warm);
-  background:rgba(212,160,23,.06);
-  padding:.05em .35em;
-  border-radius:1px;
-}
-
-@media (max-width:1100px){
-  .dial-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
-}
-@media (max-width:880px){
-  .dial .head{grid-template-columns:1fr}
-  .dial .head .label{grid-column:1;margin-bottom:1em}
-  .dial .head h2{grid-column:1;font-size:clamp(1.5rem,5.4vw,2.2rem)}
-  .dial-lede{margin-left:0}
-  .dial-note{margin-left:0}
-}
-@media (max-width:640px){
-  .dial-grid{grid-template-columns:1fr}
-}
-
-/* ── reduced motion ──────────────────────────────────────────────────── */
-@media (prefers-reduced-motion:reduce){
-  .step{opacity:1;transform:none;transition:none}
-  [data-reveal]{opacity:1;transform:none;transition:none}
-  .thesis h1 .ln{opacity:1;transform:none;transition:none}
-  .divider{transform:none;transition:none}
-  .bench tbody tr{opacity:1;transform:none;transition:none}
-  .bench tbody tr.krentix-row th::before{transform:translateY(-50%) scaleY(1);transition:none}
-  .thesis .eyebrow::before{width:28px;transition:none}
-  .cta,.cta-quiet,footer a{transition:none}
-  *{animation:none!important}
-  .num-anim{transition:none!important}
-}
-
-/* ── benchmark table — clear separation ─────────────────────────────── */
-.bench table{width:100%;border-collapse:separate;border-spacing:0}
-.bench thead th{
-  font-family:var(--mono);font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;
-  color:var(--text-faint);padding:0 16px 16px;border-bottom:1px solid var(--rule);
-  white-space:nowrap;font-weight:400;
-}
-.bench tbody tr{transition:background .15s ease}
-.bench tbody tr:hover .bench-col-model{background:rgba(244,234,213,.02)}
-
-/* Task column */
-.bench-col-task{text-align:left;min-width:180px;padding:20px 20px 20px 0 !important}
-.bench-task-name{
-  display:block;font-family:var(--sans);font-size:.95rem;
-  font-weight:600;color:var(--text);letter-spacing:-.005em;margin-bottom:4px;
-}
-.bench-task-sub{
-  display:block;font-family:var(--mono);font-size:.7rem;
-  letter-spacing:.1em;color:var(--text-faint);text-transform:uppercase;
-}
-
-/* Krentix score — gold tile, visually dominant */
-.bench-col-krentix{
-  background:rgba(212,160,23,.10);
-  border-left:2px solid var(--brand);
-  border-right:none;
-  text-align:center;
-  padding:20px 28px !important;
-  white-space:nowrap;
-}
-.bench thead .bench-col-krentix{
-  color:var(--brand) !important;
-  background:rgba(212,160,23,.06);
-  border-top:2px solid var(--brand);
-  border-radius:4px 4px 0 0;
-}
-.bench-krentix-score{
-  font-family:var(--serif);font-size:2rem;font-weight:700;
-  color:var(--brand);letter-spacing:-.03em;line-height:1;
-}
-.bench-krentix-score .pct{font-size:1rem;font-weight:400;opacity:.7}
-
-/* Separator column — vertical visual gap */
-.bench-col-sep{
-  width:32px;min-width:32px;
-  background:transparent;
-  border-left:1px solid var(--rule);
-  padding:0 !important;
-}
-.bench thead .bench-col-sep{border-bottom:none;background:transparent}
-
-/* Competitor model columns */
-.bench-col-model{
-  text-align:center;padding:20px 16px !important;
-  border-right:1px solid var(--rule);
-  background:var(--bg);
-}
-.bench thead .bench-col-model{color:var(--text-faint) !important}
-.bench-rival-score{
-  font-family:var(--mono);font-size:1.05rem;
-  color:var(--text-dim);letter-spacing:-.01em;
-}
-.bench-rival-score .pct{font-size:.8rem;opacity:.7}
-
-/* Delta column — gold lead indicator */
-.bench-col-delta{
-  text-align:center;padding:20px 16px 20px 24px !important;
-  white-space:nowrap;
-}
-.bench-delta-val{
-  font-family:var(--mono);font-size:.85rem;font-weight:600;
-  color:var(--brand);letter-spacing:.04em;
-  background:rgba(212,160,23,.10);
-  padding:4px 10px;border-radius:999px;
-  border:1px solid rgba(212,160,23,.3);
-  display:inline-block;
-}
-.bench-delta-val .pct{font-size:.7rem;opacity:.8}
-
-@media(max-width:720px){
-  /* Mobile: show only Task + Krentix + Lead — hide all competitor cols + separator */
-  .bench-col-sep,
-  .bench-col-model{display:none}
-  .bench-col-krentix{border-right:none}
-  .bench-col-task{min-width:0}
-  .bench-krentix-score{font-size:1.5rem}
-}
-
-/* ── thesis VP sub-statement ─────────────────────────────────────────── */
-.thesis-vp{
-  margin-top:clamp(24px,3.5vh,44px);
-  font-family:var(--sans);
-  font-size:clamp(1rem,1.8vw,1.22rem);
-  line-height:1.6;
-  color:var(--text-dim);
-  max-width:52ch;
-}
-.thesis-vp br{display:block;margin-top:.25em}
-
-/* ── value proposition grid ──────────────────────────────────────────── */
-.vp-grid{
-  padding-top:clamp(64px,10vh,112px);
-  padding-bottom:clamp(64px,10vh,112px);
-}
-.vp-intro{
-  margin-bottom:clamp(48px,7vh,80px);
-}
-.vp-intro .label{
-  font-family:var(--mono);
-  font-size:.74rem;
-  letter-spacing:.22em;
-  text-transform:uppercase;
-  color:var(--text-faint);
-  margin:0 0 16px;
-}
-.vp-intro h2{
-  font-family:var(--serif);
-  font-weight:380;
-  font-size:clamp(1.8rem,3.8vw,2.8rem);
-  line-height:1.15;
-  letter-spacing:-.015em;
-  margin:0;
-  color:var(--text);
-  font-variation-settings:"opsz" 96;
-  max-width:24ch;
-}
-.vp-intro h2 em{
-  color:var(--brand-warm);
-  font-style:italic;
-}
-.vp-cards{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:1px;
-  background:var(--rule);
-  border:1px solid var(--rule);
-  border-radius:8px;
-  overflow:hidden;
-}
-.vp-card{
-  background:var(--bg);
-  padding:clamp(28px,3.5vw,48px);
-  transition:background .18s ease;
-}
-.vp-card:hover{background:var(--surface)}
-.vp-icon{
-  font-size:1.4rem;
-  margin-bottom:18px;
-  color:var(--brand);
-  font-family:var(--mono);
-  line-height:1;
-}
-.vp-card h3{
-  font-family:var(--serif);
-  font-weight:500;
-  font-size:1.12rem;
-  color:var(--text);
-  margin:0 0 12px;
-  letter-spacing:-.005em;
-  line-height:1.25;
-}
-.vp-card p{
-  font-size:.9rem;
-  color:var(--text-dim);
-  line-height:1.65;
-  margin:0;
-}
-@media(max-width:768px){
-  .vp-cards{grid-template-columns:1fr}
-}
-@media(min-width:769px) and (max-width:1024px){
-  .vp-cards{grid-template-columns:repeat(2,1fr)}
-}
-
-/* ── thesis reassurance line ─────────────────────────────────────────── */
-.thesis-reassurance{font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;color:var(--text-faint);margin-top:clamp(16px,2vh,24px);text-align:left}
-
-/* ── product demo mockup ─────────────────────────────────────────────── */
-.product-demo{
-  max-width:860px;margin:60px auto 0;
-  border-radius:12px;overflow:hidden;
-  border:1px solid rgba(212,160,23,.28);
-  box-shadow:0 0 0 1px rgba(212,160,23,.10),0 24px 64px rgba(0,0,0,.55),0 0 40px rgba(212,160,23,.06);
-}
-.product-demo__chrome{
-  background:#1a1a1a;
-  border-bottom:1px solid #2d2d2d;
-  padding:10px 14px;
-  display:flex;align-items:center;gap:12px;
-}
-.product-demo__dots{display:flex;gap:6px;flex-shrink:0}
-.product-demo__dot{width:12px;height:12px;border-radius:50%}
-.product-demo__dot--r{background:#ff5f57}
-.product-demo__dot--y{background:#febc2e}
-.product-demo__dot--g{background:#28c840}
-.product-demo__urlbar{
-  flex:1;background:#111;border-radius:6px;
-  padding:5px 12px;
-  font-family:var(--mono);font-size:.7rem;
-  color:#555;letter-spacing:.04em;
-  border:1px solid #2a2a2a;
-  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
-}
-.product-demo__app{
-  display:flex;
-  background:#0d0d0d;
-  min-height:320px;
-}
-.product-demo__sidebar{
-  width:52px;min-width:52px;
-  background:#111;
-  border-right:1px solid #1e1e1e;
-  display:flex;flex-direction:column;align-items:center;
-  padding:16px 0;gap:14px;
-}
-.product-demo__sidebar-icon{
-  width:28px;height:28px;border-radius:7px;
-  background:#1c1c1c;border:1px solid #2a2a2a;
-  display:flex;align-items:center;justify-content:center;
-  font-size:.75rem;color:#444;
-}
-.product-demo__sidebar-icon--active{
-  background:rgba(212,160,23,.12);
-  border-color:rgba(212,160,23,.3);
-  color:var(--brand);
-}
-.product-demo__chat{
-  flex:1;display:flex;flex-direction:column;
-  padding:28px 32px 24px;gap:20px;
-  overflow:hidden;
-}
-.product-demo__msg{
-  display:flex;gap:12px;align-items:flex-start;
-  max-width:680px;
-}
-.product-demo__msg--user{
-  align-self:flex-end;flex-direction:row-reverse;
-}
-.product-demo__avatar{
-  width:30px;height:30px;min-width:30px;border-radius:50%;
-  display:flex;align-items:center;justify-content:center;
-  font-size:.65rem;font-weight:700;letter-spacing:.03em;
-  flex-shrink:0;
-}
-.product-demo__avatar--user{
-  background:rgba(212,160,23,.18);
-  color:var(--brand);
-  border:1px solid rgba(212,160,23,.3);
-}
-.product-demo__avatar--ai{
-  background:#1a1a1a;
-  border:1px solid #2d2d2d;
-  color:#666;
-}
-.product-demo__bubble{
-  background:#161616;
-  border:1px solid #242424;
-  border-radius:10px;
-  padding:12px 16px;
-  font-family:var(--sans);font-size:.82rem;line-height:1.55;
-  color:#bbb;
-  max-width:520px;
-}
-.product-demo__bubble--user{
-  background:rgba(212,160,23,.09);
-  border-color:rgba(212,160,23,.22);
-  color:#d4a017;
-  font-size:.82rem;
-}
-.product-demo__response-header{
-  display:flex;align-items:center;gap:8px;margin-bottom:8px;flex-wrap:wrap;
-}
-.product-demo__badge{
-  display:inline-flex;align-items:center;gap:4px;
-  background:rgba(34,197,94,.1);
-  border:1px solid rgba(34,197,94,.28);
-  color:#22c55e;
-  border-radius:999px;
-  padding:2px 8px;
-  font-family:var(--mono);font-size:.63rem;font-weight:600;letter-spacing:.06em;
-}
-.product-demo__copy-btn{
-  margin-left:auto;
-  background:#1c1c1c;border:1px solid #2d2d2d;
-  border-radius:6px;padding:3px 9px;
-  font-family:var(--mono);font-size:.63rem;color:#555;
-  cursor:default;letter-spacing:.04em;
-}
-.product-demo__response-text{font-size:.82rem;line-height:1.58;color:#a8a8a8}
-.product-demo__response-list{
-  margin:8px 0 0 4px;padding:0;list-style:none;
-  display:flex;flex-direction:column;gap:5px;
-}
-.product-demo__response-list li{
-  display:flex;gap:7px;font-size:.8rem;color:#888;
-  align-items:baseline;
-}
-.product-demo__response-list li::before{
-  content:'→';color:rgba(212,160,23,.5);flex-shrink:0;font-size:.72rem;
-}
-@media(max-width:680px){
-  .product-demo{max-width:100%;margin:40px 0 0}
-  .product-demo__chat{padding:18px 16px 18px}
-  .product-demo__bubble{font-size:.78rem}
-  .product-demo__sidebar{display:none}
-}
-
-/* ── mobile nav ─────────────────────────────────────────────────────── */
-@media(max-width:640px){
-  .mast nav{display:none}
-  .mast-hamburger{display:flex}
-}
-.mast-hamburger{display:none;background:none;border:none;color:var(--brand);font-size:20px;cursor:pointer;padding:4px 8px;border-radius:6px;transition:background .15s}
-.mast-hamburger:hover{background:rgba(212,160,23,.1)}
-.mobile-nav-drawer{display:none;position:fixed;top:0;left:0;right:0;background:var(--surface);border-bottom:1px solid var(--border2);z-index:200;padding:20px;flex-direction:column;gap:0;box-shadow:0 8px 32px rgba(0,0,0,.4);animation:slideDown .2s ease-out}
-.mobile-nav-drawer.open{display:flex}
-@keyframes slideDown{from{transform:translateY(-100%);opacity:0}to{transform:translateY(0);opacity:1}}
-.mobile-nav-close{align-self:flex-end;background:none;border:none;color:var(--dim);font-size:24px;cursor:pointer;padding:0 4px;margin-bottom:8px}
-.mobile-nav-link{padding:14px 0;font-family:var(--mono);font-size:.78rem;letter-spacing:.18em;text-transform:uppercase;color:var(--text2);text-decoration:none;border-bottom:1px solid var(--rule);display:block;transition:color .15s}
-.mobile-nav-link:hover,.mobile-nav-link:last-child{border-bottom:none}
-.mobile-nav-link:hover{color:var(--brand)}
-.mobile-nav-cta{margin-top:12px;padding:12px 20px;background:var(--brand);color:#0f0c0a;border-radius:4px;text-align:center;font-family:var(--mono);font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;font-weight:700;text-decoration:none}
-
-/* ── print ───────────────────────────────────────────────────────────── */
+/* Print */
 @media print{
-  html,body{background:#fff;color:#000}
-  .cta,.cta-quiet,.mast nav{display:none}
-  .step{opacity:1;transform:none;border-color:#999}
+  .kx-mast, .foot, .hero .ctas{display:none!important;}
+  body{background:white;color:black;}
+  section{padding:32px 0;break-inside:avoid;}
 }
 </style>
 </head>
 <body>
 
-<a class="skip" href="#thesis">Skip to content</a>
+<a class="skip kx-sr-only" href="#main">Skip to content</a>
 
 <div class="shell">
-
-<header class="mast" role="banner">
-  <a class="mast-brand" href="/" aria-label="Krentix home">
-    <div class="logo-icon"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#fff" stroke-linecap="round" stroke-linejoin="round">
-      <polyline points="3,20 12,14 21,20" stroke-width="2" opacity="0.35"/>
-      <polyline points="4.5,15 12,9.5 19.5,15" stroke-width="2" opacity="0.65"/>
-      <polyline points="6,10.5 12,5 18,10.5" stroke-width="2.2" opacity="1"/>
-    </svg></div>
-    <div class="logo-text">
-      <span class="wordmark">Krentix</span>
-      <span class="tagline">Sharper with every run</span>
-    </div>
-  </a>
-  <nav aria-label="Primary">
-    <a href="#mechanism">How it works</a>
-    <a href="#benchmarks">Results</a>
-    <a href="#dial">Pricing</a>
-    <a href="#source">Source mode</a>
-    <a href="/app">Try free</a>
-  </nav>
-  <button class="mast-hamburger" aria-label="Open navigation" aria-expanded="false" onclick="toggleMobileNav()">☰</button>
-</header>
-
-<nav class="mobile-nav-drawer" id="mobileNavDrawer" aria-label="Mobile navigation">
-  <button class="mobile-nav-close" aria-label="Close navigation" onclick="toggleMobileNav()">✕</button>
-  <a class="mobile-nav-link" href="#mechanism" onclick="toggleMobileNav()">How it works</a>
-  <a class="mobile-nav-link" href="#benchmarks" onclick="toggleMobileNav()">Results</a>
-  <a class="mobile-nav-link" href="#dial" onclick="toggleMobileNav()">Pricing</a>
-  <a class="mobile-nav-link" href="#source" onclick="toggleMobileNav()">Source mode</a>
-  <a class="mobile-nav-cta" href="/app" onclick="toggleMobileNav()">Try free</a>
-</nav>
-
-<main id="thesis">
-
-<!-- ─────────────────────────────────────────────────────────────────── -->
-<!-- 1. THESIS                                                            -->
-<!-- ─────────────────────────────────────────────────────────────────── -->
-<section class="thesis serif" aria-labelledby="thesis-heading">
-  <p class="eyebrow" data-lit-on-load>What if competing AI models worked as a team?</p>
-
-  <h1 id="thesis-heading" data-lit-on-load>
-    <span class="ln">Better answers.</span>
-    <span class="ln">Simpler, faster work.</span>
-    <span class="ln"><em>A fraction of the cost.</em></span>
-  </h1>
-
-  <p class="thesis-vp" data-reveal>
-    Every other AI tool optimizes for generating an answer.<br>
-    Krentix optimizes for getting it right &mdash; at the lowest possible cost to you.
-  </p>
-
-  <p class="proof" data-reveal>
-    <span><b><span class="num-anim" data-count="97.0" data-decimals="1">0.0</span><small style="font-size:.62em;letter-spacing:.04em">%</small></b><span class="vs">coding accuracy &middot; verified</span></span>
-    <span><b><span class="num-anim" data-count="97.5" data-decimals="1">0.0</span><small style="font-size:.62em;letter-spacing:.04em">%</small></b><span class="vs">math accuracy &middot; verified</span></span>
-    <span><b>$<span class="num-anim" data-count="0.20" data-decimals="2">0.00</span></b><span class="vs">per day &middot; less than a coffee</span></span>
-  </p>
-
-  <p class="cta-row" data-reveal data-reveal-stagger="2">
-    <a class="cta" href="/app" data-cta="primary">
-      Try Krentix free
-      <span class="arr" aria-hidden="true">&rarr;</span>
+  <header class="kx-mast" role="banner">
+    <a class="kx-brand" href="/" aria-label="Krentix">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" aria-hidden="true">
+        <g stroke-width="1">
+          <line x1="2" y1="6" x2="11" y2="11.4"/>
+          <line x1="2" y1="8" x2="11" y2="11.6"/>
+          <line x1="2" y1="10" x2="11" y2="11.8"/>
+          <line x1="2" y1="11.5" x2="11" y2="12"/>
+          <line x1="2" y1="12.5" x2="11" y2="12"/>
+          <line x1="2" y1="14" x2="11" y2="12.2"/>
+          <line x1="2" y1="16" x2="11" y2="12.4"/>
+          <line x1="2" y1="18" x2="11" y2="12.6"/>
+        </g>
+        <circle cx="12" cy="12" r="1.25" fill="currentColor"/>
+        <line x1="13.25" y1="12" x2="22" y2="12" stroke-width="1.8"/>
+      </svg>
+      Krentix
     </a>
-    <a class="cta-quiet" href="#values">Why Krentix</a>
-    <a class="cta-quiet" href="#benchmarks">See&nbsp;results</a>
-  </p>
+    <nav aria-label="Primary">
+      <a href="#how">How it works</a>
+      <a href="#compare">vs Claude Code</a>
+      <a href="#faq">FAQ</a>
+      <a href="https://github.com/joelrobic-gif/krentix">GitHub</a>
+    </nav>
+  </header>
 
-  <p class="thesis-reassurance" data-reveal>No credit card required &nbsp;·&nbsp; Free tier available &nbsp;·&nbsp; Works in your browser</p>
-
-  <!-- ── Product demo mockup ── -->
-  <div class="product-demo" data-reveal aria-label="Krentix app preview" role="img">
-    <!-- Browser chrome -->
-    <div class="product-demo__chrome">
-      <div class="product-demo__dots" aria-hidden="true">
-        <span class="product-demo__dot product-demo__dot--r"></span>
-        <span class="product-demo__dot product-demo__dot--y"></span>
-        <span class="product-demo__dot product-demo__dot--g"></span>
+  <main id="main">
+    <section class="hero">
+      <span class="eyebrow">Local-first AI · v2.0</span>
+      <h1>Twelve verifiers. One answer.</h1>
+      <p class="sub">Krentix synthesises an answer through twelve specialised verifiers before it reaches you. Calmer, cheaper, more sovereign than any cloud agent. Runs on your own machine for $0.20–0.60 a day.</p>
+      <div class="ctas">
+        <a class="btn btn-primary" href="https://github.com/joelrobic-gif/krentix#install">Install</a>
+        <a class="btn btn-ghost" href="#how">How it works →</a>
       </div>
-      <div class="product-demo__urlbar" aria-hidden="true">krentix.com/app</div>
-    </div>
-    <!-- App shell -->
-    <div class="product-demo__app">
-      <!-- Thin left sidebar -->
-      <nav class="product-demo__sidebar" aria-hidden="true">
-        <div class="product-demo__sidebar-icon product-demo__sidebar-icon--active">K</div>
-        <div class="product-demo__sidebar-icon">☰</div>
-        <div class="product-demo__sidebar-icon">⋯</div>
-      </nav>
-      <!-- Chat area -->
-      <div class="product-demo__chat" aria-hidden="true">
-        <!-- User message -->
-        <div class="product-demo__msg product-demo__msg--user">
-          <div class="product-demo__avatar product-demo__avatar--user">You</div>
-          <div class="product-demo__bubble product-demo__bubble--user">
-            What are the pros and cons of solar panels for a home?
-          </div>
+    </section>
+
+    <section id="compare">
+      <span class="eyebrow">Comparison</span>
+      <h2>Krentix vs Claude Code</h2>
+      <table class="cmp" aria-label="Krentix vs Claude Code comparison">
+        <thead>
+          <tr><th>Dimension</th><th>Claude Code</th><th>Krentix</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Daily cost (typical)</td><td class="num">$5 – $30</td><td class="num">$0.20 – $0.60</td></tr>
+          <tr><td>Where it runs</td><td>Cloud only</td><td>Your machine</td></tr>
+          <tr><td>Verification per answer</td><td>1 model</td><td>12 verifiers + constitutional ensemble</td></tr>
+          <tr class="krentix-row"><td>Audit trail</td><td>Opaque</td><td>Provenance per request</td></tr>
+          <tr><td>Hard daily cap</td><td>None</td><td>$2.00 enforced</td></tr>
+          <tr><td>Refusal authority</td><td>Vendor policy</td><td>Three-model constitutional vote, weights you set</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="how">
+      <span class="eyebrow">How it works</span>
+      <h2>One pipeline, twelve cross-checks.</h2>
+      <p style="margin-bottom:48px;max-width:60ch;">Every request runs through specialised exit branches: tool use, council debate, vision panel, constitutional refusal review, crystal cache, instinct match, full ensemble. The cheapest route that solves the question wins. The expensive routes only fire when they have to.</p>
+      <div class="steps">
+        <div class="step">
+          <div class="n">01</div>
+          <h3>Triage</h3>
+          <p>Constitutional ensemble screens for sensitive intent before any model runs.</p>
         </div>
-        <!-- Krentix response -->
-        <div class="product-demo__msg">
-          <div class="product-demo__avatar product-demo__avatar--ai">K</div>
-          <div class="product-demo__bubble">
-            <div class="product-demo__response-header">
-              <span class="product-demo__badge">✓ Verified</span>
-              <span class="product-demo__copy-btn">Copy</span>
-            </div>
-            <p class="product-demo__response-text">Solar panels can significantly reduce electricity bills and your carbon footprint, but come with upfront costs and variable output.</p>
-            <ul class="product-demo__response-list">
-              <li>Lower long-term energy costs — typical payback in 6–10 years</li>
-              <li>Increases home resale value by 3–4% on average</li>
-              <li>Output depends on roof orientation, shading, and local climate</li>
-              <li>Installation cost: $15–25k before incentives; federal tax credit up to 30%</li>
-            </ul>
-          </div>
+        <div class="step">
+          <div class="n">02</div>
+          <h3>Route</h3>
+          <p>Pipeline picks the cheapest exit branch that can solve the question with high confidence.</p>
+        </div>
+        <div class="step">
+          <div class="n">03</div>
+          <h3>Verify</h3>
+          <p>Twelve verifiers cross-check the candidate. Disagreement triggers escalation, not silence.</p>
+        </div>
+        <div class="step">
+          <div class="n">04</div>
+          <h3>Ship</h3>
+          <p>Answer streams under two seconds. Provenance trail logged. Cost recorded against the daily cap.</p>
         </div>
       </div>
-    </div>
-  </div>
-</section>
+    </section>
 
-<hr class="divider" aria-hidden="true">
-
-<!-- ─────────────────────────────────────────────────────────────────── -->
-<!-- 2. RESULTS — benchmarks moved to position 2 (immediately after hero) -->
-<!-- ─────────────────────────────────────────────────────────────────── -->
-<section class="benchmarks" id="benchmarks" aria-labelledby="benchmarks-heading">
-  <div class="head" data-reveal>
-    <p class="label">Results &middot; April&nbsp;2026</p>
-    <h2 id="benchmarks-heading" class="serif">
-      Real numbers. Independently verifiable. Krentix scores above every major AI on public coding and math benchmarks.
-    </h2>
-  </div>
-
-  <!-- Krentix lead — animated headline score -->
-  <div class="bench-lead" data-reveal>
-    <div class="bench-lead-score">
-      <p class="big-num" id="krentix-humaneval-score">
-        <span class="num-anim" data-count="97.0" data-decimals="1" id="krentix-humaneval-pct">0.0</span><span class="pct">%</span>
-      </p>
-      <p class="bench-lead-label">Krentix &middot; HumanEval pass@1 &middot; <span id="krentix-humaneval-fraction">159&nbsp;/&nbsp;164</span></p>
-    </div>
-    <div class="bench-lead-detail">
-      <p>
-        <strong id="krentix-humaneval-passed">159</strong> of 164 real coding problems
-        solved correctly &mdash; automatically verified against test suites Krentix had never seen.
-        No cherry-picking, no human review after the fact.
-      </p>
-      <p>
-        Tested against a public, standardized benchmark used across the AI industry. Results are reproducible &mdash;
-        <a class="repo-link" href="https://github.com/joelrobic-gif/krentix-landing/tree/main/bench" rel="noopener">the test harness is open</a>
-        if you want to run it yourself.
-      </p>
-    </div>
-  </div>
-
-  <div class="bench-wrap" data-reveal>
-    <table class="bench" aria-label="Krentix vs top AI models, April 2026">
-      <thead>
-        <tr>
-          <th scope="col" class="bench-col-task">Task</th>
-          <th scope="col" class="bench-col-krentix">Krentix</th>
-          <th scope="col" class="bench-col-sep"></th>
-          <th scope="col" class="bench-col-model">Claude Opus 4.7</th>
-          <th scope="col" class="bench-col-model">GPT&#8209;5.5</th>
-          <th scope="col" class="bench-col-model">Gemini 3.1 Pro</th>
-          <th scope="col" class="bench-col-delta">Lead</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr class="krentix-row">
-          <th scope="row">
-            <span class="bench-task-name">Coding accuracy</span>
-            <span class="bench-task-sub">HumanEval &middot; pass@1 &middot; 164 problems</span>
-          </th>
-          <td class="bench-col-krentix bench-krentix-score">
-            <span class="num-anim" data-count="97.0" data-decimals="1">0.0</span><span class="pct">%</span>
-          </td>
-          <td class="bench-col-sep"></td>
-          <td class="bench-col-model bench-rival-score">96<span class="pct">%</span></td>
-          <td class="bench-col-model bench-rival-score">96<span class="pct">%</span></td>
-          <td class="bench-col-model bench-rival-score">95<span class="pct">%</span></td>
-          <td class="bench-col-delta bench-delta-val">+1–2<span class="pct">pp</span></td>
-        </tr>
-        <tr class="krentix-row">
-          <th scope="row">
-            <span class="bench-task-name">Math accuracy</span>
-            <span class="bench-task-sub">GSM8K &middot; 1,319 test problems &middot; chain-of-thought</span>
-          </th>
-          <td class="bench-col-krentix bench-krentix-score">
-            <span class="num-anim" data-count="97.5" data-decimals="1">0.0</span><span class="pct">%</span>
-          </td>
-          <td class="bench-col-sep"></td>
-          <td class="bench-col-model bench-rival-score">96.4<span class="pct">%</span></td>
-          <td class="bench-col-model bench-rival-score">96.1<span class="pct">%</span></td>
-          <td class="bench-col-model bench-rival-score">95.8<span class="pct">%</span></td>
-          <td class="bench-col-delta bench-delta-val">+1.1–1.7<span class="pct">pp</span></td>
-        </tr>
-      </tbody>
-    </table>
-    <p class="bench-source">
-      Krentix scores measured on the public datasets. Competitor scores: Artificial Analysis live leaderboards, April&nbsp;2026.
-      <a class="repo-link" href="https://github.com/joelrobic-gif/krentix-landing/tree/main/bench" rel="noopener">Test harness is open</a> &mdash; clone, run, your numbers should match within sampling variance.
-    </p>
-  </div>
-
-  <p class="bench-note" data-reveal>
-    <strong>Higher than Claude. Higher than GPT. Higher than Gemini.</strong> Every answer is checked independently before you see it. An answer that hasn&rsquo;t been verified can&rsquo;t ship.
-  </p>
-</section>
-
-<hr class="divider" aria-hidden="true">
-
-<!-- ─────── VALUE PROPOSITION GRID ─────── -->
-<section class="vp-grid" id="values" aria-label="Why Krentix">
-  <div class="vp-intro" data-reveal>
-    <p class="label">Why Krentix</p>
-    <h2 class="serif">Everything other AI tools get wrong.<br><em>Krentix gets right.</em></h2>
-  </div>
-  <div class="vp-cards">
-    <div class="vp-card" data-reveal>
-      <div class="vp-icon">✓</div>
-      <h3>Verified, not just generated</h3>
-      <p>Every answer is independently checked before it reaches you. Wrong answers don&rsquo;t ship. You never have to wonder if it&rsquo;s right &mdash; or waste time finding out it wasn&rsquo;t.</p>
-    </div>
-    <div class="vp-card" data-reveal data-reveal-stagger="1">
-      <div class="vp-icon">$</div>
-      <h3>From $0.20 a day</h3>
-      <p>Depth of review matches complexity of the task. Simple questions are instant and free. You never pay top rates for a quick answer. Free tier uses real AI &mdash; not a stripped demo.</p>
-    </div>
-    <div class="vp-card" data-reveal data-reveal-stagger="2">
-      <div class="vp-icon">⚡</div>
-      <h3>Fast when you need it</h3>
-      <p>Sub-second fast path for simple queries. Deep review when the stakes are high. Repeated patterns cached &mdash; instant, zero cost, every time after the first.</p>
-    </div>
-    <div class="vp-card" data-reveal data-reveal-stagger="3">
-      <div class="vp-icon">◎</div>
-      <h3>You control the power level</h3>
-      <p>Four levels from free to maximum. Dial up for critical work, dial down for everyday tasks. No other AI agent gives you this. Cursor, Copilot, and ChatGPT bill you maximum on everything.</p>
-    </div>
-    <div class="vp-card" data-reveal data-reveal-stagger="4">
-      <div class="vp-icon">∞</div>
-      <h3>Works for anything</h3>
-      <p>Coding, research, writing, math, web search, document analysis &mdash; Krentix is not locked to one use case, one model, or one way of working. Ask it anything.</p>
-    </div>
-    <div class="vp-card" data-reveal data-reveal-stagger="5">
-      <div class="vp-icon">↑</div>
-      <h3>Gets smarter every day</h3>
-      <p>Krentix runs improvement cycles overnight and learns your patterns while you sleep. Every morning it&rsquo;s sharper than the day before &mdash; without you doing anything.</p>
-    </div>
-  </div>
-</section>
-
-<hr class="divider" aria-hidden="true">
-
-<!-- ─────────────────────────────────────────────────────────────────── -->
-<!-- 2. MECHANISM                                                         -->
-<!-- ─────────────────────────────────────────────────────────────────── -->
-<section class="mechanism" id="mechanism" aria-labelledby="mechanism-heading">
-  <div class="head" data-reveal>
-    <p class="label">How it works</p>
-    <h2 id="mechanism-heading" class="serif">
-      Most coding agents give you their first answer. Krentix gives you the best answer &mdash; verified before you ever see it.
-    </h2>
-  </div>
-
-  <ol class="steps" role="list">
-
-    <li class="step" id="step-1">
-      <div class="num serif" aria-hidden="true">01<span class="dot">.</span></div>
-      <div class="body">
-        <h3 class="serif">You ask. Krentix figures out the right approach &mdash; automatically.</h3>
-        <p>A simple question gets a fast, focused answer. A high-stakes change gets the full treatment. <strong>Every task is handled at the level it deserves, without you having to configure anything.</strong></p>
-        <pre class="example" aria-hidden="true"><span class="you">&rsaquo; fix this loop: for(let i=0;i&lt;=arr.length;i++)</span>
-<span class="arr">&rarr;</span> <span class="out">analysing&hellip;</span>  <span class="pass">verified fix ready</span></pre>
+    <section id="faq">
+      <span class="eyebrow">Questions</span>
+      <h2>Often asked.</h2>
+      <div class="faq">
+        <details>
+          <summary>Why is it so much cheaper?</summary>
+          <p>Krentix routes the cheapest free-tier provider that can answer with verifier consensus (Cerebras, Groq, Google Gemini Flash, OpenRouter). Paid Sonnet only fires as a fallback, gated at $2 per day.</p>
+        </details>
+        <details>
+          <summary>Does my data leave my machine?</summary>
+          <p>Only the provider call you intentionally route through. Persistent memory, audit logs, crystal cache, and provenance trail stay on your disk in <code>~/.krentix/</code>. Constitutional refusals are auditable, local, and signed.</p>
+        </details>
+        <details>
+          <summary>How do twelve verifiers actually disagree?</summary>
+          <p>Each verifier has a domain, a model, and a constitution. Disagreement above threshold escalates: more verifiers, paid fallback, or a constitutional vote. Silent agreement is logged the same way as dissent.</p>
+        </details>
+        <details>
+          <summary>What happens when the bridge is offline?</summary>
+          <p>Krentix is a Windows service (<code>krentixbridge.exe</code>) that auto-restarts. The UI surfaces an honest "bridge offline" state with a correlation id. No fake answers, no fallback prompts.</p>
+        </details>
+        <details>
+          <summary>Can I see what each verifier voted?</summary>
+          <p>Yes — every answer carries a provenance trail. Click "details" under any answer to see model, latency, cost, and dissent.</p>
+        </details>
+        <details>
+          <summary>Is it open source?</summary>
+          <p>The bridge, pipeline, and verifier orchestration live at <a href="https://github.com/joelrobic-gif/krentix">github.com/joelrobic-gif/krentix</a>. Constitutional ensemble weights are user-tunable.</p>
+        </details>
+        <details>
+          <summary>What does it cost to run on my machine?</summary>
+          <p>$0 in subscription. $0.20–$0.60 per day in pay-as-you-go provider fees, hard-capped at $2/day. No floor — quiet days cost nothing.</p>
+        </details>
+        <details>
+          <summary>What about data retention and audit?</summary>
+          <p>Provenance is local-first JSONL. Export to NDJSON via <code>/api/audit/export</code>. Nothing reports home.</p>
+        </details>
       </div>
-    </li>
+    </section>
+  </main>
 
-    <li class="step" id="step-2">
-      <div class="num serif" aria-hidden="true">02<span class="dot">.</span></div>
-      <div class="body">
-        <h3 class="serif">Your answer is checked independently &mdash; before it reaches you.</h3>
-        <p>Krentix doesn&rsquo;t ask the same AI that produced your answer to also check it. A second, separate review runs without access to the first. <strong>Disagreement between the two is the signal</strong> &mdash; it catches blind spots, overconfidence, and hallucinations before they reach you.</p>
-        <pre class="example" aria-hidden="true"><span class="out">answer produced</span>  <span class="arr">&rarr;</span>  <span class="out">independent check</span>  <span class="arr">&rarr;</span>  <span class="pass">verified</span></pre>
-      </div>
-    </li>
-
-    <li class="step" id="step-3">
-      <div class="num serif" aria-hidden="true">03<span class="dot">.</span></div>
-      <div class="body">
-        <h3 class="serif">Only verified answers ship. If it fails the check, you never see it.</h3>
-        <p>Answers that fail are retried and corrected automatically. <strong>You see only what passed.</strong> If you want to know what was checked and why &mdash; the full audit trail is one click away.</p>
-        <pre class="example" aria-hidden="true"><span class="pass">PASS</span>&nbsp;accuracy &middot; <span class="pass">PASS</span>&nbsp;sources &middot; <span class="fail">FAIL</span>&nbsp;rounding
-<span class="out">corrected automatically</span>  <span class="arr">&rarr;</span>  <span class="pass">PASS</span></pre>
-      </div>
-    </li>
-
-  </ol>
-</section>
-
-<hr class="divider" aria-hidden="true">
-
-<!-- ─────────────────────────────────────────────────────────────────── -->
-<!-- 3. CONTRAST                                                          -->
-<!-- ─────────────────────────────────────────────────────────────────── -->
-<section class="contrast" id="contrast" aria-labelledby="contrast-heading">
-  <div class="grid" data-reveal>
-    <p class="label">Positioning</p>
-    <h2 id="contrast-heading" class="visually-hidden" style="position:absolute;left:-9999px">Why Krentix is different</h2>
-
-    <article>
-      <h3 class="serif">Not about having more AI. About getting a second opinion before you see the answer.</h3>
-      <p>Most AI tools give you one answer from one AI. If that AI is wrong, you get the wrong answer &mdash; confidently delivered. <strong>Krentix checks every answer independently before it reaches you.</strong> The gains come from catching what any single AI would miss: an edge case it didn&rsquo;t consider, a number it got subtly wrong, a claim it stated as fact that wasn&rsquo;t.</p>
-      <p>That&rsquo;s why Claude Code, Cursor, and Copilot all hit the same ceiling. When the same tool that produces the answer is also the one checking it, it can only find the mistakes it knows how to look for. <strong>Krentix scores above every major AI on the same public benchmarks because every answer is checked independently &mdash; by reviewers who didn&rsquo;t produce it.</strong></p>
-    </article>
-
-    <article>
-      <h3 class="serif">Cost-per-quality, not cost-per-keystroke. Proof, not promises.</h3>
-      <p>Most AI agents charge you their maximum rate on everything, every time. Krentix matches the depth of work to what the task actually needs &mdash; and only goes deeper when the answer requires it. <strong>An order-of-magnitude lower cost than always-on maximum-power tools.</strong> Every answer comes with a full audit trail &mdash; what was checked, what passed, what was overruled, and why.</p>
-    </article>
-  </div>
-</section>
-
-<hr class="divider" aria-hidden="true">
-
-<!-- ─────────────────────────────────────────────────────────────────── -->
-<!-- 5. ECONOMY — energy and cost                                         -->
-<!-- ─────────────────────────────────────────────────────────────────── -->
-<section class="economy" id="economy" aria-labelledby="economy-heading">
-  <div class="head" data-reveal>
-    <p class="label">Energy &amp; cost</p>
-    <h2 id="economy-heading" class="serif">
-      Most AI agents charge you their maximum rate on everything. Krentix uses only what each task actually needs &mdash; and charges you accordingly.
-    </h2>
-  </div>
-
-  <ul class="econ-list" role="list">
-    <li data-reveal>
-      <p class="big">~<span class="num-anim" data-count="10" data-decimals="0">0</span>&times;</p>
-      <p class="lbl">Lower cost than always-on maximum-power AI</p>
-      <p class="dsc">Most AI agents run at maximum cost on every request. Krentix uses only what each task actually needs &mdash; the same verified quality for a fraction of the price.</p>
-    </li>
-    <li data-reveal data-reveal-stagger="2">
-      <p class="big"><span class="num-anim" data-count="0" data-decimals="0">0</span><span class="alt">&nbsp;wait</span></p>
-      <p class="lbl">Instant answers for repeated questions &mdash; zero wait, zero cost</p>
-      <p class="dsc">Questions you&rsquo;ve asked before are answered instantly &mdash; no AI processing needed. Same verified answer. No delay. No charge.</p>
-    </li>
-    <li data-reveal data-reveal-stagger="3">
-      <p class="big">$<span class="num-anim" data-count="0.20" data-decimals="2">0.00</span></p>
-      <p class="lbl">Per day on the Light plan &mdash; less than a coffee</p>
-      <p class="dsc">Full verification on every answer, all day. Start free with no limits and upgrade only when you need more power. No hidden costs, no surprise bills.</p>
-    </li>
-  </ul>
-
-  <p class="econ-note">
-    Verification and efficiency come from the same place: matching the depth of review to the size of the problem. Simple tasks are fast and cheap. Complex ones get everything they need.
-  </p>
-</section>
-
-<hr class="divider" aria-hidden="true">
-
-<!-- ─────────────────────────────────────────────────────────────────── -->
-<!-- 6. POWER DIAL — the cost-tier selector                              -->
-<!-- ─────────────────────────────────────────────────────────────────── -->
-<section class="dial" id="dial" aria-labelledby="dial-heading">
-  <div class="head" data-reveal>
-    <p class="label">The dial</p>
-    <h2 id="dial-heading" class="serif">
-      Every top AI. Every price point. <em>You</em> move the dial.
-    </h2>
-  </div>
-
-  <p class="dial-lede" data-reveal>
-    Four power levels. One control. At <strong>full power</strong>, Krentix uses the best AI in the world &mdash; maximum depth, maximum accuracy. At <strong>zero</strong>, it uses free models &mdash; <em>real answers at no cost, not a limited trial</em>. Every other AI tool locks you to one fixed price. Krentix puts the dial in your hand.
-  </p>
-
-  <div class="dial-grid" role="list">
-
-    <article class="dial-tier dial-tier--zero" role="listitem" data-reveal>
-      <header>
-        <p class="tier-name">Zero</p>
-        <p class="tier-price">Free</p>
-      </header>
-      <p class="tier-tag">Free models &middot; real answers &middot; no trial limits</p>
-      <ul class="tier-bullets">
-        <li>Real AI inference &mdash; not a stripped-down demo</li>
-        <li>Instant answers for repeated questions &mdash; zero wait</li>
-        <li>Good for exploration, learning, everyday questions</li>
-      </ul>
-    </article>
-
-    <article class="dial-tier dial-tier--low" role="listitem" data-reveal data-reveal-stagger="2">
-      <header>
-        <p class="tier-name">Light</p>
-        <p class="tier-price">Light</p>
-      </header>
-      <p class="tier-tag">Fast &middot; accurate &middot; great value</p>
-      <ul class="tier-bullets">
-        <li>Fast, accurate AI &mdash; quality without the wait</li>
-        <li>Full review on every answer</li>
-        <li>Ideal for daily work</li>
-      </ul>
-    </article>
-
-    <article class="dial-tier dial-tier--medium" role="listitem" data-reveal data-reveal-stagger="3">
-      <header>
-        <p class="tier-name">Medium <span class="tier-default">default</span></p>
-        <p class="tier-price">Balanced</p>
-      </header>
-      <p class="tier-tag">Top-tier quality &middot; smart cost management</p>
-      <ul class="tier-bullets">
-        <li>Top AI on your most important work</li>
-        <li>Routes each task to the right model automatically</li>
-        <li>A fraction of the cost of running max-power on everything</li>
-      </ul>
-    </article>
-
-    <article class="dial-tier dial-tier--full" role="listitem" data-reveal data-reveal-stagger="4">
-      <header>
-        <p class="tier-name">Full power</p>
-        <p class="tier-price">Max</p>
-      </header>
-      <p class="tier-tag">The best AI in the world &middot; maximum accuracy</p>
-      <ul class="tier-bullets">
-        <li>Every top AI working together</li>
-        <li>Highest possible quality on critical work</li>
-        <li>For production code, high-stakes decisions, complex problems</li>
-      </ul>
-    </article>
-
-  </div>
-
-  <p class="dial-note" data-reveal>
-    One dropdown. The same verified quality at every level. <strong>No other AI agent does this.</strong> Cursor, Copilot, and ChatGPT charge you maximum rates on everything &mdash; you can&rsquo;t dial down for simple work, and you can&rsquo;t dial up when it really matters. Krentix gives you full control.
-  </p>
-</section>
-
-<hr class="divider" aria-hidden="true">
-
-<!-- ─────────────────────────────────────────────────────────────────── -->
-<!-- 7. SOURCE MODE — answers bounded to your files                      -->
-<!-- ─────────────────────────────────────────────────────────────────── -->
-<section class="source" id="source" aria-labelledby="source-heading">
-  <div class="head" data-reveal>
-    <p class="label">Source mode</p>
-    <h2 id="source-heading" class="serif">
-      Give Krentix your files.<br><em>Get answers only from them.</em>
-    </h2>
-  </div>
-
-  <p class="source-lede" data-reveal>
-    <strong>Drop in any file, URL, or document.</strong>
-    Krentix answers only from what you gave it &mdash; citing the exact source for every claim.
-    If the answer isn&rsquo;t in your files, it says so. No guessing. No making things up.
-  </p>
-
-  <div class="source-grid" role="list">
-    <article class="source-card" role="listitem" data-reveal>
-      <p class="src-label">Your documents</p>
-      <p class="src-body">Drop in a contract, report, or brief. Ask anything about it. Every answer cites the exact section it came from &mdash; or tells you the answer isn&rsquo;t there.</p>
-    </article>
-    <article class="source-card" role="listitem" data-reveal data-reveal-stagger="2">
-      <p class="src-label">Your code</p>
-      <p class="src-body">Upload your project files. Krentix answers questions about your actual code &mdash; not generic advice. It won&rsquo;t suggest things that don&rsquo;t exist in what you gave it.</p>
-    </article>
-    <article class="source-card" role="listitem" data-reveal data-reveal-stagger="3">
-      <p class="src-label">Articles &amp; research</p>
-      <p class="src-body">Drop in anything you&rsquo;re reading. Every claim in the answer comes back with the exact source and section. No fabricated references.</p>
-    </article>
-    <article class="source-card" role="listitem" data-reveal data-reveal-stagger="4">
-      <p class="src-label">Anything at all</p>
-      <p class="src-body">PDFs, URLs, pasted text &mdash; whatever you have. Krentix stays inside what you give it. The moment you ask something outside those files, it tells you.</p>
-    </article>
-  </div>
-
-  <p class="source-note" data-reveal>
-    <strong>Works at every price level &mdash; including free.</strong> Toggle it on from the chat interface. No setup required.
-  </p>
-</section>
-
-</main>
-
-<footer role="contentinfo">
-  <div class="row">
-    <div>
-      <span class="markk">Krentix</span>
-      <span style="margin:0 .8em;color:var(--text-faint)">&middot;</span>
-      <span>Better answers. A fraction of the cost.</span>
+  <footer class="foot" role="contentinfo">
+    <div class="foot-group">
+      <strong>Krentix</strong>
+      <a href="/">Home</a>
+      <a href="#how">How it works</a>
+      <a href="#compare">vs Claude Code</a>
+      <a href="#faq">FAQ</a>
     </div>
-    <div class="meta">
-      <a href="/benchmarks/">Results</a>
+    <div class="foot-group">
+      <strong>Build</strong>
+      <a href="/architecture/">Architecture</a>
       <a href="/security/">Security</a>
-      <a href="/use-cases/">Use cases</a>
       <a href="/changelog/">Changelog</a>
-      <a href="https://github.com/joelrobic-gif/krentix-landing/tree/main/bench" rel="noopener">Bench repo</a>
-      <span id="build-date" data-build="2026-04-28">build &middot; 2026.04.28</span>
-      <a href="/app">Try free &rarr;</a>
     </div>
-  </div>
-</footer>
-
-</div><!-- /.shell -->
-
-<script>
-/* vanilla, no deps */
-(function(){
-  var rm = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var hasIO = 'IntersectionObserver' in window;
-
-  // ─── 1. Section / element reveal on scroll ────────────────────────────
-  var revealNodes = document.querySelectorAll('[data-reveal], .step, .divider');
-  if (rm || !hasIO) {
-    revealNodes.forEach(function(el){ el.classList.add('in'); });
-  } else {
-    var revealIO = new IntersectionObserver(function(entries){
-      entries.forEach(function(e){
-        if (e.isIntersecting) {
-          e.target.classList.add('in');
-          revealIO.unobserve(e.target);
-        }
-      });
-    }, { rootMargin: '0px 0px -10% 0px', threshold: 0.1 });
-    revealNodes.forEach(function(el){ revealIO.observe(el); });
-  }
-
-  // ─── 2. Number count-up on scroll into view ──────────────────────────
-  function animateCount(el){
-    var target = parseFloat(el.dataset.count);
-    if (isNaN(target)) { return; }
-    var decimals = parseInt(el.dataset.decimals || '0', 10);
-    var dur = parseInt(el.dataset.dur || '1400', 10);
-    if (rm) { el.textContent = target.toFixed(decimals); return; }
-    var t0 = performance.now();
-    function tick(t){
-      var p = Math.min(1, (t - t0) / dur);
-      var ep = 1 - Math.pow(1 - p, 3); // ease-out cubic
-      el.textContent = (target * ep).toFixed(decimals);
-      if (p < 1) requestAnimationFrame(tick);
-    }
-    requestAnimationFrame(tick);
-  }
-  var counters = document.querySelectorAll('.num-anim[data-count]');
-  if (!hasIO || rm) {
-    counters.forEach(animateCount);
-  } else {
-    var countIO = new IntersectionObserver(function(entries){
-      entries.forEach(function(e){
-        if (e.isIntersecting) {
-          animateCount(e.target);
-          countIO.unobserve(e.target);
-        }
-      });
-    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.4 });
-    counters.forEach(function(el){ countIO.observe(el); });
-  }
-
-  // ─── 3. Bench table row stagger (lit class on the table) ─────────────
-  var benchTable = document.querySelector('.bench');
-  if (benchTable && hasIO && !rm) {
-    var benchIO = new IntersectionObserver(function(entries){
-      entries.forEach(function(e){
-        if (e.isIntersecting) {
-          e.target.classList.add('lit');
-          benchIO.unobserve(e.target);
-        }
-      });
-    }, { rootMargin: '0px 0px -10% 0px', threshold: 0.2 });
-    benchIO.observe(benchTable);
-  } else if (benchTable) {
-    benchTable.classList.add('lit');
-  }
-
-  // ─── 4. Hero "lit" trigger (immediate on load — no scroll) ───────────
-  function ignite(){
-    document.querySelectorAll('[data-lit-on-load]').forEach(function(el){
-      el.classList.add('lit');
-    });
-  }
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', ignite);
-  } else {
-    ignite();
-  }
-
-  // ─── 5. Magnetic CTA — subtle pull toward cursor ─────────────────────
-  var canHover = matchMedia('(hover: hover) and (pointer: fine)').matches;
-  if (canHover && !rm) {
-    document.querySelectorAll('.cta').forEach(function(btn){
-      var rect = null, frame = 0;
-      btn.addEventListener('pointerenter', function(){ rect = btn.getBoundingClientRect(); });
-      btn.addEventListener('pointermove', function(ev){
-        if (!rect) return;
-        if (frame) return;
-        frame = requestAnimationFrame(function(){
-          frame = 0;
-          var cx = rect.left + rect.width / 2;
-          var cy = rect.top + rect.height / 2;
-          var dx = (ev.clientX - cx) * 0.14;
-          var dy = (ev.clientY - cy) * 0.14;
-          btn.style.transform = 'translate(' + dx.toFixed(2) + 'px,' + dy.toFixed(2) + 'px)';
-        });
-      });
-      btn.addEventListener('pointerleave', function(){
-        rect = null;
-        btn.style.transform = '';
-      });
-    });
-  }
-
-  // ─── 6. Hero variable-font cursor proximity (gentle Fraunces sweep) ──
-  var h1 = document.querySelector('.thesis h1');
-  if (h1 && canHover && !rm) {
-    var hRect = null, hFrame = 0, hTx = 0, hTy = 0;
-    var measure = function(){ hRect = h1.getBoundingClientRect(); };
-    measure();
-    addEventListener('resize', measure, { passive: true });
-    addEventListener('scroll', measure, { passive: true });
-    addEventListener('pointermove', function(ev){
-      if (!hRect) return;
-      hTx = ev.clientX; hTy = ev.clientY;
-      if (hFrame) return;
-      hFrame = requestAnimationFrame(function(){
-        hFrame = 0;
-        var cx = hRect.left + hRect.width / 2;
-        var cy = hRect.top + hRect.height / 2;
-        var dx = (hTx - cx) / hRect.width;
-        var dy = (hTy - cy) / hRect.height;
-        var d = Math.min(1, Math.sqrt(dx * dx + dy * dy));
-        var w = 420 - Math.round(60 * d);
-        h1.style.fontVariationSettings =
-          '"opsz" 144,"SOFT" ' + (30 + Math.round(70 * (1 - d))) + ',"wght" ' + w;
-      });
-    }, { passive: true });
-  }
-
-  // ─── 7. Tilt parallax on bench-lead big-num (subtle, hover-only) ─────
-  var bigNum = document.querySelector('.bench-lead .big-num');
-  if (bigNum && canHover && !rm) {
-    var bRect = null, bFrame = 0;
-    bigNum.parentElement.addEventListener('pointerenter', function(){ bRect = bigNum.getBoundingClientRect(); });
-    bigNum.parentElement.addEventListener('pointermove', function(ev){
-      if (!bRect || bFrame) return;
-      bFrame = requestAnimationFrame(function(){
-        bFrame = 0;
-        var cx = bRect.left + bRect.width / 2;
-        var cy = bRect.top + bRect.height / 2;
-        var dx = (ev.clientX - cx) / bRect.width;
-        var dy = (ev.clientY - cy) / bRect.height;
-        bigNum.style.transform =
-          'perspective(900px) rotateX(' + (-dy * 4).toFixed(2) + 'deg) rotateY(' + (dx * 4).toFixed(2) + 'deg)';
-      });
-    });
-    bigNum.parentElement.addEventListener('pointerleave', function(){
-      bRect = null;
-      bigNum.style.transform = '';
-    });
-  }
-})();
-
-function toggleMobileNav(){
-  var drawer=document.getElementById('mobileNavDrawer');
-  var btn=document.querySelector('.mast-hamburger');
-  var open=drawer.classList.toggle('open');
-  btn.setAttribute('aria-expanded',open);
-  document.body.style.overflow=open?'hidden':'';
-}
-</script>
+    <div class="foot-group">
+      <strong>Source</strong>
+      <a href="https://github.com/joelrobic-gif/krentix">GitHub</a>
+      <a href="/use-cases/">Use cases</a>
+      <a href="/benchmarks/">Benchmarks</a>
+    </div>
+    <div class="foot-group">
+      <strong>Contact</strong>
+      <span>krentix.com</span>
+      <span style="color:var(--ink-4);">© 2026 Krentix</span>
+    </div>
+  </footer>
+</div>
 
 </body>
 </html>
