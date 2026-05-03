@@ -181,13 +181,17 @@ a:hover{color:var(--ink);}
 @media (prefers-color-scheme: dark){
   .energy-badge{background:linear-gradient(135deg,rgba(16,185,129,0.12) 0%,rgba(5,150,105,0.08) 100%);border-color:rgba(16,185,129,0.2);color:#34d399;}
 }
-.energy-badge .eb-dot{width:6px;height:6px;border-radius:50%;background:#10b981;flex-shrink:0;animation:dotBlink 2.4s ease-in-out infinite;box-shadow:0 0 0 2px rgba(16,185,129,0.2);}
-.energy-badge .eb-text{white-space:nowrap;letter-spacing:0.01em;}
-.energy-badge .eb-num{font-weight:700;color:#047857;}
-@media (prefers-color-scheme: dark){.energy-badge .eb-num{color:#34d399;}}
-.energy-badge .eb-dismiss{margin-left:4px;opacity:0.4;font-size:14px;line-height:1;cursor:pointer;padding:0 2px;background:none;border:none;color:inherit;}
+.energy-badge .eb-leaf{width:18px;height:18px;flex-shrink:0;color:#10b981;display:flex;align-items:center;justify-content:center;animation:leafSway 4.5s ease-in-out infinite;transform-origin:center bottom;}
+.energy-badge .eb-leaf svg{width:100%;height:100%;display:block;filter:drop-shadow(0 1px 2px rgba(16,185,129,0.25));}
+@keyframes leafSway{0%,100%{transform:rotate(-3deg);}50%{transform:rotate(4deg);}}
+.energy-badge .eb-text{white-space:nowrap;letter-spacing:0.01em;display:flex;align-items:center;gap:8px;}
+.energy-badge .eb-msg{font-weight:600;}
+.energy-badge .eb-num{font-weight:600;color:#047857;font-variant-numeric:tabular-nums;font-size:11px;opacity:0.85;}
+.energy-badge .eb-sep{opacity:0.35;font-weight:400;}
+@media (prefers-color-scheme: dark){.energy-badge .eb-num{color:#34d399;}.energy-badge .eb-leaf{color:#34d399;}}
+.energy-badge .eb-dismiss{margin-left:4px;opacity:0.35;font-size:14px;line-height:1;cursor:pointer;padding:0 2px;background:none;border:none;color:inherit;}
 .energy-badge .eb-dismiss:hover{opacity:0.8;}
-@media (max-width:520px){.energy-badge{bottom:16px;left:16px;font-size:11px;padding:8px 12px 8px 10px;}}
+@media (max-width:520px){.energy-badge{bottom:16px;left:16px;font-size:11px;padding:8px 12px 8px 10px;}.energy-badge .eb-num,.energy-badge .eb-sep{display:none;}}
 
 .hero-content{position:relative;z-index:1;max-width:720px;}
 .hero-eyebrow{display:inline-flex;align-items:center;gap:10px;font:500 11px/1 var(--font-mono);letter-spacing:0.16em;text-transform:uppercase;color:var(--signal);margin-bottom:24px;padding:8px 14px;background:var(--signal-2);border:1px solid var(--signal-2);border-radius:999px;backdrop-filter:blur(8px);}
@@ -832,9 +836,18 @@ footer .legal{border-top:1px solid var(--rule);margin-top:36px;padding-top:24px;
 </script>
 
 <!-- Floating shared recall energy badge — bottom-left, light green pill -->
-<a class="energy-badge" href="#network" id="energy-badge" aria-label="Krentix shared recall network — energy saved">
-  <span class="eb-dot" aria-hidden="true"></span>
-  <span class="eb-text">Network saving <span class="eb-num" id="badge-kwh">0.00</span> kWh</span>
+<a class="energy-badge" href="#network" id="energy-badge" aria-label="Krentix shared recall — energy-saving feature">
+  <span class="eb-leaf" aria-hidden="true">
+    <!-- Universal leaf icon (sustainability) -->
+    <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+      <path d="M17.5 4.5C13 4 9 5.5 6.5 8.5C4 11.5 3 15 3.5 19.5C3.5 19.5 4 20 4.5 20C5 20 5.5 19.5 5.5 19.5C5.5 16 6.5 13.5 8.5 11.5C10.5 9.5 13 8.5 16 8.5C16 8.5 17 8 17 7.5C16 8.5 13.5 10.5 11 13C8.5 15.5 6.5 18 5.5 20C9 19.5 12.5 18 15 15.5C17.5 13 18.5 9.5 17.5 4.5Z"/>
+    </svg>
+  </span>
+  <span class="eb-text">
+    <span class="eb-msg">Shared answers save energy</span>
+    <span class="eb-sep" aria-hidden="true">·</span>
+    <span class="eb-num"><span id="badge-kwh">0.00</span> kWh</span>
+  </span>
   <button class="eb-dismiss" id="badge-dismiss" aria-label="Dismiss" type="button">×</button>
 </a>
 <script>
