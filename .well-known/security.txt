@@ -1,0 +1,13 @@
+Contact: mailto:security@krentix.com
+Contact: https://github.com/joelrobic-gif/krentix-landing/security
+Expires: 2027-05-03T23:59:59Z
+Preferred-Languages: en
+Canonical: https://www.krentix.com/.well-known/security.txt
+Policy: https://www.krentix.com/security/
+Acknowledgments: https://www.krentix.com/security/
+
+# Krentix is a local-first AI agent. The bridge runs on user machines.
+# Out-of-scope: third-party LLM providers (route to vendor), self-XSS via
+# paste-into-input, and reports based solely on missing headers on
+# *.github.io direct URLs (we use META CSP since GitHub Pages cannot
+# set HTTP headers).
