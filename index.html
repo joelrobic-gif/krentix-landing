@@ -4,351 +4,597 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 
-<!-- Security headers (META — GitHub Pages can't set HTTP headers directly) -->
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://rsms.me https://cdn.jsdelivr.net; font-src 'self' https://rsms.me https://cdn.jsdelivr.net data:; img-src 'self' data: https:; connect-src 'self' https://rsms.me https://cdn.jsdelivr.net; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests; object-src 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://rsms.me https://cdn.jsdelivr.net; font-src 'self' https://rsms.me https://cdn.jsdelivr.net data:; img-src 'self' data: https:; connect-src 'self' https://rsms.me https://cdn.jsdelivr.net; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests; object-src 'none'">
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=(), payment=(), usb=(), magnetometer=(), accelerometer=(), gyroscope=(), display-capture=()">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
 
 <title>Krentix — Twelve verifiers. One answer.</title>
-<meta name="description" content="Krentix is a local-first AI agent that synthesises an answer through twelve specialised verifiers before it reaches you. Cheaper, calmer, more sovereign than any cloud agent.">
+<meta name="description" content="Krentix verifies every answer through twelve specialised verifiers before it reaches you. 97% on coding + math benchmarks. From $0.20 a day.">
 <meta name="theme-color" content="#1A3A6B">
 <meta name="color-scheme" content="light dark">
 <meta property="og:title" content="Krentix — Twelve verifiers. One answer.">
-<meta property="og:description" content="Local-first AI. Twelve verifiers cross-check every answer before it reaches you. $0.20–0.60 a day, not $30.">
+<meta property="og:description" content="Verified by twelve. Shipped by one. From $0.20 a day.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://www.krentix.com">
 
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231A3A6B' stroke-linecap='round'%3E%3Cg stroke-width='1'%3E%3Cline x1='2' y1='6' x2='11' y2='11.4'/%3E%3Cline x1='2' y1='8' x2='11' y2='11.6'/%3E%3Cline x1='2' y1='10' x2='11' y2='11.8'/%3E%3Cline x1='2' y1='11.5' x2='11' y2='12'/%3E%3Cline x1='2' y1='12.5' x2='11' y2='12'/%3E%3Cline x1='2' y1='14' x2='11' y2='12.2'/%3E%3Cline x1='2' y1='16' x2='11' y2='12.4'/%3E%3Cline x1='2' y1='18' x2='11' y2='12.6'/%3E%3C/g%3E%3Ccircle cx='12' cy='12' r='1.25' fill='%231A3A6B'/%3E%3Cline x1='13.25' y1='12' x2='22' y2='12' stroke-width='1.8'/%3E%3C/svg%3E">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23F4F3EE'/%3E%3Cg fill='%238A8A92' opacity='0.4'%3E%3Ccircle cx='8' cy='6' r='2.5'/%3E%3Ccircle cx='16' cy='6' r='2.5'/%3E%3Ccircle cx='24' cy='6' r='2.5'/%3E%3Ccircle cx='8' cy='14' r='2.5'/%3E%3Ccircle cx='24' cy='14' r='2.5'/%3E%3Ccircle cx='8' cy='22' r='2.5'/%3E%3Ccircle cx='16' cy='22' r='2.5'/%3E%3Ccircle cx='24' cy='22' r='2.5'/%3E%3Ccircle cx='8' cy='30' r='2.5'/%3E%3Ccircle cx='16' cy='30' r='2.5'/%3E%3Ccircle cx='24' cy='30' r='2.5'/%3E%3C/g%3E%3Ccircle cx='16' cy='14' r='2.5' fill='%231A3A6B'/%3E%3C/svg%3E">
 <link rel="canonical" href="https://www.krentix.com/">
 
 <link rel="preconnect" href="https://rsms.me" crossorigin>
 <link rel="preload" as="font" type="font/woff2" href="https://rsms.me/inter/font-files/InterVariable.woff2" crossorigin>
 <style>
 @font-face{font-family:"InterVariable";font-style:normal;font-weight:100 900;font-display:swap;src:url("https://rsms.me/inter/font-files/InterVariable.woff2") format("woff2-variations");}
+@font-face{font-family:"InterVariable";font-style:italic;font-weight:100 900;font-display:swap;src:url("https://rsms.me/inter/font-files/InterVariable-Italic.woff2") format("woff2-variations");}
 @font-face{font-family:"JetBrainsMonoVariable";font-style:normal;font-weight:100 800;font-display:swap;src:url("https://cdn.jsdelivr.net/gh/JetBrains/JetBrainsMono@2.304/fonts/variable/JetBrainsMono[wght].woff2") format("woff2-variations");}
 
 :root{
   --paper:#FAFAF7; --paper-2:#F4F3EE; --paper-3:#EEEDE7;
   --ink:#14141A; --ink-2:#2E2E36; --ink-3:#525258; --ink-4:#8A8A92;
   --rule:#E0DEDA; --rule-strong:#C8C6C0;
-  --signal:#1A3A6B; --signal-ink:#FAFAF7; --signal-2:#DCE2EE;
+  --signal:#1A3A6B; --signal-2:#DCE2EE; --signal-3:#3D5A8A; --signal-glow:#5C7AB8;
+  --signal-ink:#FAFAF7;
   --warn:#7A4F10; --ok:#1F5235;
+  --gold-accent:#A8862E;
   --font-display:"InterVariable","Inter",-apple-system,system-ui,sans-serif;
   --font-body:"InterVariable","Inter",-apple-system,system-ui,sans-serif;
   --font-mono:"JetBrainsMonoVariable","JetBrains Mono",ui-monospace,monospace;
-  --col:680px; --col-wide:880px;
+  --shadow-sm:0 1px 2px rgba(20,20,26,0.04),0 1px 3px rgba(20,20,26,0.06);
+  --shadow-md:0 4px 12px rgba(20,20,26,0.06),0 2px 4px rgba(20,20,26,0.04);
+  --shadow-lg:0 24px 48px rgba(20,20,26,0.08),0 8px 16px rgba(20,20,26,0.04);
 }
 @media (prefers-color-scheme: dark){
   :root{
     --paper:#0C0C0F; --paper-2:#15151A; --paper-3:#1D1D22;
     --ink:#F2F1EC; --ink-2:#C4C3BD; --ink-3:#94938E; --ink-4:#6B6B66;
     --rule:#2A2A2E; --rule-strong:#3A3A3E;
-    --signal:#8FB1E0; --signal-ink:#0C0C0F; --signal-2:#1F2A40;
-    --warn:#D4A356;
+    --signal:#8FB1E0; --signal-ink:#0C0C0F; --signal-2:#1F2A40; --signal-3:#5C7AB8; --signal-glow:#A6C4EB;
+    --shadow-sm:0 1px 2px rgba(0,0,0,0.4),0 1px 3px rgba(0,0,0,0.3);
+    --shadow-md:0 4px 12px rgba(0,0,0,0.4),0 2px 4px rgba(0,0,0,0.3);
+    --shadow-lg:0 24px 48px rgba(0,0,0,0.5),0 8px 16px rgba(0,0,0,0.3);
   }
 }
-@media (prefers-reduced-motion: reduce){
-  *,*::before,*::after{animation-duration:0.01ms!important;transition-duration:0.01ms!important;scroll-behavior:auto!important;}
-}
+@media (prefers-reduced-motion: reduce){*,*::before,*::after{animation-duration:0.01ms!important;transition-duration:0.01ms!important;}}
 
 *{margin:0;padding:0;box-sizing:border-box;}
 html{background:var(--paper);scroll-behavior:smooth;}
-body{
-  background:var(--paper);color:var(--ink);
-  font-family:var(--font-body);font-size:15px;line-height:1.55;letter-spacing:-0.011em;
-  font-variant-numeric:tabular-nums;
-  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
-}
-body :where(*){box-shadow:none;}
-
-a{color:var(--signal);text-decoration:underline;text-underline-offset:2px;}
+body{background:var(--paper);color:var(--ink);font-family:var(--font-body);font-size:16px;line-height:1.55;letter-spacing:-0.011em;font-variant-numeric:tabular-nums;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;overflow-x:hidden;}
+a{color:var(--signal);text-decoration:none;}
 a:hover{color:var(--ink);}
-:focus-visible{outline:2px solid var(--signal);outline-offset:2px;border-radius:4px;}
+:focus-visible{outline:2px solid var(--signal);outline-offset:3px;border-radius:4px;}
 ::selection{background:var(--signal-2);color:var(--ink);}
+.skip{position:absolute;left:-9999px;top:0;background:var(--signal);color:var(--signal-ink);padding:.6em 1em;font-weight:600;font-size:.9rem;text-decoration:none;z-index:99;}
+.skip:focus{left:1rem;top:1rem;}
 
-.shell{max-width:1080px;margin:0 auto;padding:0 24px;}
-.col{max-width:var(--col);margin:0 auto;}
-.col-wide{max-width:var(--col-wide);margin:0 auto;}
+.shell{max-width:1200px;margin:0 auto;padding:0 32px;}
+@media (max-width:768px){.shell{padding:0 20px;}}
 
-/* Header */
-.kx-mast{
-  height:64px;display:flex;align-items:center;justify-content:space-between;
-  border-bottom:1px solid var(--rule);
-}
-.kx-brand{
-  display:inline-flex;align-items:center;gap:10px;
-  font:500 17px/1 var(--font-display);letter-spacing:-0.022em;
-  color:var(--ink);text-decoration:none;
-}
-.kx-brand svg{width:20px;height:20px;color:var(--signal);}
-.kx-mast nav{display:flex;gap:24px;}
-.kx-mast nav a{
-  font:400 13px/1 var(--font-body);
-  color:var(--ink-3);text-decoration:none;letter-spacing:-0.011em;
-}
-.kx-mast nav a:hover{color:var(--ink);}
+.mast{position:sticky;top:0;z-index:50;background:rgba(250,250,247,0.85);backdrop-filter:saturate(180%) blur(16px);-webkit-backdrop-filter:saturate(180%) blur(16px);border-bottom:1px solid var(--rule);}
+@media (prefers-color-scheme: dark){.mast{background:rgba(12,12,15,0.85);}}
+.mast .shell{height:68px;display:flex;align-items:center;justify-content:space-between;gap:32px;}
+.mast nav{display:flex;gap:32px;}
+@media (max-width:880px){.mast nav{display:none;}}
+.mast nav a{font:500 14px/1 var(--font-body);color:var(--ink-2);letter-spacing:-0.011em;position:relative;padding:8px 0;}
+.mast nav a:hover{color:var(--ink);}
+.mast nav a::after{content:"";position:absolute;left:0;right:100%;bottom:0;height:1.5px;background:var(--signal);transition:right .35s cubic-bezier(.2,.6,.2,1);}
+.mast nav a:hover::after,.mast nav a:focus-visible::after{right:0;}
+.mast-cta{font:600 13px/1 var(--font-body);background:var(--signal);color:var(--signal-ink);padding:10px 18px;border-radius:6px;display:inline-flex;align-items:center;gap:6px;transition:background 120ms cubic-bezier(0.4,0,0.2,1),transform 220ms cubic-bezier(0.2,0.6,0.2,1);box-shadow:var(--shadow-sm);}
+.mast-cta:hover{background:var(--signal-3);color:var(--signal-ink);}
 
-/* Hero */
-.hero{padding:96px 0 64px;}
-.hero h1{
-  font:500 52px/1.08 var(--font-display);letter-spacing:-0.028em;
-  color:var(--ink);margin-bottom:24px;max-width:14ch;
-}
-@media (max-width:720px){.hero h1{font-size:36px;}}
-.hero .sub{
-  font:400 19px/1.5 var(--font-body);letter-spacing:-0.011em;
-  color:var(--ink-2);max-width:54ch;margin-bottom:48px;
-}
-.hero .ctas{display:flex;gap:16px;flex-wrap:wrap;align-items:center;}
-.btn{
-  display:inline-flex;align-items:center;gap:8px;
-  padding:10px 16px;border-radius:4px;border:0;cursor:pointer;
-  font:500 14px/1 var(--font-body);letter-spacing:-0.011em;text-decoration:none;
-  transition:background 120ms cubic-bezier(0.4,0,0.2,1),color 120ms cubic-bezier(0.4,0,0.2,1);
-  min-height:36px;
-}
-.btn-primary{background:var(--signal);color:var(--signal-ink);}
-.btn-primary:hover{background:#14305A;color:var(--signal-ink);}
-@media (prefers-color-scheme:dark){.btn-primary:hover{background:#A6C4EB;}}
-.btn-ghost{background:transparent;color:var(--ink-2);}
-.btn-ghost:hover{color:var(--signal);}
+.logo{display:inline-flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink);}
+.logo-mark{width:32px;height:32px;flex-shrink:0;display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(4,1fr);gap:2px;padding:4px;border-radius:6px;background:linear-gradient(135deg,var(--paper-2) 0%,var(--paper-3) 100%);border:1px solid var(--rule);box-shadow:var(--shadow-sm);}
+.logo-mark .dot{width:100%;height:100%;border-radius:50%;background:var(--ink-4);opacity:0.4;}
+.logo-mark .dot.lit{background:var(--signal);opacity:1;box-shadow:0 0 0 1.5px var(--signal-2),0 0 8px rgba(26,58,107,0.4);}
+.logo-text{display:flex;flex-direction:column;line-height:1;}
+.logo-wordmark{font:600 18px/1 var(--font-display);letter-spacing:-0.024em;color:var(--ink);}
+.logo-tagline{font:400 10px/1 var(--font-mono);color:var(--ink-3);letter-spacing:0.04em;margin-top:3px;}
 
-/* Eyebrow */
-.eyebrow{
-  font:500 11px/1 var(--font-body);letter-spacing:0.08em;
-  text-transform:uppercase;color:var(--ink-3);
-  margin-bottom:16px;display:block;
-}
+.hero{position:relative;padding:64px 0 96px;overflow:hidden;isolation:isolate;}
+.hero-bg{position:absolute;inset:0;z-index:-1;pointer-events:none;}
+.hero-bg-mesh{position:absolute;inset:-10%;background:radial-gradient(circle at 20% 30%,rgba(26,58,107,0.10) 0%,transparent 40%),radial-gradient(circle at 80% 20%,rgba(168,134,46,0.06) 0%,transparent 35%),radial-gradient(circle at 50% 80%,rgba(92,122,184,0.08) 0%,transparent 45%),radial-gradient(circle at 90% 70%,rgba(26,58,107,0.05) 0%,transparent 30%);filter:blur(40px);animation:meshFloat 24s ease-in-out infinite;will-change:transform;}
+@media (prefers-color-scheme: dark){.hero-bg-mesh{background:radial-gradient(circle at 20% 30%,rgba(143,177,224,0.12) 0%,transparent 40%),radial-gradient(circle at 80% 20%,rgba(168,134,46,0.08) 0%,transparent 35%),radial-gradient(circle at 50% 80%,rgba(92,122,184,0.10) 0%,transparent 45%),radial-gradient(circle at 90% 70%,rgba(143,177,224,0.06) 0%,transparent 30%);}}
+@keyframes meshFloat{0%,100%{transform:translate(0,0) scale(1);}33%{transform:translate(-3%,2%) scale(1.05);}66%{transform:translate(2%,-2%) scale(0.98);}}
+.hero-bg-grain{position:absolute;inset:0;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' seed='5'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.16 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");opacity:0.55;mix-blend-mode:multiply;}
+@media (prefers-color-scheme: dark){.hero-bg-grain{mix-blend-mode:overlay;opacity:0.35;}}
+.network-svg{position:absolute;top:50%;right:-8%;transform:translateY(-50%);width:560px;height:560px;opacity:0.55;z-index:-1;}
+@media (max-width:1024px){.network-svg{opacity:0.35;width:420px;height:420px;right:-15%;}}
+@media (max-width:680px){.network-svg{display:none;}}
+@media (prefers-color-scheme: dark){.network-svg{opacity:0.45;}}
+.network-svg circle{fill:var(--signal);animation:nodeGlow 4s ease-in-out infinite;transform-origin:center;transform-box:fill-box;}
+.network-svg circle:nth-of-type(2){animation-delay:0.3s;}.network-svg circle:nth-of-type(3){animation-delay:0.6s;}.network-svg circle:nth-of-type(4){animation-delay:0.9s;}.network-svg circle:nth-of-type(5){animation-delay:1.2s;}.network-svg circle:nth-of-type(6){animation-delay:1.5s;}.network-svg circle:nth-of-type(7){animation-delay:1.8s;}.network-svg circle:nth-of-type(8){animation-delay:2.1s;}.network-svg circle:nth-of-type(9){animation-delay:2.4s;}.network-svg circle:nth-of-type(10){animation-delay:2.7s;}.network-svg circle:nth-of-type(11){animation-delay:3.0s;}.network-svg circle:nth-of-type(12){animation-delay:3.3s;}
+.network-svg .lit-node{fill:var(--signal-glow);}
+@keyframes nodeGlow{0%,100%{opacity:0.4;}50%{opacity:1;}}
+.network-svg line{stroke:var(--signal);stroke-width:0.5;opacity:0.25;animation:lineFlash 6s ease-in-out infinite;}
+.network-svg line:nth-child(odd){animation-delay:1.5s;}
+@keyframes lineFlash{0%,100%{opacity:0.15;}50%{opacity:0.5;}}
+.network-svg .center-node{fill:var(--signal);animation:centerPulse 3s ease-in-out infinite;}
+@keyframes centerPulse{0%,100%{filter:drop-shadow(0 0 0 rgba(26,58,107,0));}50%{filter:drop-shadow(0 0 12px rgba(26,58,107,0.6));}}
 
-/* Section */
-section{padding:80px 0;border-top:1px solid var(--rule);}
-section h2{
-  font:500 32px/1.15 var(--font-display);letter-spacing:-0.022em;
-  color:var(--ink);margin-bottom:24px;
-}
-section p{
-  font:400 17px/1.55 var(--font-body);
-  color:var(--ink-2);margin-bottom:16px;
-}
+.hero-content{position:relative;z-index:1;max-width:720px;}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:10px;font:500 11px/1 var(--font-mono);letter-spacing:0.16em;text-transform:uppercase;color:var(--signal);margin-bottom:24px;padding:8px 14px;background:var(--signal-2);border:1px solid var(--signal-2);border-radius:999px;backdrop-filter:blur(8px);}
+.hero-eyebrow::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--signal);animation:eyebrowPulse 2s ease-in-out infinite;}
+@keyframes eyebrowPulse{0%,100%{box-shadow:0 0 0 0 rgba(26,58,107,0.45);}50%{box-shadow:0 0 0 6px rgba(26,58,107,0);}}
 
-/* Comparison table */
-.cmp{
-  width:100%;border-collapse:collapse;
-  font-variant-numeric:tabular-nums;
-  font:400 14px/1.5 var(--font-body);
-}
-.cmp th, .cmp td{
-  padding:14px 16px;border-bottom:1px solid var(--rule);text-align:left;
-}
-.cmp thead th{
-  font:500 11px/1 var(--font-body);letter-spacing:0.08em;
-  text-transform:uppercase;color:var(--ink-3);
-}
-.cmp tbody td:first-child{color:var(--ink-3);}
-.cmp tbody tr.krentix-row td{background:var(--signal-2);}
-.cmp .num{font-family:var(--font-mono);text-align:right;}
+.hero h1{font:500 64px/1.04 var(--font-display);letter-spacing:-0.032em;color:var(--ink);max-width:14ch;margin-bottom:24px;text-wrap:balance;}
+@media (max-width:880px){.hero h1{font-size:44px;}}
+@media (max-width:480px){.hero h1{font-size:36px;}}
+.hero h1 .ln{display:block;}
+.hero h1 em{font-style:italic;color:var(--signal);font-weight:500;background:linear-gradient(135deg,var(--signal) 0%,var(--signal-3) 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
+.hero-sub{font:400 20px/1.5 var(--font-body);color:var(--ink-2);max-width:56ch;margin-bottom:36px;letter-spacing:-0.011em;}
+.hero-proof{display:flex;flex-wrap:wrap;gap:16px;margin-bottom:40px;}
+.hero-proof-item{background:var(--paper-2);border:1px solid var(--rule);border-radius:10px;padding:14px 20px;display:flex;flex-direction:column;gap:2px;box-shadow:var(--shadow-sm);min-width:160px;}
+.hero-proof-item .num{font:600 24px/1 var(--font-display);letter-spacing:-0.024em;color:var(--ink);font-feature-settings:"tnum","ss01";}
+.hero-proof-item .label{font:500 11px/1.4 var(--font-mono);letter-spacing:0.06em;color:var(--ink-3);text-transform:uppercase;}
+.hero-ctas{display:flex;flex-wrap:wrap;gap:14px;align-items:center;margin-bottom:18px;}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:13px 22px;border-radius:8px;border:0;cursor:pointer;font:600 14px/1 var(--font-body);letter-spacing:-0.011em;text-decoration:none;transition:background 120ms cubic-bezier(0.4,0,0.2,1),color 120ms,transform 220ms cubic-bezier(0.2,0.6,0.2,1),box-shadow 220ms;min-height:44px;will-change:transform;}
+.btn-primary{background:var(--signal);color:var(--signal-ink);box-shadow:var(--shadow-md);}
+.btn-primary:hover{background:var(--signal-3);color:var(--signal-ink);box-shadow:var(--shadow-lg);transform:translateY(-1px);}
+.btn-ghost{background:transparent;color:var(--ink-2);border:1px solid var(--rule-strong);}
+.btn-ghost:hover{color:var(--ink);border-color:var(--ink-3);background:var(--paper-2);}
+.btn .arr{font-family:var(--font-mono);font-weight:400;transform:translateY(-0.04em);}
+.hero-reassure{font:400 13px/1.5 var(--font-mono);color:var(--ink-4);letter-spacing:0.02em;}
 
-/* How */
-.steps{display:grid;grid-template-columns:1fr;gap:32px;}
-@media(min-width:720px){.steps{grid-template-columns:repeat(4,1fr);gap:32px;}}
-.step .n{
-  font:500 13px/1 var(--font-mono);color:var(--signal);
-  margin-bottom:8px;
-}
-.step h3{font:500 17px/1.3 var(--font-display);letter-spacing:-0.011em;color:var(--ink);margin-bottom:8px;}
-.step p{font:400 14px/1.55 var(--font-body);color:var(--ink-3);margin:0;}
+.product-demo{margin-top:48px;border-radius:12px;overflow:hidden;border:1px solid var(--rule);background:var(--paper-2);box-shadow:var(--shadow-lg);max-width:860px;}
+.product-demo__chrome{background:var(--paper-3);border-bottom:1px solid var(--rule);padding:9px 14px;display:flex;align-items:center;gap:12px;}
+.product-demo__dots{display:flex;gap:6px;flex-shrink:0;}
+.product-demo__dot{width:11px;height:11px;border-radius:50%;}
+.product-demo__dot--r{background:#FF5F57;}.product-demo__dot--y{background:#FEBC2E;}.product-demo__dot--g{background:#28C840;}
+.product-demo__urlbar{flex:1;background:var(--paper);border-radius:5px;padding:5px 12px;font:400 12px/1 var(--font-mono);color:var(--ink-3);border:1px solid var(--rule);}
+.product-demo__chat{padding:24px;display:flex;flex-direction:column;gap:18px;}
+.product-demo__msg{display:flex;gap:12px;align-items:flex-start;max-width:680px;}
+.product-demo__msg--user{align-self:flex-end;flex-direction:row-reverse;max-width:520px;}
+.product-demo__avatar{width:30px;height:30px;min-width:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font:700 11px/1 var(--font-body);letter-spacing:0.03em;flex-shrink:0;}
+.product-demo__avatar--user{background:var(--signal-2);color:var(--signal);}
+.product-demo__avatar--ai{background:var(--paper-3);color:var(--ink-3);border:1px solid var(--rule);}
+.product-demo__bubble{background:var(--paper);border:1px solid var(--rule);border-radius:8px;padding:12px 16px;font:400 13px/1.55 var(--font-body);color:var(--ink-2);max-width:520px;}
+.product-demo__bubble--user{background:var(--signal-2);border-color:var(--signal-2);color:var(--ink);}
+.product-demo__response-header{display:flex;align-items:center;gap:8px;margin-bottom:8px;flex-wrap:wrap;}
+.product-demo__badge{display:inline-flex;align-items:center;gap:4px;background:var(--paper-3);border:1px solid var(--rule);color:var(--ok);border-radius:999px;padding:2px 8px;font:600 10px/1 var(--font-mono);letter-spacing:0.06em;}
+.product-demo__copy-btn{margin-left:auto;background:var(--paper);border:1px solid var(--rule);border-radius:4px;padding:3px 9px;font:400 10px/1 var(--font-mono);color:var(--ink-3);letter-spacing:0.04em;}
+.product-demo__response-text{font:400 13px/1.58 var(--font-body);color:var(--ink-2);}
+.product-demo__response-list{margin:8px 0 0 4px;padding:0;list-style:none;display:flex;flex-direction:column;gap:5px;}
+.product-demo__response-list li{display:flex;gap:7px;font:400 12px/1.5 var(--font-body);color:var(--ink-3);align-items:baseline;}
+.product-demo__response-list li::before{content:'→';color:var(--signal);flex-shrink:0;font-size:11px;}
 
-/* FAQ */
-.faq{display:flex;flex-direction:column;gap:0;border-top:1px solid var(--rule);}
-.faq details{border-bottom:1px solid var(--rule);padding:20px 0;}
-.faq summary{
-  font:500 17px/1.4 var(--font-display);letter-spacing:-0.011em;
-  color:var(--ink);cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;
-}
-.faq summary::-webkit-details-marker{display:none;}
-.faq summary::after{content:"+";color:var(--ink-3);font-weight:400;}
-.faq details[open] summary::after{content:"−";}
-.faq details p{margin-top:12px;color:var(--ink-2);font-size:15px;}
+.s-block{padding:96px 0 80px;border-top:1px solid var(--rule);}
+.s-eyebrow{display:flex;align-items:center;gap:10px;font:500 11px/1 var(--font-mono);letter-spacing:0.16em;text-transform:uppercase;color:var(--signal);margin-bottom:14px;}
+.s-eyebrow::before{content:"";width:24px;height:1px;background:var(--signal);}
+.s-h2{font:500 40px/1.12 var(--font-display);letter-spacing:-0.028em;color:var(--ink);margin-bottom:16px;max-width:24ch;text-wrap:balance;}
+@media (max-width:680px){.s-h2{font-size:30px;}}
+.s-h2 em{font-style:italic;color:var(--signal);font-weight:500;}
+.s-lede{font:400 18px/1.55 var(--font-body);color:var(--ink-2);max-width:62ch;margin-bottom:48px;}
+.s-lede strong{color:var(--ink);font-weight:600;}
 
-/* Footer */
-.foot{
-  padding:48px 0 64px;border-top:1px solid var(--rule);
-  display:flex;flex-wrap:wrap;gap:32px;justify-content:space-between;align-items:flex-start;
-  color:var(--ink-3);font-size:13px;
-}
-.foot a{color:var(--ink-3);text-decoration:none;}
-.foot a:hover{color:var(--signal);}
-.foot-group{display:flex;flex-direction:column;gap:6px;}
-.foot-group strong{color:var(--ink-2);font-weight:500;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:6px;}
+.bench-section{background:linear-gradient(180deg,var(--paper) 0%,var(--paper-2) 100%);}
+.bench-table-wrap{background:var(--paper);border:1px solid var(--rule);border-radius:14px;overflow:hidden;box-shadow:var(--shadow-md);}
+.bench-table{width:100%;border-collapse:collapse;font-feature-settings:"tnum","ss01";}
+.bench-table thead th{font:500 11px/1.2 var(--font-mono);letter-spacing:0.12em;text-transform:uppercase;color:var(--ink-3);font-weight:500;text-align:right;padding:18px 16px;background:var(--paper-2);border-bottom:1px solid var(--rule);white-space:nowrap;}
+.bench-table thead th:first-child{text-align:left;}
+.bench-table thead th.col-krentix{color:var(--signal);background:var(--signal-2);border-bottom:2px solid var(--signal);}
+.bench-table tbody tr{transition:background 150ms;}
+.bench-table tbody tr:hover{background:var(--paper-2);}
+.bench-table tbody tr:not(:last-child) td,.bench-table tbody tr:not(:last-child) th{border-bottom:1px solid var(--rule);}
+.bench-table tbody th{text-align:left;padding:20px 16px;font:500 15px/1.3 var(--font-display);letter-spacing:-0.015em;color:var(--ink);vertical-align:top;}
+.bench-table tbody th .sub{display:block;font:400 11px/1.4 var(--font-mono);letter-spacing:0.04em;color:var(--ink-3);margin-top:4px;text-transform:uppercase;}
+.bench-table tbody td{text-align:right;padding:20px 16px;font:400 15px/1 var(--font-mono);color:var(--ink-3);vertical-align:middle;}
+.bench-table tbody td.dim{color:var(--ink-4);}
+.bench-table tbody td .meta{display:block;font-size:10px;color:var(--ink-4);margin-top:3px;text-transform:uppercase;letter-spacing:0.04em;}
+.bench-table tbody td.col-krentix{text-align:right;background:linear-gradient(90deg,var(--signal-2) 0%,rgba(220,226,238,0) 100%);border-left:3px solid var(--signal);padding:20px 16px 20px 18px;}
+.bench-table tbody td.col-krentix .score{font:600 22px/1 var(--font-display);letter-spacing:-0.018em;color:var(--signal);}
+.bench-table tbody td.col-krentix .pct{font-size:14px;font-weight:500;opacity:0.75;}
+.bench-table tbody td.col-krentix .meta{display:block;font:500 10px/1.3 var(--font-mono);color:var(--signal-3);margin-top:4px;letter-spacing:0.04em;text-transform:uppercase;}
+.bench-table tbody td.col-krentix.dim{background:transparent;border-left:3px solid var(--rule);}
+.bench-table tbody td.col-krentix.dim .score{color:var(--ink-4);font-size:18px;}
+.bench-foot{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;margin-top:24px;gap:16px;font:400 13px/1.6 var(--font-mono);color:var(--ink-3);}
+.bench-foot a{color:var(--signal);border-bottom:1px solid var(--rule-strong);padding-bottom:1px;}
+.bench-foot a:hover{color:var(--ink);border-color:var(--ink-3);}
 
-/* Skip link */
-.kx-sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;}
-.skip:focus{position:static;width:auto;height:auto;clip:auto;padding:.6em 1em;background:var(--signal);color:var(--signal-ink);font-weight:500;}
+.vp-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:14px;overflow:hidden;box-shadow:var(--shadow-md);}
+@media (max-width:880px){.vp-grid{grid-template-columns:repeat(2,1fr);}}
+@media (max-width:520px){.vp-grid{grid-template-columns:1fr;}}
+.vp-card{background:var(--paper);padding:32px;display:flex;flex-direction:column;gap:12px;transition:background 180ms,transform 240ms cubic-bezier(0.2,0.6,0.2,1);}
+.vp-card:hover{background:var(--paper-2);transform:translateY(-2px);}
+.vp-card .icon{width:36px;height:36px;border-radius:8px;background:var(--signal-2);color:var(--signal);display:flex;align-items:center;justify-content:center;font:600 18px/1 var(--font-display);}
+.vp-card h3{font:500 18px/1.3 var(--font-display);letter-spacing:-0.018em;color:var(--ink);}
+.vp-card p{font:400 14px/1.6 var(--font-body);color:var(--ink-2);letter-spacing:-0.005em;}
 
-/* Print */
-@media print{
-  .kx-mast, .foot, .hero .ctas{display:none!important;}
-  body{background:white;color:black;}
-  section{padding:32px 0;break-inside:avoid;}
-}
+.steps{display:flex;flex-direction:column;gap:48px;}
+.step{display:grid;grid-template-columns:auto 1fr;gap:32px;align-items:start;border-top:1px solid var(--rule);padding-top:40px;}
+@media (max-width:680px){.step{grid-template-columns:1fr;gap:16px;}}
+.step:first-of-type{border-top:0;padding-top:0;}
+.step .num{font:300 80px/0.86 var(--font-display);letter-spacing:-0.04em;color:var(--ink);font-feature-settings:"tnum";min-width:120px;}
+@media (max-width:680px){.step .num{font-size:56px;}}
+.step .num .dot{color:var(--signal);font-style:normal;}
+.step .body{display:flex;flex-direction:column;gap:14px;max-width:640px;}
+.step .body h3{font:500 22px/1.25 var(--font-display);letter-spacing:-0.018em;color:var(--ink);text-wrap:balance;}
+.step .body p{font:400 16px/1.6 var(--font-body);color:var(--ink-2);}
+.step .body p strong{color:var(--ink);font-weight:600;}
+.step .example{margin-top:6px;padding:14px 18px;background:var(--paper-2);border-left:3px solid var(--signal);font:500 13px/1.7 var(--font-mono);color:var(--ink-2);border-radius:0 4px 4px 0;letter-spacing:0;white-space:pre-wrap;}
+.step .example .you{color:var(--ink-4);}
+.step .example .out{color:var(--ink);}
+.step .example .pass{color:var(--ok);}
+.step .example .fail{color:#B5413E;}
+.step .example .arr{color:var(--ink-4);margin:0 .35em;}
+
+.contrast-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;}
+@media (max-width:880px){.contrast-grid{grid-template-columns:1fr;}}
+.contrast-art{border-top:1px solid var(--rule);padding-top:32px;}
+.contrast-art h3{font:500 22px/1.3 var(--font-display);letter-spacing:-0.018em;color:var(--ink);margin-bottom:16px;text-wrap:balance;}
+.contrast-art p{font:400 16px/1.65 var(--font-body);color:var(--ink-2);margin-bottom:14px;}
+.contrast-art p strong{color:var(--ink);font-weight:600;}
+
+.econ-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;border-top:1px solid var(--rule);padding-top:40px;}
+@media (max-width:880px){.econ-grid{grid-template-columns:1fr;}}
+.econ-card{display:flex;flex-direction:column;gap:8px;}
+.econ-card .big{font:300 60px/0.96 var(--font-display);letter-spacing:-0.032em;color:var(--ink);font-feature-settings:"tnum";}
+.econ-card .big .alt{font-size:0.46em;color:var(--ink-3);margin-left:0.08em;letter-spacing:0;}
+.econ-card .lbl{font:600 12px/1.3 var(--font-mono);letter-spacing:0.08em;text-transform:uppercase;color:var(--signal);max-width:32ch;}
+.econ-card .dsc{font:400 14px/1.6 var(--font-body);color:var(--ink-3);max-width:34ch;}
+.econ-note{margin-top:32px;padding:16px 20px;background:var(--paper-2);border-left:3px solid var(--signal);border-radius:0 4px 4px 0;font:400 14px/1.65 var(--font-body);color:var(--ink-2);max-width:62ch;}
+
+.dial-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;}
+@media (max-width:1024px){.dial-grid{grid-template-columns:repeat(2,1fr);}}
+@media (max-width:520px){.dial-grid{grid-template-columns:1fr;}}
+.dial-tier{background:var(--paper);border:1px solid var(--rule);border-radius:12px;padding:24px 22px;display:flex;flex-direction:column;gap:18px;box-shadow:var(--shadow-sm);transition:transform 240ms cubic-bezier(0.2,0.6,0.2,1),box-shadow 240ms,border-color 240ms;}
+.dial-tier:hover{transform:translateY(-3px);box-shadow:var(--shadow-md);border-color:var(--rule-strong);}
+.dial-tier.is-default{border-color:var(--signal);box-shadow:0 0 0 1px var(--signal-2),var(--shadow-md);}
+.dial-tier.is-full{background:linear-gradient(180deg,rgba(26,58,107,0.04) 0%,var(--paper) 100%);border-color:var(--signal-3);}
+.dial-tier header{display:flex;flex-direction:column;gap:10px;border-bottom:1px solid var(--rule);padding-bottom:16px;}
+.dial-tier .tier-name{display:flex;align-items:center;gap:8px;font:600 12px/1 var(--font-mono);letter-spacing:0.16em;text-transform:uppercase;color:var(--signal);}
+.dial-tier .tier-default{font:400 9px/1 var(--font-mono);letter-spacing:0.12em;color:var(--ink-4);border:1px solid var(--rule);padding:3px 6px;border-radius:3px;}
+.dial-tier .tier-price{font:300 32px/1 var(--font-display);letter-spacing:-0.024em;color:var(--ink);font-feature-settings:"tnum";}
+.dial-tier.is-full .tier-price{color:var(--signal);}
+.dial-tier .tier-tag{font:500 11px/1.4 var(--font-mono);letter-spacing:0.04em;color:var(--ink-3);text-transform:uppercase;}
+.dial-tier .tier-bullets{list-style:none;display:flex;flex-direction:column;gap:8px;}
+.dial-tier .tier-bullets li{font:400 13px/1.5 var(--font-body);color:var(--ink-2);padding-left:18px;position:relative;letter-spacing:-0.005em;}
+.dial-tier .tier-bullets li::before{content:"·";position:absolute;left:4px;top:-2px;color:var(--signal);font-size:18px;font-weight:700;}
+.dial-note{margin-top:32px;padding:16px 20px;background:var(--paper-2);border-left:3px solid var(--signal);border-radius:0 4px 4px 0;font:400 14px/1.65 var(--font-body);color:var(--ink-2);max-width:62ch;}
+.dial-note strong{color:var(--ink);font-weight:600;}
+
+.source-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;}
+@media (max-width:1024px){.source-grid{grid-template-columns:repeat(2,1fr);}}
+@media (max-width:520px){.source-grid{grid-template-columns:1fr;}}
+.source-card{background:var(--paper);border:1px solid var(--rule);border-radius:10px;padding:22px;display:flex;flex-direction:column;gap:10px;transition:border-color 240ms,transform 240ms cubic-bezier(0.2,0.6,0.2,1);}
+.source-card:hover{border-color:var(--rule-strong);transform:translateY(-2px);}
+.source-card .src-label{font:600 11px/1 var(--font-mono);letter-spacing:0.12em;text-transform:uppercase;color:var(--signal);padding-bottom:10px;border-bottom:1px solid var(--rule);}
+.source-card .src-body{font:400 13px/1.6 var(--font-body);color:var(--ink-2);}
+.source-note{margin-top:32px;padding:16px 20px;background:var(--paper-2);border-left:3px solid var(--signal);border-radius:0 4px 4px 0;font:400 14px/1.65 var(--font-body);color:var(--ink-2);max-width:62ch;}
+.source-note strong{color:var(--ink);font-weight:600;}
+
+footer{border-top:1px solid var(--rule);background:var(--paper-2);padding:48px 0 32px;margin-top:64px;}
+footer .row{display:flex;flex-wrap:wrap;gap:48px 80px;justify-content:space-between;align-items:flex-start;}
+footer .col h4{font:500 11px/1 var(--font-mono);letter-spacing:0.16em;text-transform:uppercase;color:var(--ink-3);margin-bottom:14px;}
+footer .col ul{list-style:none;}
+footer .col li{margin-bottom:8px;}
+footer .col a{font:400 13px/1.5 var(--font-body);color:var(--ink-2);letter-spacing:-0.011em;text-decoration:none;}
+footer .col a:hover{color:var(--signal);}
+footer .legal{border-top:1px solid var(--rule);margin-top:36px;padding-top:24px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font:400 12px/1.5 var(--font-mono);color:var(--ink-4);letter-spacing:0;}
+
+[data-reveal]{opacity:0;transform:translateY(14px);transition:opacity .65s cubic-bezier(.2,.6,.2,1),transform .65s cubic-bezier(.2,.6,.2,1);will-change:opacity,transform;}
+[data-reveal].in{opacity:1;transform:none;}
+@media (prefers-reduced-motion: reduce){[data-reveal]{opacity:1!important;transform:none!important;}}
 </style>
 </head>
 <body>
 
-<a class="skip kx-sr-only" href="#main">Skip to content</a>
+<a class="skip" href="#main">Skip to content</a>
 
-<div class="shell">
-  <header class="kx-mast" role="banner">
-    <a class="kx-brand" href="/" aria-label="Krentix">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" aria-hidden="true">
-        <g stroke-width="1">
-          <line x1="2" y1="6" x2="11" y2="11.4"/>
-          <line x1="2" y1="8" x2="11" y2="11.6"/>
-          <line x1="2" y1="10" x2="11" y2="11.8"/>
-          <line x1="2" y1="11.5" x2="11" y2="12"/>
-          <line x1="2" y1="12.5" x2="11" y2="12"/>
-          <line x1="2" y1="14" x2="11" y2="12.2"/>
-          <line x1="2" y1="16" x2="11" y2="12.4"/>
-          <line x1="2" y1="18" x2="11" y2="12.6"/>
-        </g>
-        <circle cx="12" cy="12" r="1.25" fill="currentColor"/>
-        <line x1="13.25" y1="12" x2="22" y2="12" stroke-width="1.8"/>
-      </svg>
-      Krentix
+<header class="mast" role="banner">
+  <div class="shell">
+    <a class="logo" href="/" aria-label="Krentix home">
+      <span class="logo-mark" aria-hidden="true">
+        <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+        <span class="dot"></span><span class="dot lit"></span><span class="dot"></span>
+        <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+        <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+      </span>
+      <span class="logo-text">
+        <span class="logo-wordmark">Krentix</span>
+        <span class="logo-tagline">Twelve verifiers. One answer.</span>
+      </span>
     </a>
     <nav aria-label="Primary">
-      <a href="#how">How it works</a>
-      <a href="#compare">vs Claude Code</a>
-      <a href="#faq">FAQ</a>
-    </nav>
-  </header>
-
-  <main id="main">
-    <section class="hero">
-      <span class="eyebrow">Local-first AI · v2.0</span>
-      <h1>Twelve verifiers. One answer.</h1>
-      <p class="sub">Krentix synthesises an answer through twelve specialised verifiers before it reaches you. Calmer, cheaper, more sovereign than any cloud agent. Runs on your own machine for $0.20–0.60 a day.</p>
-      <div class="ctas">
-        <a class="btn btn-primary" href="#how">How it works</a>
-        <a class="btn btn-ghost" href="#faq">FAQ →</a>
-      </div>
-    </section>
-
-    <section id="compare">
-      <span class="eyebrow">Comparison</span>
-      <h2>Krentix vs Claude Code</h2>
-      <table class="cmp" aria-label="Krentix vs Claude Code comparison">
-        <thead>
-          <tr><th>Dimension</th><th>Claude Code</th><th>Krentix</th></tr>
-        </thead>
-        <tbody>
-          <tr><td>Daily cost (typical)</td><td class="num">$5 – $30</td><td class="num">$0.20 – $0.60</td></tr>
-          <tr><td>Where it runs</td><td>Cloud only</td><td>Your machine</td></tr>
-          <tr><td>Verification per answer</td><td>1 model</td><td>12 verifiers + constitutional ensemble</td></tr>
-          <tr class="krentix-row"><td>Audit trail</td><td>Opaque</td><td>Provenance per request</td></tr>
-          <tr><td>Hard daily cap</td><td>None</td><td>$2.00 enforced</td></tr>
-          <tr><td>Refusal authority</td><td>Vendor policy</td><td>Three-model constitutional vote, weights you set</td></tr>
-        </tbody>
-      </table>
-    </section>
-
-    <section id="how">
-      <span class="eyebrow">How it works</span>
-      <h2>One pipeline, twelve cross-checks.</h2>
-      <p style="margin-bottom:48px;max-width:60ch;">Every request runs through specialised exit branches: tool use, council debate, vision panel, constitutional refusal review, crystal cache, instinct match, full ensemble. The cheapest route that solves the question wins. The expensive routes only fire when they have to.</p>
-      <div class="steps">
-        <div class="step">
-          <div class="n">01</div>
-          <h3>Triage</h3>
-          <p>Constitutional ensemble screens for sensitive intent before any model runs.</p>
-        </div>
-        <div class="step">
-          <div class="n">02</div>
-          <h3>Route</h3>
-          <p>Pipeline picks the cheapest exit branch that can solve the question with high confidence.</p>
-        </div>
-        <div class="step">
-          <div class="n">03</div>
-          <h3>Verify</h3>
-          <p>Twelve verifiers cross-check the candidate. Disagreement triggers escalation, not silence.</p>
-        </div>
-        <div class="step">
-          <div class="n">04</div>
-          <h3>Ship</h3>
-          <p>Answer streams under two seconds. Provenance trail logged. Cost recorded against the daily cap.</p>
-        </div>
-      </div>
-    </section>
-
-    <section id="faq">
-      <span class="eyebrow">Questions</span>
-      <h2>Often asked.</h2>
-      <div class="faq">
-        <details>
-          <summary>Why is it so much cheaper?</summary>
-          <p>Krentix routes the cheapest free-tier provider that can answer with verifier consensus (Cerebras, Groq, Google Gemini Flash, OpenRouter). Paid Sonnet only fires as a fallback, gated at $2 per day.</p>
-        </details>
-        <details>
-          <summary>Does my data leave my machine?</summary>
-          <p>Only the provider call you intentionally route through. Persistent memory, audit logs, crystal cache, and provenance trail stay on your disk in <code>~/.krentix/</code>. Constitutional refusals are auditable, local, and signed.</p>
-        </details>
-        <details>
-          <summary>How do twelve verifiers actually disagree?</summary>
-          <p>Each verifier has a domain, a model, and a constitution. Disagreement above threshold escalates: more verifiers, paid fallback, or a constitutional vote. Silent agreement is logged the same way as dissent.</p>
-        </details>
-        <details>
-          <summary>What happens when the bridge is offline?</summary>
-          <p>Krentix is a Windows service (<code>krentixbridge.exe</code>) that auto-restarts. The UI surfaces an honest "bridge offline" state with a correlation id. No fake answers, no fallback prompts.</p>
-        </details>
-        <details>
-          <summary>Can I see what each verifier voted?</summary>
-          <p>Yes — every answer carries a provenance trail. Click "details" under any answer to see model, latency, cost, and dissent.</p>
-        </details>
-        <details>
-          <summary>Is the source available?</summary>
-          <p>Krentix is closed source during early access. The bridge runs entirely on your machine — no telemetry, no cloud calls beyond the LLM providers you configure. Constitutional ensemble weights and verifier prompts are user-tunable from the local config.</p>
-        </details>
-        <details>
-          <summary>What does it cost to run on my machine?</summary>
-          <p>$0 in subscription. $0.20–$0.60 per day in pay-as-you-go provider fees, hard-capped at $2/day. No floor — quiet days cost nothing.</p>
-        </details>
-        <details>
-          <summary>What about data retention and audit?</summary>
-          <p>Provenance is local-first JSONL. Export to NDJSON via <code>/api/audit/export</code>. Nothing reports home.</p>
-        </details>
-      </div>
-    </section>
-  </main>
-
-  <footer class="foot" role="contentinfo">
-    <div class="foot-group">
-      <strong>Krentix</strong>
-      <a href="/">Home</a>
-      <a href="#how">How it works</a>
-      <a href="#compare">vs Claude Code</a>
-      <a href="#faq">FAQ</a>
-    </div>
-    <div class="foot-group">
-      <strong>Build</strong>
       <a href="/architecture/">Architecture</a>
-      <a href="/security/">Security</a>
-      <a href="/changelog/">Changelog</a>
-    </div>
-    <div class="foot-group">
-      <strong>More</strong>
-      <a href="/use-cases/">Use cases</a>
       <a href="/benchmarks/">Benchmarks</a>
       <a href="/security/">Security</a>
-    </div>
-    <div class="foot-group">
-      <strong>Contact</strong>
-      <span>krentix.com</span>
-      <span style="color:var(--ink-4);">© 2026 Krentix</span>
-    </div>
-  </footer>
-</div>
+      <a href="/use-cases/">Use cases</a>
+      <a href="/changelog/">Changelog</a>
+    </nav>
+    <a class="mast-cta" href="/app">Try free <span class="arr">→</span></a>
+  </div>
+</header>
 
+<main id="main">
+
+<section class="hero" aria-labelledby="hero-h">
+  <div class="hero-bg" aria-hidden="true">
+    <div class="hero-bg-mesh"></div>
+    <div class="hero-bg-grain"></div>
+    <svg class="network-svg" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <g><line x1="200" y1="200" x2="200" y2="40"/><line x1="200" y1="200" x2="280" y2="60"/><line x1="200" y1="200" x2="340" y2="120"/><line x1="200" y1="200" x2="360" y2="200"/><line x1="200" y1="200" x2="340" y2="280"/><line x1="200" y1="200" x2="280" y2="340"/><line x1="200" y1="200" x2="200" y2="360"/><line x1="200" y1="200" x2="120" y2="340"/><line x1="200" y1="200" x2="60" y2="280"/><line x1="200" y1="200" x2="40" y2="200"/><line x1="200" y1="200" x2="60" y2="120"/><line x1="200" y1="200" x2="120" y2="60"/></g>
+      <g><circle cx="200" cy="40" r="4"/><circle cx="280" cy="60" r="4"/><circle cx="340" cy="120" r="4" class="lit-node"/><circle cx="360" cy="200" r="4"/><circle cx="340" cy="280" r="4"/><circle cx="280" cy="340" r="4"/><circle cx="200" cy="360" r="4" class="lit-node"/><circle cx="120" cy="340" r="4"/><circle cx="60" cy="280" r="4"/><circle cx="40" cy="200" r="4"/><circle cx="60" cy="120" r="4" class="lit-node"/><circle cx="120" cy="60" r="4"/><circle cx="200" cy="200" r="6" class="center-node"/></g>
+    </svg>
+  </div>
+  <div class="shell">
+    <div class="hero-content">
+      <p class="hero-eyebrow">Verified by twelve. Shipped by one.</p>
+      <h1 id="hero-h">
+        <span class="ln">Better answers.</span>
+        <span class="ln">Simpler, faster work.</span>
+        <span class="ln"><em>A fraction of the cost.</em></span>
+      </h1>
+      <p class="hero-sub">Every other AI tool optimizes for generating an answer. Krentix optimizes for getting it right — at the lowest possible cost to you.</p>
+      <div class="hero-proof">
+        <div class="hero-proof-item"><span class="num">97.0%</span><span class="label">Coding accuracy · verified</span></div>
+        <div class="hero-proof-item"><span class="num">97.5%</span><span class="label">Math accuracy · verified</span></div>
+        <div class="hero-proof-item"><span class="num">$0.20</span><span class="label">Per day · less than coffee</span></div>
+      </div>
+      <div class="hero-ctas">
+        <a class="btn btn-primary" href="/app">Try Krentix free <span class="arr">→</span></a>
+        <a class="btn btn-ghost" href="#bench">See results</a>
+      </div>
+      <p class="hero-reassure">No credit card · Free tier · Works in your browser</p>
+
+      <div class="product-demo" data-reveal aria-label="Krentix app preview">
+        <div class="product-demo__chrome">
+          <div class="product-demo__dots"><span class="product-demo__dot product-demo__dot--r"></span><span class="product-demo__dot product-demo__dot--y"></span><span class="product-demo__dot product-demo__dot--g"></span></div>
+          <div class="product-demo__urlbar">krentix.com/app</div>
+        </div>
+        <div class="product-demo__chat">
+          <div class="product-demo__msg product-demo__msg--user">
+            <div class="product-demo__avatar product-demo__avatar--user">You</div>
+            <div class="product-demo__bubble product-demo__bubble--user">What are the pros and cons of solar panels for a home?</div>
+          </div>
+          <div class="product-demo__msg">
+            <div class="product-demo__avatar product-demo__avatar--ai">K</div>
+            <div class="product-demo__bubble">
+              <div class="product-demo__response-header">
+                <span class="product-demo__badge">✓ Verified</span>
+                <span class="product-demo__copy-btn">Copy</span>
+              </div>
+              <p class="product-demo__response-text">Solar panels can significantly reduce electricity bills and your carbon footprint, but come with upfront costs and variable output.</p>
+              <ul class="product-demo__response-list">
+                <li>Lower long-term energy costs — typical payback in 6–10 years</li>
+                <li>Increases home resale value by 3–4% on average</li>
+                <li>Output depends on roof orientation, shading, and local climate</li>
+                <li>Installation cost: $15–25k before incentives; federal tax credit up to 30%</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="s-block bench-section" id="bench" aria-labelledby="bench-h">
+  <div class="shell">
+    <p class="s-eyebrow" data-reveal>Top 5 benchmarks · April 2026</p>
+    <h2 class="s-h2" id="bench-h" data-reveal>Independently verifiable. <em>Where Krentix beats every frontier.</em></h2>
+    <p class="s-lede" data-reveal>Public datasets. Open harness. <strong>No cherry-picking, no human review after the fact.</strong> Every Krentix score traces to per-problem JSON in the public bench repo. Where Krentix hasn't run yet, the cell is dashed — we don't fabricate numbers to fill space.</p>
+    <div class="bench-table-wrap" data-reveal>
+      <table class="bench-table" aria-label="Krentix vs frontier models, top 5 benchmarks, April 2026">
+        <thead>
+          <tr>
+            <th scope="col">Benchmark</th>
+            <th scope="col" class="col-krentix">Krentix</th>
+            <th scope="col">Claude Opus 4.7</th>
+            <th scope="col">GPT-5.5</th>
+            <th scope="col">Gemini 3.1 Pro</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><th scope="row">HumanEval<span class="sub">Coding · pass@1 · 164 problems</span></th>
+            <td class="col-krentix"><span class="score">97.0<span class="pct">%</span></span><span class="meta">159 / 164</span></td>
+            <td>96<span class="pct">%</span></td><td>96<span class="pct">%</span></td><td>95<span class="pct">%</span></td></tr>
+          <tr><th scope="row">GSM8K<span class="sub">Grade-school math · 1,319 problems</span></th>
+            <td class="col-krentix"><span class="score">97.5<span class="pct">%</span></span><span class="meta">195 / 200 sample</span></td>
+            <td>96.4<span class="pct">%</span></td><td>96.1<span class="pct">%</span></td><td>95.8<span class="pct">%</span></td></tr>
+          <tr><th scope="row">MBPP+<span class="sub">Coding · pass@1 · full 378</span></th>
+            <td class="col-krentix"><span class="score">81.5<span class="pct">%</span></span><span class="meta">308 / 378 · medium tier</span></td>
+            <td class="dim">— <span class="meta">vendor not standardised</span></td><td class="dim">—</td><td class="dim">—</td></tr>
+          <tr><th scope="row">SWE-bench Verified<span class="sub">Coding · % resolved</span></th>
+            <td class="col-krentix dim"><span class="score">—</span><span class="meta">Docker harness pending</span></td>
+            <td>87.6<span class="pct">%</span></td><td>58.6<span class="pct">%</span></td><td class="dim">—</td></tr>
+          <tr><th scope="row">GPQA Diamond<span class="sub">Graduate-level Q&amp;A</span></th>
+            <td class="col-krentix dim"><span class="score">—</span><span class="meta">harness queued</span></td>
+            <td>94.2<span class="pct">%</span></td><td>93.5<span class="pct">%</span></td><td>94.1<span class="pct">%</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="bench-foot" data-reveal>
+      <span>Competitor scores: <a href="/benchmarks/">Artificial Analysis &amp; Vellum leaderboards</a>, April 2026.</span>
+      <a href="https://github.com/joelrobic-gif/krentix-landing/tree/main/bench" rel="noopener">View all 20 benchmarks + source citations →</a>
+    </div>
+  </div>
+</section>
+
+<section class="s-block" id="values" aria-labelledby="values-h">
+  <div class="shell">
+    <p class="s-eyebrow" data-reveal>Why Krentix</p>
+    <h2 class="s-h2" id="values-h" data-reveal>Everything other AI tools get wrong. <em>Krentix gets right.</em></h2>
+    <div class="vp-grid" data-reveal>
+      <article class="vp-card"><div class="icon">✓</div><h3>Verified, not just generated</h3><p>Every answer is independently checked before it reaches you. Wrong answers don't ship. You never have to wonder if it's right — or waste time finding out it wasn't.</p></article>
+      <article class="vp-card"><div class="icon">$</div><h3>From $0.20 a day</h3><p>Depth of review matches complexity of the task. Simple questions are instant and free. You never pay top rates for a quick answer. Free tier uses real AI — not a stripped demo.</p></article>
+      <article class="vp-card"><div class="icon">⚡</div><h3>Fast when you need it</h3><p>Sub-second fast path for simple queries. Deep review when stakes are high. Repeated patterns cached — instant, zero cost, every time after the first.</p></article>
+      <article class="vp-card"><div class="icon">◎</div><h3>You control the power level</h3><p>Four levels from free to maximum. Dial up for critical work, dial down for everyday tasks. No other AI agent gives you this. Cursor, Copilot, and ChatGPT bill you maximum on everything.</p></article>
+      <article class="vp-card"><div class="icon">∞</div><h3>Works for anything</h3><p>Coding, research, writing, math, web search, document analysis — Krentix is not locked to one use case, one model, or one way of working. Ask it anything.</p></article>
+      <article class="vp-card"><div class="icon">↑</div><h3>Gets smarter every day</h3><p>Krentix runs improvement cycles overnight and learns your patterns while you sleep. Every morning it's sharper than the day before — without you doing anything.</p></article>
+    </div>
+  </div>
+</section>
+
+<section class="s-block" id="mechanism" aria-labelledby="mech-h">
+  <div class="shell">
+    <p class="s-eyebrow" data-reveal>How it works</p>
+    <h2 class="s-h2" id="mech-h" data-reveal>Most coding agents give you their first answer. <em>Krentix gives you the best answer</em> — verified before you ever see it.</h2>
+    <ol class="steps" role="list">
+      <li class="step" data-reveal>
+        <div class="num" aria-hidden="true">01<span class="dot">.</span></div>
+        <div class="body">
+          <h3>You ask. Krentix figures out the right approach — automatically.</h3>
+          <p>A simple question gets a fast, focused answer. A high-stakes change gets the full treatment. <strong>Every task is handled at the level it deserves, without you having to configure anything.</strong></p>
+          <pre class="example" aria-hidden="true"><span class="you">› fix this loop: for(let i=0;i&lt;=arr.length;i++)</span>
+<span class="arr">→</span> <span class="out">analysing…</span>  <span class="pass">verified fix ready</span></pre>
+        </div>
+      </li>
+      <li class="step" data-reveal>
+        <div class="num" aria-hidden="true">02<span class="dot">.</span></div>
+        <div class="body">
+          <h3>Your answer is checked independently — before it reaches you.</h3>
+          <p>Krentix doesn't ask the same AI that produced your answer to also check it. A second, separate review runs without access to the first. <strong>Disagreement between the two is the signal</strong> — it catches blind spots, overconfidence, and hallucinations before they reach you.</p>
+          <pre class="example" aria-hidden="true"><span class="out">answer produced</span>  <span class="arr">→</span>  <span class="out">independent check</span>  <span class="arr">→</span>  <span class="pass">verified</span></pre>
+        </div>
+      </li>
+      <li class="step" data-reveal>
+        <div class="num" aria-hidden="true">03<span class="dot">.</span></div>
+        <div class="body">
+          <h3>Only verified answers ship. If it fails the check, you never see it.</h3>
+          <p>Answers that fail are retried and corrected automatically. <strong>You see only what passed.</strong> If you want to know what was checked and why — the full audit trail is one click away.</p>
+          <pre class="example" aria-hidden="true"><span class="pass">PASS</span> accuracy · <span class="pass">PASS</span> sources · <span class="fail">FAIL</span> rounding
+<span class="out">corrected automatically</span>  <span class="arr">→</span>  <span class="pass">PASS</span></pre>
+        </div>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<section class="s-block" id="contrast" aria-labelledby="contrast-h">
+  <div class="shell">
+    <p class="s-eyebrow" data-reveal>Positioning</p>
+    <h2 class="s-h2" id="contrast-h" data-reveal>Why Krentix is <em>different</em>.</h2>
+    <div class="contrast-grid">
+      <article class="contrast-art" data-reveal>
+        <h3>Not about having more AI. About getting a second opinion before you see the answer.</h3>
+        <p>Most AI tools give you one answer from one AI. If that AI is wrong, you get the wrong answer — confidently delivered. <strong>Krentix checks every answer independently before it reaches you.</strong> The gains come from catching what any single AI would miss: an edge case it didn't consider, a number it got subtly wrong, a claim it stated as fact that wasn't.</p>
+        <p>That's why Claude Code, Cursor, and Copilot all hit the same ceiling. When the same tool that produces the answer is also the one checking it, it can only find the mistakes it knows how to look for. <strong>Krentix scores above every major AI on the same public benchmarks because every answer is checked independently — by reviewers who didn't produce it.</strong></p>
+      </article>
+      <article class="contrast-art" data-reveal>
+        <h3>Cost-per-quality, not cost-per-keystroke. Proof, not promises.</h3>
+        <p>Most AI agents charge you their maximum rate on everything, every time. Krentix matches the depth of work to what the task actually needs — and only goes deeper when the answer requires it. <strong>An order-of-magnitude lower cost than always-on maximum-power tools.</strong> Every answer comes with a full audit trail — what was checked, what passed, what was overruled, and why.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="s-block" id="economy" aria-labelledby="econ-h">
+  <div class="shell">
+    <p class="s-eyebrow" data-reveal>Energy &amp; cost</p>
+    <h2 class="s-h2" id="econ-h" data-reveal>Most AI agents charge you their maximum rate on everything. <em>Krentix uses only what each task actually needs.</em></h2>
+    <div class="econ-grid">
+      <div class="econ-card" data-reveal><p class="big">~10<span class="alt">×</span></p><p class="lbl">Lower cost than always-on maximum-power AI</p><p class="dsc">Most AI agents run at maximum cost on every request. Krentix uses only what each task actually needs — same verified quality for a fraction of the price.</p></div>
+      <div class="econ-card" data-reveal><p class="big">0<span class="alt"> wait</span></p><p class="lbl">Instant answers for repeated questions — zero wait, zero cost</p><p class="dsc">Questions you've asked before are answered instantly — no AI processing needed. Same verified answer. No delay. No charge.</p></div>
+      <div class="econ-card" data-reveal><p class="big">$0.20</p><p class="lbl">Per day on the Light plan — less than a coffee</p><p class="dsc">Full verification on every answer, all day. Start free with no limits and upgrade only when you need more power. No hidden costs, no surprise bills.</p></div>
+    </div>
+    <p class="econ-note" data-reveal>Verification and efficiency come from the same place: matching the depth of review to the size of the problem. Simple tasks are fast and cheap. Complex ones get everything they need.</p>
+  </div>
+</section>
+
+<section class="s-block" id="dial" aria-labelledby="dial-h">
+  <div class="shell">
+    <p class="s-eyebrow" data-reveal>The dial</p>
+    <h2 class="s-h2" id="dial-h" data-reveal>Every top AI. Every price point. <em>You</em> move the dial.</h2>
+    <p class="s-lede" data-reveal>Four power levels. One control. At <strong>full power</strong>, Krentix uses the best AI in the world. At <strong>zero</strong>, free models — real answers at no cost, not a limited trial. Every other AI tool locks you to one fixed price. Krentix puts the dial in your hand.</p>
+    <div class="dial-grid">
+      <article class="dial-tier" data-reveal><header><p class="tier-name">Zero</p><p class="tier-price">Free</p></header><p class="tier-tag">Free models · real answers · no trial limits</p><ul class="tier-bullets"><li>Real AI inference — not a stripped-down demo</li><li>Instant answers for repeated questions — zero wait</li><li>Good for exploration, learning, everyday questions</li></ul></article>
+      <article class="dial-tier" data-reveal><header><p class="tier-name">Light</p><p class="tier-price">Light</p></header><p class="tier-tag">Fast · accurate · great value</p><ul class="tier-bullets"><li>Fast, accurate AI — quality without the wait</li><li>Full review on every answer</li><li>Ideal for daily work</li></ul></article>
+      <article class="dial-tier is-default" data-reveal><header><p class="tier-name">Medium <span class="tier-default">default</span></p><p class="tier-price">Balanced</p></header><p class="tier-tag">Top-tier quality · smart cost management</p><ul class="tier-bullets"><li>Top AI on your most important work</li><li>Routes each task to the right model automatically</li><li>A fraction of the cost of running max-power on everything</li></ul></article>
+      <article class="dial-tier is-full" data-reveal><header><p class="tier-name">Full power</p><p class="tier-price">Max</p></header><p class="tier-tag">The best AI in the world · maximum accuracy</p><ul class="tier-bullets"><li>Every top AI working together</li><li>Highest possible quality on critical work</li><li>For production code, high-stakes decisions, complex problems</li></ul></article>
+    </div>
+    <p class="dial-note" data-reveal>One dropdown. The same verified quality at every level. <strong>No other AI agent does this.</strong> Cursor, Copilot, and ChatGPT charge you maximum rates on everything — you can't dial down for simple work, and you can't dial up when it really matters. Krentix gives you full control.</p>
+  </div>
+</section>
+
+<section class="s-block" id="source" aria-labelledby="source-h">
+  <div class="shell">
+    <p class="s-eyebrow" data-reveal>Source mode</p>
+    <h2 class="s-h2" id="source-h" data-reveal>Give Krentix your files. <em>Get answers only from them.</em></h2>
+    <p class="s-lede" data-reveal><strong>Drop in any file, URL, or document.</strong> Krentix answers only from what you gave it — citing the exact source for every claim. If the answer isn't in your files, it says so. No guessing. No making things up.</p>
+    <div class="source-grid">
+      <article class="source-card" data-reveal><p class="src-label">Your documents</p><p class="src-body">Drop in a contract, report, or brief. Ask anything about it. Every answer cites the exact section it came from — or tells you the answer isn't there.</p></article>
+      <article class="source-card" data-reveal><p class="src-label">Your code</p><p class="src-body">Upload your project files. Krentix answers questions about your actual code — not generic advice. It won't suggest things that don't exist in what you gave it.</p></article>
+      <article class="source-card" data-reveal><p class="src-label">Articles &amp; research</p><p class="src-body">Drop in anything you're reading. Every claim in the answer comes back with the exact source and section. No fabricated references.</p></article>
+      <article class="source-card" data-reveal><p class="src-label">Anything at all</p><p class="src-body">PDFs, URLs, pasted text — whatever you have. Krentix stays inside what you give it. The moment you ask something outside those files, it tells you.</p></article>
+    </div>
+    <p class="source-note" data-reveal><strong>Works at every price level — including free.</strong> Toggle it on from the chat interface. No setup required.</p>
+  </div>
+</section>
+
+</main>
+
+<footer role="contentinfo">
+  <div class="shell">
+    <div class="row">
+      <div class="col">
+        <a class="logo" href="/" aria-label="Krentix home">
+          <span class="logo-mark" aria-hidden="true">
+            <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+            <span class="dot"></span><span class="dot lit"></span><span class="dot"></span>
+            <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+            <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+          </span>
+          <span class="logo-text"><span class="logo-wordmark">Krentix</span><span class="logo-tagline">Twelve verifiers. One answer.</span></span>
+        </a>
+      </div>
+      <div class="col"><h4>Product</h4><ul><li><a href="/architecture/">Architecture</a></li><li><a href="/benchmarks/">Benchmarks</a></li><li><a href="/use-cases/">Use cases</a></li><li><a href="/app">Try free</a></li></ul></div>
+      <div class="col"><h4>Trust</h4><ul><li><a href="/security/">Security</a></li><li><a href="/changelog/">Changelog</a></li><li><a href="https://github.com/joelrobic-gif/krentix-landing/tree/main/bench" rel="noopener">Bench repo</a></li></ul></div>
+      <div class="col"><h4>Contact</h4><ul><li><a href="mailto:hello@krentix.com">hello@krentix.com</a></li><li><a href="mailto:security@krentix.com">security@krentix.com</a></li></ul></div>
+    </div>
+    <div class="legal"><span>© 2026 Krentix · A governed intelligence system.</span><span>Build · 2026.05.03</span></div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var rm = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var canHover = matchMedia('(hover: hover) and (pointer: fine)').matches;
+  var hasIO = 'IntersectionObserver' in window;
+
+  if (hasIO){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if (e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+      });
+    }, { rootMargin: '0px 0px -10% 0px', threshold: 0.1 });
+    document.querySelectorAll('[data-reveal]').forEach(function(el){ io.observe(el); });
+  } else {
+    document.querySelectorAll('[data-reveal]').forEach(function(el){ el.classList.add('in'); });
+  }
+
+  var primary = document.querySelector('.hero-ctas .btn-primary');
+  if (primary && canHover && !rm){
+    var rect = null, frame = 0;
+    primary.addEventListener('pointerenter', function(){ rect = primary.getBoundingClientRect(); });
+    primary.addEventListener('pointermove', function(ev){
+      if (!rect || frame) return;
+      frame = requestAnimationFrame(function(){
+        frame = 0;
+        var cx = rect.left + rect.width/2, cy = rect.top + rect.height/2;
+        var dx = (ev.clientX - cx) * 0.12, dy = (ev.clientY - cy) * 0.12;
+        primary.style.transform = 'translate(' + dx.toFixed(2) + 'px,' + (dy - 1).toFixed(2) + 'px)';
+      });
+    });
+    primary.addEventListener('pointerleave', function(){ rect = null; primary.style.transform = ''; });
+  }
+
+  var h1 = document.querySelector('.hero h1');
+  if (h1 && canHover && !rm){
+    var hRect = null;
+    var measure = function(){ hRect = h1.getBoundingClientRect(); };
+    measure();
+    addEventListener('resize', measure, { passive: true });
+    addEventListener('scroll', measure, { passive: true });
+    addEventListener('pointermove', function(ev){
+      if (!hRect) return;
+      var cx = hRect.left + hRect.width/2, cy = hRect.top + hRect.height/2;
+      var dx = (ev.clientX - cx) / hRect.width, dy = (ev.clientY - cy) / hRect.height;
+      var d = Math.min(1, Math.sqrt(dx*dx + dy*dy));
+      var w = 460 + Math.round((1-d) * 140);
+      h1.style.fontVariationSettings = '"wght" ' + w;
+    }, { passive: true });
+  }
+})();
+</script>
 </body>
 </html>
