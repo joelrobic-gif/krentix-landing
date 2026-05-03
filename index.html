@@ -19,7 +19,8 @@
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://www.krentix.com">
 
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23F4F3EE'/%3E%3Cg fill='%238A8A92' opacity='0.4'%3E%3Ccircle cx='8' cy='6' r='2.5'/%3E%3Ccircle cx='16' cy='6' r='2.5'/%3E%3Ccircle cx='24' cy='6' r='2.5'/%3E%3Ccircle cx='8' cy='14' r='2.5'/%3E%3Ccircle cx='24' cy='14' r='2.5'/%3E%3Ccircle cx='8' cy='22' r='2.5'/%3E%3Ccircle cx='16' cy='22' r='2.5'/%3E%3Ccircle cx='24' cy='22' r='2.5'/%3E%3Ccircle cx='8' cy='30' r='2.5'/%3E%3Ccircle cx='16' cy='30' r='2.5'/%3E%3Ccircle cx='24' cy='30' r='2.5'/%3E%3C/g%3E%3Ccircle cx='16' cy='14' r='2.5' fill='%231A3A6B'/%3E%3C/svg%3E">
+<!-- Favicon: Krentix mark — 8-line convergent wedge + stem, spec C-8 v1.0 (scaled 24→32u) -->
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23F4F3EE'/%3E%3Cg stroke='%231A3A6B' stroke-linecap='round'%3E%3Cline x1='2' y1='7' x2='13' y2='16' stroke-width='1.1'/%3E%3Cline x1='2' y1='9' x2='13' y2='16' stroke-width='1.1'/%3E%3Cline x1='2' y1='12' x2='13' y2='16' stroke-width='1.1'/%3E%3Cline x1='2' y1='14' x2='13' y2='16' stroke-width='1.1'/%3E%3Cline x1='2' y1='17' x2='13' y2='16' stroke-width='1.1'/%3E%3Cline x1='2' y1='19' x2='13' y2='16' stroke-width='1.1'/%3E%3Cline x1='2' y1='22' x2='13' y2='16' stroke-width='1.1'/%3E%3Cline x1='2' y1='25' x2='13' y2='16' stroke-width='1.1'/%3E%3Cline x1='19' y1='16' x2='30' y2='16' stroke-width='2.4'/%3E%3C/g%3E%3C/svg%3E">
 <link rel="canonical" href="https://www.krentix.com/">
 
 <link rel="preconnect" href="https://rsms.me" crossorigin>
@@ -83,9 +84,10 @@ a:hover{color:var(--ink);}
 .mast-cta:hover{background:var(--signal-3);color:var(--signal-ink);}
 
 .logo{display:inline-flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink);}
-.logo-mark{width:32px;height:32px;flex-shrink:0;display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(4,1fr);gap:2px;padding:4px;border-radius:6px;background:linear-gradient(135deg,var(--paper-2) 0%,var(--paper-3) 100%);border:1px solid var(--rule);box-shadow:var(--shadow-sm);}
-.logo-mark .dot{width:100%;height:100%;border-radius:50%;background:var(--ink-4);opacity:0.4;}
-.logo-mark .dot.lit{background:var(--signal);opacity:1;box-shadow:0 0 0 1.5px var(--signal-2),0 0 8px rgba(26,58,107,0.4);}
+/* Krentix mark — SVG, C-8 v1.0 spec. Width matches previous 32px slot exactly. */
+.logo-mark{width:32px;height:32px;flex-shrink:0;display:flex;align-items:center;justify-content:center;}
+.logo-mark svg{width:32px;height:32px;display:block;overflow:visible;}
+.logo-mark .dot,.logo-mark .dot.lit{display:none;} /* legacy — hidden */
 .logo-text{display:flex;flex-direction:column;line-height:1;}
 .logo-wordmark{font:600 18px/1 var(--font-display);letter-spacing:-0.024em;color:var(--ink);}
 .logo-tagline{font:400 10px/1 var(--font-mono);color:var(--ink-3);letter-spacing:0.04em;margin-top:3px;}
@@ -330,11 +332,21 @@ footer .legal{border-top:1px solid var(--rule);margin-top:36px;padding-top:24px;
 <header class="mast" role="banner">
   <div class="shell">
     <a class="logo" href="/" aria-label="Krentix home">
+      <!-- Krentix mark C-8 v1.0 · 24-unit grid · 8-line convergent wedge + stem -->
       <span class="logo-mark" aria-hidden="true">
-        <span class="dot"></span><span class="dot"></span><span class="dot"></span>
-        <span class="dot"></span><span class="dot lit"></span><span class="dot"></span>
-        <span class="dot"></span><span class="dot"></span><span class="dot"></span>
-        <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- 8 hairlines y=5→19 pitch 2u, all to node x=10 y=12 -->
+          <line x1="1" y1="5"  x2="10" y2="12" stroke="var(--signal,#1A3A6B)" stroke-width="0.8" stroke-linecap="round"/>
+          <line x1="1" y1="7"  x2="10" y2="12" stroke="var(--signal,#1A3A6B)" stroke-width="0.8" stroke-linecap="round"/>
+          <line x1="1" y1="9"  x2="10" y2="12" stroke="var(--signal,#1A3A6B)" stroke-width="0.8" stroke-linecap="round"/>
+          <line x1="1" y1="11" x2="10" y2="12" stroke="var(--signal,#1A3A6B)" stroke-width="0.8" stroke-linecap="round"/>
+          <line x1="1" y1="13" x2="10" y2="12" stroke="var(--signal,#1A3A6B)" stroke-width="0.8" stroke-linecap="round"/>
+          <line x1="1" y1="15" x2="10" y2="12" stroke="var(--signal,#1A3A6B)" stroke-width="0.8" stroke-linecap="round"/>
+          <line x1="1" y1="17" x2="10" y2="12" stroke="var(--signal,#1A3A6B)" stroke-width="0.8" stroke-linecap="round"/>
+          <line x1="1" y1="19" x2="10" y2="12" stroke="var(--signal,#1A3A6B)" stroke-width="0.8" stroke-linecap="round"/>
+          <!-- Exit stem x=14→22 at y=12, stroke 1.8u -->
+          <line x1="14" y1="12" x2="23" y2="12" stroke="var(--signal,#1A3A6B)" stroke-width="1.8" stroke-linecap="round"/>
+        </svg>
       </span>
       <span class="logo-text">
         <span class="logo-wordmark">Krentix</span>
@@ -362,8 +374,18 @@ footer .legal{border-top:1px solid var(--rule);margin-top:36px;padding-top:24px;
     <div class="hero-bg-arrows">
       <svg viewBox="0 0 1200 600" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
         <defs>
-          <!-- Single arrow chevron path -->
-          <path id="arr" d="M0 4 L7 0 L14 4" fill="none" stroke="#1A3A6B" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+          <!-- Krentix mark at 18-unit scale: 8-line wedge + stem (C-8 v1.0 geometry) -->
+          <g id="arr">
+            <line x1="0" y1="0"   x2="7.5" y2="4.5" stroke="#1A3A6B" stroke-width="0.6" stroke-linecap="round"/>
+            <line x1="0" y1="1.5" x2="7.5" y2="4.5" stroke="#1A3A6B" stroke-width="0.6" stroke-linecap="round"/>
+            <line x1="0" y1="3"   x2="7.5" y2="4.5" stroke="#1A3A6B" stroke-width="0.6" stroke-linecap="round"/>
+            <line x1="0" y1="4.5" x2="7.5" y2="4.5" stroke="#1A3A6B" stroke-width="0.6" stroke-linecap="round"/>
+            <line x1="0" y1="6"   x2="7.5" y2="4.5" stroke="#1A3A6B" stroke-width="0.6" stroke-linecap="round"/>
+            <line x1="0" y1="7.5" x2="7.5" y2="4.5" stroke="#1A3A6B" stroke-width="0.6" stroke-linecap="round"/>
+            <line x1="0" y1="9"   x2="7.5" y2="4.5" stroke="#1A3A6B" stroke-width="0.6" stroke-linecap="round"/>
+            <line x1="0" y1="10.5" x2="7.5" y2="4.5" stroke="#1A3A6B" stroke-width="0.6" stroke-linecap="round"/>
+            <line x1="10.5" y1="4.5" x2="17.5" y2="4.5" stroke="#1A3A6B" stroke-width="1.35" stroke-linecap="round"/>
+          </g>
         </defs>
         <!-- Group 1: upper band -->
         <g class="arr-group" opacity="0.07">
