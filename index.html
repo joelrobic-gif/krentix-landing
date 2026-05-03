@@ -111,6 +111,53 @@ a:hover{color:var(--ink);}
 .network-svg .center-node{fill:var(--signal);animation:centerPulse 3s ease-in-out infinite;}
 @keyframes centerPulse{0%,100%{filter:drop-shadow(0 0 0 rgba(26,58,107,0));}50%{filter:drop-shadow(0 0 12px rgba(26,58,107,0.6));}}
 
+/* ── Arrow-flow background animation ─────────────────────────────────────── */
+.hero-bg-arrows{position:absolute;inset:0;z-index:-1;overflow:hidden;pointer-events:none;}
+.hero-bg-arrows svg{position:absolute;inset:0;width:100%;height:100%;}
+@keyframes arrowDrift{0%{transform:translateX(0) translateY(0);opacity:0;}8%{opacity:1;}85%{opacity:0.7;}100%{transform:translateX(160px) translateY(-60px);opacity:0;}}
+@keyframes arrowDriftSlow{0%{transform:translateX(0) translateY(0);opacity:0;}10%{opacity:0.6;}90%{opacity:0.3;}100%{transform:translateX(120px) translateY(-90px);opacity:0;}}
+@keyframes arrowPulse{0%,100%{opacity:0.04;}50%{opacity:0.11;}}
+.arr-group{animation:arrowDrift 14s linear infinite;}
+.arr-group:nth-child(2){animation-duration:18s;animation-delay:-5s;animation-name:arrowDriftSlow;}
+.arr-group:nth-child(3){animation-duration:11s;animation-delay:-3s;}
+.arr-group:nth-child(4){animation-duration:16s;animation-delay:-9s;animation-name:arrowDriftSlow;}
+.arr-group:nth-child(5){animation-duration:13s;animation-delay:-7s;}
+.arr-group:nth-child(6){animation-duration:20s;animation-delay:-12s;animation-name:arrowDriftSlow;}
+@media (prefers-reduced-motion: reduce){.arr-group{animation:arrowPulse 8s ease-in-out infinite;}}
+
+/* ── Floating energy badge ─────────────────────────────────────────────────── */
+@keyframes badgeSlideIn{from{transform:translateY(24px);opacity:0;}to{transform:translateY(0);opacity:1;}}
+@keyframes badgeShimmer{0%,100%{background-position:200% center;}50%{background-position:-200% center;}}
+@keyframes dotBlink{0%,100%{opacity:1;}50%{opacity:0.3;}}
+.energy-badge{
+  position:fixed;bottom:24px;left:24px;z-index:9000;
+  display:flex;align-items:center;gap:9px;
+  padding:9px 14px 9px 12px;
+  border-radius:100px;
+  background:linear-gradient(135deg,rgba(16,185,129,0.14) 0%,rgba(5,150,105,0.10) 100%);
+  border:1px solid rgba(16,185,129,0.28);
+  backdrop-filter:blur(14px);
+  box-shadow:0 2px 12px rgba(16,185,129,0.15),0 1px 3px rgba(0,0,0,0.08);
+  font:500 12px/1 -apple-system,BlinkMacSystemFont,'Inter',sans-serif;
+  color:#059669;
+  cursor:default;
+  animation:badgeSlideIn 0.6s cubic-bezier(0.2,0.8,0.2,1) 1.2s both;
+  transition:box-shadow 200ms,transform 200ms;
+  user-select:none;
+  text-decoration:none;
+}
+.energy-badge:hover{box-shadow:0 4px 20px rgba(16,185,129,0.25);transform:translateY(-1px);}
+@media (prefers-color-scheme: dark){
+  .energy-badge{background:linear-gradient(135deg,rgba(16,185,129,0.12) 0%,rgba(5,150,105,0.08) 100%);border-color:rgba(16,185,129,0.2);color:#34d399;}
+}
+.energy-badge .eb-dot{width:6px;height:6px;border-radius:50%;background:#10b981;flex-shrink:0;animation:dotBlink 2.4s ease-in-out infinite;box-shadow:0 0 0 2px rgba(16,185,129,0.2);}
+.energy-badge .eb-text{white-space:nowrap;letter-spacing:0.01em;}
+.energy-badge .eb-num{font-weight:700;color:#047857;}
+@media (prefers-color-scheme: dark){.energy-badge .eb-num{color:#34d399;}}
+.energy-badge .eb-dismiss{margin-left:4px;opacity:0.4;font-size:14px;line-height:1;cursor:pointer;padding:0 2px;background:none;border:none;color:inherit;}
+.energy-badge .eb-dismiss:hover{opacity:0.8;}
+@media (max-width:520px){.energy-badge{bottom:16px;left:16px;font-size:11px;padding:8px 12px 8px 10px;}}
+
 .hero-content{position:relative;z-index:1;max-width:720px;}
 .hero-eyebrow{display:inline-flex;align-items:center;gap:10px;font:500 11px/1 var(--font-mono);letter-spacing:0.16em;text-transform:uppercase;color:var(--signal);margin-bottom:24px;padding:8px 14px;background:var(--signal-2);border:1px solid var(--signal-2);border-radius:999px;backdrop-filter:blur(8px);}
 .hero-eyebrow::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--signal);animation:eyebrowPulse 2s ease-in-out infinite;}
@@ -311,6 +358,56 @@ footer .legal{border-top:1px solid var(--rule);margin-top:36px;padding-top:24px;
   <div class="hero-bg" aria-hidden="true">
     <div class="hero-bg-mesh"></div>
     <div class="hero-bg-grain"></div>
+    <!-- Arrow-flow animation layer — flowing → arrows = energy/direction motif -->
+    <div class="hero-bg-arrows">
+      <svg viewBox="0 0 1200 600" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <!-- Single arrow chevron path -->
+          <path id="arr" d="M0 4 L7 0 L14 4" fill="none" stroke="#1A3A6B" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+        </defs>
+        <!-- Group 1: upper band -->
+        <g class="arr-group" opacity="0.07">
+          <use href="#arr" x="80" y="60"/><use href="#arr" x="110" y="60"/><use href="#arr" x="140" y="60"/>
+          <use href="#arr" x="80" y="90"/><use href="#arr" x="110" y="90"/><use href="#arr" x="140" y="90"/>
+          <use href="#arr" x="200" y="45"/><use href="#arr" x="230" y="45"/>
+          <use href="#arr" x="300" y="70"/><use href="#arr" x="330" y="70"/><use href="#arr" x="360" y="70"/>
+          <use href="#arr" x="420" y="55"/><use href="#arr" x="450" y="55"/>
+        </g>
+        <!-- Group 2: mid-left -->
+        <g class="arr-group" opacity="0.055">
+          <use href="#arr" x="30" y="180"/><use href="#arr" x="60" y="180"/><use href="#arr" x="90" y="180"/>
+          <use href="#arr" x="30" y="210"/><use href="#arr" x="60" y="210"/>
+          <use href="#arr" x="150" y="200"/><use href="#arr" x="180" y="200"/><use href="#arr" x="210" y="200"/>
+          <use href="#arr" x="260" y="185"/><use href="#arr" x="290" y="185"/>
+        </g>
+        <!-- Group 3: lower band -->
+        <g class="arr-group" opacity="0.065">
+          <use href="#arr" x="100" y="340"/><use href="#arr" x="130" y="340"/><use href="#arr" x="160" y="340"/>
+          <use href="#arr" x="100" y="370"/><use href="#arr" x="130" y="370"/>
+          <use href="#arr" x="240" y="355"/><use href="#arr" x="270" y="355"/><use href="#arr" x="300" y="355"/>
+          <use href="#arr" x="380" y="345"/><use href="#arr" x="410" y="345"/>
+        </g>
+        <!-- Group 4: right diagonal band -->
+        <g class="arr-group" opacity="0.05">
+          <use href="#arr" x="500" y="120"/><use href="#arr" x="530" y="120"/>
+          <use href="#arr" x="490" y="150"/><use href="#arr" x="520" y="150"/><use href="#arr" x="550" y="150"/>
+          <use href="#arr" x="600" y="100"/><use href="#arr" x="630" y="100"/>
+          <use href="#arr" x="680" y="130"/><use href="#arr" x="710" y="130"/>
+        </g>
+        <!-- Group 5: scattered accent -->
+        <g class="arr-group" opacity="0.04">
+          <use href="#arr" x="350" y="260"/><use href="#arr" x="380" y="260"/>
+          <use href="#arr" x="440" y="290"/><use href="#arr" x="470" y="290"/>
+          <use href="#arr" x="520" y="270"/><use href="#arr" x="550" y="270"/>
+        </g>
+        <!-- Group 6: far right -->
+        <g class="arr-group" opacity="0.045">
+          <use href="#arr" x="700" y="200"/><use href="#arr" x="730" y="200"/>
+          <use href="#arr" x="690" y="230"/><use href="#arr" x="720" y="230"/>
+          <use href="#arr" x="780" y="190"/><use href="#arr" x="810" y="190"/>
+        </g>
+      </svg>
+    </div>
     <svg class="network-svg" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
       <g><line x1="200" y1="200" x2="200" y2="40"/><line x1="200" y1="200" x2="280" y2="60"/><line x1="200" y1="200" x2="340" y2="120"/><line x1="200" y1="200" x2="360" y2="200"/><line x1="200" y1="200" x2="340" y2="280"/><line x1="200" y1="200" x2="280" y2="340"/><line x1="200" y1="200" x2="200" y2="360"/><line x1="200" y1="200" x2="120" y2="340"/><line x1="200" y1="200" x2="60" y2="280"/><line x1="200" y1="200" x2="40" y2="200"/><line x1="200" y1="200" x2="60" y2="120"/><line x1="200" y1="200" x2="120" y2="60"/></g>
       <g><circle cx="200" cy="40" r="4"/><circle cx="280" cy="60" r="4"/><circle cx="340" cy="120" r="4" class="lit-node"/><circle cx="360" cy="200" r="4"/><circle cx="340" cy="280" r="4"/><circle cx="280" cy="340" r="4"/><circle cx="200" cy="360" r="4" class="lit-node"/><circle cx="120" cy="340" r="4"/><circle cx="60" cy="280" r="4"/><circle cx="40" cy="200" r="4"/><circle cx="60" cy="120" r="4" class="lit-node"/><circle cx="120" cy="60" r="4"/><circle cx="200" cy="200" r="6" class="center-node"/></g>
@@ -607,12 +704,42 @@ footer .legal{border-top:1px solid var(--rule);margin-top:36px;padding-top:24px;
     if (closeHits) closeHits.textContent = hits;
     const closePool = document.getElementById('close-pool');
     if (closePool) closePool.textContent = pool;
+    // Floating badge
+    const badgeKwh = document.getElementById('badge-kwh');
+    if (badgeKwh) badgeKwh.textContent = kwh;
   }).catch(() => {
     ['close-kwh','close-hits','close-pool','hero-kwh-saved'].forEach(id => {
       const el = document.getElementById(id);
       if (el) el.textContent = id === 'hero-kwh-saved' ? '0' : '0';
     });
   });
+})();
+</script>
+
+<!-- Floating shared recall energy badge — bottom-left, light green pill -->
+<a class="energy-badge" href="#network" id="energy-badge" aria-label="Krentix shared recall network — energy saved">
+  <span class="eb-dot" aria-hidden="true"></span>
+  <span class="eb-text">Network saving <span class="eb-num" id="badge-kwh">0.00</span> kWh</span>
+  <button class="eb-dismiss" id="badge-dismiss" aria-label="Dismiss" type="button">×</button>
+</a>
+<script>
+(function(){
+  // Dismiss badge
+  const dismiss = document.getElementById('badge-dismiss');
+  const badge = document.getElementById('energy-badge');
+  if (dismiss && badge) {
+    dismiss.addEventListener('click', function(e){
+      e.preventDefault(); e.stopPropagation();
+      badge.style.transition = 'transform 300ms,opacity 300ms';
+      badge.style.transform = 'translateY(20px)';
+      badge.style.opacity = '0';
+      setTimeout(() => badge.remove(), 320);
+      try { sessionStorage.setItem('kx-badge-dismissed','1'); } catch {}
+    });
+  }
+  // Hide if already dismissed this session
+  try { if (sessionStorage.getItem('kx-badge-dismissed')) { badge && badge.remove(); } } catch {}
+  // Update counter from loadImpact() result — badge-kwh populated by unified script
 })();
 </script>
 
