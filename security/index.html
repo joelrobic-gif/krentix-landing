@@ -267,7 +267,7 @@ footer a:hover{color:var(--text);border-color:var(--rule-strong)}
   <p class="eyebrow">Security &amp; governance</p>
   <h1>Constitutional governance, per-answer provenance, and a <em>refusal mechanism that&rsquo;s itself reviewed</em>.</h1>
   <p>
-    Most coding agents make security choices with the same model that wrote the code. Krentix doesn&rsquo;t. Every answer is reviewed by twelve verifiers from seven labs, governed by a Constitutional Tribune with veto authority, and the Tribune&rsquo;s vetoes are themselves reviewed by a Supreme Court (cross-provider check) so the refusal mechanism cannot become a denial-of-service.
+    Most coding agents make security choices with the same model that wrote the code. Krentix doesn&rsquo;t. On the full-power tier, answers are reviewed by up to twelve verifiers from eight labs (3-persona default council expands on flagged or escalated requests), governed by a Constitutional Tribune with veto authority, and the Tribune&rsquo;s vetoes are themselves reviewed by a Supreme Court (cross-provider check) so the refusal mechanism cannot become a denial-of-service. Speed-tier answers ship faster with the default 3-persona council.
   </p>
   <p>
     <strong>For enterprise buyers</strong>: every answer carries a cryptographic provenance trail showing which model contributed, which verifier passed, which were overruled, and why. Internally usable and externally auditable.
@@ -289,7 +289,7 @@ footer a:hover{color:var(--text);border-color:var(--rule-strong)}
     <article class="card">
       <h3>02 &middot; Access gate</h3>
       <p class="body">Cloudflare Access</p>
-      <p class="desc">Email-OTP / SSO authentication on the public surface. Only authenticated traffic reaches the bridge.</p>
+      <p class="desc">Email-OTP / SSO authentication on the public surface. When the operator enables origin-JWT validation, only Access-authenticated traffic reaches the bridge.</p>
     </article>
     <article class="card">
       <h3>03 &middot; Tunnel</h3>
@@ -314,7 +314,7 @@ footer a:hover{color:var(--text);border-color:var(--rule-strong)}
     <article class="card">
       <h3>07 &middot; Headers</h3>
       <p class="body">Privacy hardening</p>
-      <p class="desc">Server / X-Powered-By stripped. CSP, HSTS, Referrer-Policy applied to every response.</p>
+      <p class="desc">Server / X-Powered-By stripped. CSP (report-only &rarr; enforcing rollout), HSTS, Referrer-Policy applied to every response.</p>
     </article>
     <article class="card">
       <h3>08 &middot; Allowlist</h3>
@@ -372,7 +372,53 @@ footer a:hover{color:var(--text);border-color:var(--rule-strong)}
 </section>
 
 <section class="section">
-  <p class="label">04 &middot; Compliance posture</p>
+  <p class="label">04 &middot; Data privacy &amp; sovereignty</p>
+  <h2>Two tiers. <em>Each claim scoped to the exact configuration that makes it true.</em></h2>
+  <p>
+    The most common enterprise objection is &laquo;does the AI provider see, keep, or train on our data?&raquo; We answer it honestly, in two tiers. We never claim a hosted provider <strong>cannot view</strong> your data &mdash; on hosted models a provider necessarily decrypts your prompt in memory to run inference. What we do is <strong>control, minimise, and cryptographically attest</strong> exactly where your data went and under which terms &mdash; and, in Sovereign, take every third party out of the path entirely.
+  </p>
+
+  <div class="grid-3" style="grid-template-columns:repeat(2,minmax(0,1fr))">
+    <article class="card">
+      <h3>Tier A &middot; Enterprise Privacy</h3>
+      <p class="body">Hosted frontier models, hardened &mdash; dispatched only to vetted no-retention / no-train endpoints.</p>
+      <p class="desc">
+        <strong style="color:var(--text)">Honest framing.</strong> The model provider processes your prompt transiently to generate the answer &mdash; that is inherent to hosted inference, and we don&rsquo;t pretend otherwise. What Tier A guarantees is enforced, attested control over that exposure:
+      </p>
+      <p class="desc">
+        &middot; In Enterprise mode, data is dispatched <strong style="color:var(--text)">only to providers contractually bound to zero data retention and no training on inputs</strong> (asserted per provider terms); non-eligible endpoints are refused before egress, and failover is filtered the same way (it never silently falls back to an excluded provider).<br>
+        &middot; <strong style="color:var(--text)">Available on deployment:</strong> an in-tenant tokeniser that replaces detected secrets / PII of the structured classes the active engine covers (emails, API keys, cards, JWTs, PEM blocks, &hellip;) with stable surrogates before egress &mdash; the provider receives <code>[PERSON_1]</code>, not the value &mdash; with an in-memory, one-request de-tokenisation map that is never written to disk, never logged, never sent to any provider. The redaction gateway + reverse-map lifecycle are built and unit-tested; wiring them into the hosted egress branch is an enable-on-deployment step, not on by default. Detection recall is best-effort, not 100% &mdash; we name the engine that ran, we don&rsquo;t claim &laquo;all PII removed.&raquo;<br>
+        &middot; Krentix <strong style="color:var(--text)">does not persist your prompt or response bodies</strong>; log lines carry only a length and a hash.<br>
+        &middot; <strong style="color:var(--text)">Available on deployment (flag-gated):</strong> document bodies can be encrypted at rest under <strong style="color:var(--text)">authenticated AES-256-GCM</strong> with a per-tenant BYOK envelope key; crypto-shredding that wrapping key renders the tenant&rsquo;s at-rest ciphertext unrecoverable. This is off by default and enabled per deployment; external KMS / customer-managed-key integration is on the roadmap, not yet available.
+      </p>
+      <p class="desc" style="color:var(--text-faint)">
+        Retention / no-train are configuration we <strong style="color:var(--text-dim)">asserted and signed</strong>, not cryptographic proof of provider behaviour. We prove what we <em>sent and configured</em>; honouring the contract is the provider&rsquo;s obligation.
+      </p>
+    </article>
+    <article class="card" style="border-left:3px solid var(--brand)">
+      <h3>Tier B &middot; Krentix Sovereign</h3>
+      <p class="body">Open-weight ensemble running entirely on infrastructure you control &mdash; no third-party AI provider in the path.</p>
+      <p class="desc">
+        <strong style="color:var(--text)">Available for VPC / on-prem deployment.</strong> Sovereign is the configuration in which the literal claim &laquo;no third party can view your data&raquo; becomes true &mdash; because no third-party AI provider is ever contacted. This is shipped as code + config (enforcement, sovereign provider entries, Helm + default-deny NetworkPolicy, signed model registry, attestation verify-logic), deployed into <strong style="color:var(--text)">your</strong> VPC or on-prem cluster. It is not a Krentix-hosted service &mdash; your data only runs sovereign once you deploy it in an environment you control.
+      </p>
+      <p class="desc">
+        &middot; In Sovereign mode, <strong style="color:var(--text)">inference runs entirely in your environment</strong>; outbound calls to any non-local provider throw before the network call &mdash; including every failover hop &mdash; and a Kubernetes default-deny NetworkPolicy drops outbound traffic to public AI hosts, verifiable by your own packet capture.<br>
+        &middot; The model weights that run are the weights shipped, <strong style="color:var(--text)">sha256-pinned</strong> in a signed registry and verified before load.<br>
+        &middot; N distinct open-weight model families cross-check every answer locally &mdash; same disagreement-resolution pipeline, no outbound key. (Per-model quality trails frontier; we disclose the measured delta, we don&rsquo;t claim parity.)
+      </p>
+      <p class="desc" style="color:var(--text-faint)">
+        <strong style="color:var(--text-dim)">Confidential-computing (TEE) roadmap.</strong> A hardware-TEE profile &mdash; where not even the cloud operator can read enclave memory, gated on a silicon-vendor-signed attestation verified before any key release &mdash; is on the roadmap; the attestation verify-logic is built and tested, real TEE hardware-quote collection is the deployment step. We don&rsquo;t sell it as live until a quote verifies.
+      </p>
+    </article>
+  </div>
+
+  <p>
+    None of the above is &laquo;trust us.&raquo; The proof mechanism is a <strong>per-request ed25519 signed attestation</strong> &mdash; designed to record which providers received the data, under which retention mode and region, with what redaction &mdash; that you verify with our published public key (<a href="/attest-public-key.pem" style="color:var(--text);border-bottom:1px solid var(--rule-strong);text-decoration:none">attest-public-key.pem</a>, also served at <code>/api/attestation/pubkey</code>) against the <strong>signed audit-export</strong>, <strong>without trusting our servers</strong>: tamper one byte and verification fails. The signing + verification + tamper-evidence are built and tested today; on deployment, populating the per-request egress-hop record (which provider, retention mode, region) is the enable step that makes every field of that attestation live. We describe what is signed honestly &mdash; the crypto is real now; the per-hop egress content is enabled per deployment.
+  </p>
+</section>
+
+<section class="section">
+  <p class="label">05 &middot; Compliance posture</p>
   <h2>What we have today vs. what&rsquo;s on the roadmap.</h2>
   <p>
     Krentix is pre-launch on enterprise compliance. We&rsquo;re honest about that. Below is the current state per common framework. Items marked &laquo;in progress&raquo; have a real workstream; items marked &laquo;gap&raquo; are roadmap candidates if a buyer needs them.
@@ -390,7 +436,7 @@ footer a:hover{color:var(--text);border-color:var(--rule-strong)}
       <tr><th>GDPR</th><td class="partial">In progress</td><td>Privacy-by-default per principle P-08; data export endpoint shipping with self-hosted release</td></tr>
       <tr><th>HIPAA</th><td class="gap">Self-hosted only</td><td>Hosted version not BAA-eligible. Self-hosted with bridge on customer infrastructure can support HIPAA workloads</td></tr>
       <tr><th>ISO 27001</th><td class="gap">Roadmap</td><td>Aligned controls in place; certification deferred until commercial scale justifies audit</td></tr>
-      <tr><th>SLSA Build Provenance</th><td class="yes">Yes</td><td>All bench harnesses + agent code commits are signed + traceable on the public repos</td></tr>
+      <tr><th>SLSA Build Provenance</th><td class="yes">v1 &middot; per tagged release</td><td>SLSA v1 build provenance is generated + <code>gh attestation verify</code>-ed on every tagged release (GitHub-OIDC Sigstore attestation, fail-closed in-pipeline). Commits and release tags are signed once the repo&rsquo;s signed-commit / signed-tag rulesets are enabled. See <code>docs/SUPPLY-CHAIN.md</code></td></tr>
       <tr><th>OWASP LLM Top 10</th><td class="yes">All 10 mitigated</td><td>Prompt injection / output handling / training data poisoning / model DoS / supply chain — see governance architecture above</td></tr>
       <tr><th>NIST AI RMF</th><td class="partial">Aligned</td><td>Govern / Map / Measure / Manage all addressed; formal mapping document in progress</td></tr>
     </tbody>
@@ -398,7 +444,7 @@ footer a:hover{color:var(--text);border-color:var(--rule-strong)}
 </section>
 
 <section class="section">
-  <p class="label">05 &middot; Disclosure</p>
+  <p class="label">06 &middot; Disclosure</p>
   <h2>Found a security issue?</h2>
   <p>
     Email <strong style="color:var(--brand-warm)">security@krentix.com</strong> with details. We respond within 48 hours, fix critical issues within 7 days, publish a writeup on <a href="/changelog/" style="color:var(--text);border-bottom:1px solid var(--rule-strong);text-decoration:none">/changelog</a> after the fix ships.

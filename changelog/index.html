@@ -8,7 +8,7 @@
 <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=(), payment=(), usb=(), magnetometer=(), accelerometer=(), gyroscope=(), display-capture=()">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <title>Changelog &mdash; Krentix</title>
-<meta name="description" content="What shipped on Krentix this week. Public-dataset benchmarks, the cost dial, NotebookLM-equivalent Source Mode, seven labs voting per answer.">
+<meta name="description" content="What shipped on Krentix this week. Public-dataset benchmarks, the cost dial, NotebookLM-equivalent Source Mode, eight labs voting per answer at Full tier.">
 <meta name="theme-color" content="#0f0c0a">
 <meta name="color-scheme" content="dark">
 <meta name="robots" content="index,follow">
@@ -249,7 +249,7 @@ footer a:hover{color:var(--text);border-color:var(--rule-strong)}
 
 <section class="log">
   <p class="label">Week of 2026&#8209;04&#8209;28</p>
-  <h2 class="lede">A cost dial, a NotebookLM equivalent, two public benchmarks measured, seven labs voting per answer. <em>One week.</em></h2>
+  <h2 class="lede">A cost dial, a NotebookLM equivalent, two public benchmarks measured, eight labs voting per answer at Full tier. <em>One week.</em></h2>
 
   <div class="entries">
 
@@ -270,7 +270,7 @@ footer a:hover{color:var(--text);border-color:var(--rule-strong)}
           <strong>Patch:</strong> 12-line extension at <code>src/agent/pipeline.js:843</code>. Regex now covers <code>humaneval | mbpp | gsm8k | gpqa | swebench | livecodebench | arc-agi | aime | hle | math-500 | mmlu | v-bench</code> with prefix-anchor + safety <code>includes()</code> fallbacks. Diff: +12 / &minus;3.
         </p>
         <p>
-          <strong>Post-fix result: 195 / 200 = 97.5% pass@1, medium tier.</strong> Wall time 46.0 min. <strong>+12.0 percentage points</strong> vs pre-fix baseline. Source distribution post-fix: full-pipeline 193/196 = 98.5%, tool_loop 2/2 = 100%, plus 2 network glitches (<code>src=null</code>) on tasks 181 and 192. Zero routing misroutes. The 3 genuine ensemble fails are tasks where the 12-persona quorum couldn&rsquo;t agree on a correct answer.
+          <strong>Post-fix result: 195 / 200 = 97.5% pass@1, medium tier.</strong> Wall time 50.9 min. <strong>+12.0 percentage points</strong> vs pre-fix baseline. Source distribution post-fix: full-pipeline 193/196 = 98.5%, tool_loop 2/2 = 100%, plus 2 network glitches (<code>src=null</code>) on tasks 181 and 192. Zero routing misroutes. The 3 genuine ensemble fails are tasks where the 12-persona quorum couldn&rsquo;t agree on a correct answer.
         </p>
         <p>
           Per-problem JSON in <a href="https://github.com/joelrobic-gif/krentix-landing/tree/main/bench/gsm8k/results" rel="noopener" style="color:var(--text);border-bottom:1px solid var(--rule-strong);text-decoration:none">bench/gsm8k/results/</a>. Cycle 3 calibration: pre-registered 98.8%, actual 97.5%, brier_p1 0.000169 (extremely well-calibrated). Cumulative session score: HumanEval 97.0% + GSM8K 97.5% = 2 GREEN cells, top-of-cluster on both saturated benchmarks.
@@ -321,7 +321,7 @@ footer a:hover{color:var(--text);border-color:var(--rule-strong)}
         <h2>Full-power MBPP+ v2 &mdash; <em>recovered to a tie.</em> 46/50 = 92.0%.</h2>
         <p>
           After the v1 loss (43/50 = 86%, lost to medium by 6pp), shipped fixes:
-          (1) swapped dead Moonshot/Kimi K2 Thinking for Together-hosted Kimi K2.6,
+          (1) re-pointed the integration slot (Persona 8) to the funded Moonshot-direct Kimi K2.6 (<code>kimi-k2-thinking</code>) lab, clearing the dead-key 402,
           (2) bumped per-call timeout 240s → 420s,
           (3) bridge restart to load the changes.
           <strong>v2 result: 46/50 = 92.0% &mdash; recovered the full 6pp from v1.</strong> Wall time 18.5 min.
@@ -355,7 +355,7 @@ footer a:hover{color:var(--text);border-color:var(--rule-strong)}
           <strong>Diagnosis:</strong> 2 of 3 full-only fails were 240s wall-time timeouts (frontier models + 12-persona verification under load). The Moonshot Kimi K2 Thinking key returned <code>402 account suspended</code> on every call &mdash; Persona 8 was failing every prompt. xAI Grok 4 hit <code>429 rate-limit</code> when all 12 personas fanned out concurrently. Half the personas at full tier were degraded fallbacks; quorum diversity was actually <em>worse</em> than medium&rsquo;s stable mix.
         </p>
         <p>
-          <strong>Fix shipped (needs bridge restart):</strong> Persona 8 now routes Kimi K2.6 via Together (validated 200 OK) instead of dead Moonshot direct. Per-call timeout bumped from 240s → 420s. Six distinct labs in the full-tier lineup (anthropic, google, mistral, openai, together, xai) &mdash; Moonshot dropped from active path.
+          <strong>Fix shipped (needs bridge restart):</strong> Per-call timeout bumped from 240s → 420s. <strong>Update (2026-06-12):</strong> the full-tier roster now resolves to <strong>eight distinct labs</strong> (anthropic, deepseek, google, mistral, moonshot, openai, together, xai) by repointing the regression slot to DeepSeek-direct and the integration slot to Moonshot-direct &mdash; Together still serves Qwen 3.5 397B. Live lab count self-degrades via <code>availableOnly</code> if any key is absent, so the surfaced number never over-reports.
         </p>
         <p>
           <strong>This entry exists to be honest about what failed.</strong> A bench number we can&rsquo;t defend is a number we don&rsquo;t publish. The next full-power re-run, when complete, will show as a new entry &mdash; pass or fail, with the same per-task breakdown.
@@ -394,9 +394,9 @@ footer a:hover{color:var(--text);border-color:var(--rule-strong)}
         </p>
         <ul>
           <li><strong>Zero</strong> &middot; free providers only &middot; Cerebras free tier (Qwen 235B / GPT&#8209;OSS / GLM&#8209;4.7) + Ollama + Moonshot/OpenRouter/Mistral/Together free tiers</li>
-          <li><strong>Light</strong> &middot; small / fast models &middot; Haiku 4.6 + Gemini Flash + free OSS</li>
+          <li><strong>Light</strong> &middot; small / fast models &middot; Haiku 4.5 + Gemini Flash + free OSS</li>
           <li><strong>Medium</strong> &middot; balanced default mix &middot; mixed lineup, frontier-class outputs</li>
-          <li><strong>Full</strong> &middot; max effort &middot; Opus 4.7 + Grok 4 + DeepSeek V4 Pro + Qwen 3.5 397B + Gemini 2.5 Pro + Kimi K2 Thinking + GPT&#8209;4o + Mistral Large &mdash; <strong>seven distinct labs voting per answer</strong></li>
+          <li><strong>Full</strong> &middot; max effort &middot; Opus 4.7 + Grok 4 + DeepSeek V4 Pro (DeepSeek) + Qwen 3.5 397B (Together) + Gemini 2.5 Pro + Kimi K2.6 (Moonshot) + GPT&#8209;5.5 + Mistral Large &mdash; <strong>eight distinct labs voting per answer at Full tier</strong></li>
         </ul>
         <div class="tags"><span class="tag shipped">Shipped</span><span class="tag">Architecture</span><span class="tag">Marketing</span></div>
       </div>
@@ -413,7 +413,7 @@ footer a:hover{color:var(--text);border-color:var(--rule-strong)}
           When a provider tripped its circuit breaker (Cerebras 429s during a bench, OpenAI rate limits), every persona was falling back to the same Sonnet 4.6. Quorum collapsed onto one model under stress.
         </p>
         <ul>
-          <li><strong>Fallback diversity pool</strong>: rotating across Haiku 4.6, Gemini Flash, Sonnet 4.5, Sonnet 4.6 so the 12-persona quorum keeps real diversity even under provider stress.</li>
+          <li><strong>Fallback diversity pool</strong>: rotating across Haiku 4.5, Gemini Flash, Sonnet 4.5, Sonnet 4.6 so the 12-persona quorum keeps real diversity even under provider stress.</li>
           <li><strong>Circuit-breaker bug fix</strong>: was &laquo;reset 5 min after most recent failure&raquo; &mdash; under bench load every retry reset the timer, breaker stayed open forever. Now measures from <code>openedAt</code>.</li>
           <li><strong>Admin reset endpoint</strong>: <code>POST /api/admin/router/reset-circuits</code> clears all breakers without bridge restart.</li>
         </ul>
