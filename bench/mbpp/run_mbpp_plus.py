@@ -166,7 +166,7 @@ def main() -> int:
         tasks = all_tasks
 
     print(f"\n{'=' * 72}")
-    print("  MBPP+ — Krentix bridge")
+    print("  MBPP+ - Krentix bridge")
     print(f"  api: {KRENTIX_API}    test_timeout: {TEST_TIMEOUT_S}s")
     print(f"  tasks: {len(tasks)} / {len(all_tasks)}")
     print("=" * 72)

@@ -4,5 +4,5 @@ include:
 # Krentix uses no Jekyll templating; this file exists solely to whitelist
 # the `.well-known/` directory which GitHub Pages otherwise excludes by
 # default (dotfile rule). Without this, /.well-known/security.txt would
-# 404 — and security researchers expect that path per RFC 9116.
+# 404 - and security researchers expect that path per RFC 9116.
 plugins: []

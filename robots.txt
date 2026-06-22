@@ -5,4 +5,4 @@ Allow: /
 Sitemap: https://www.krentix.com/sitemap.xml
 
 # /app/ surface is a gate page; the agent itself is local-only
-# /bench/ contains the public benchmark harness (HumanEval, MBPP+) — please do crawl
+# /bench/ contains the public benchmark harness (HumanEval, MBPP+) - please do crawl

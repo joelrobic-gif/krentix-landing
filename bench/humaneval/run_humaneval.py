@@ -119,7 +119,7 @@ def assemble_program(prompt: str, completion: str, test: str, entry_point: str) 
     if has_def:
         full = completion
     else:
-        # treat completion as body — concatenate after prompt
+        # treat completion as body - concatenate after prompt
         full = prompt.rstrip() + "\n" + (completion if completion else "    pass\n")
     return (
         full
@@ -190,7 +190,7 @@ def main() -> int:
     all_tasks = load_dataset()
     tasks = select_tasks(all_tasks, args)
     print(f"\n{'=' * 72}")
-    print("  HumanEval — Krentix bridge")
+    print("  HumanEval - Krentix bridge")
     print(f"  api: {KRENTIX_API}    seed: {SEED}    test_timeout: {TEST_TIMEOUT_S}s")
     print(f"  tasks: {len(tasks)} / {len(all_tasks)}    "
           f"({'full' if len(tasks) == len(all_tasks) else 'subset'})")

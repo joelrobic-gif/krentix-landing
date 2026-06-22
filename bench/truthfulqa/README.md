@@ -1,4 +1,4 @@
-# TruthfulQA-MC1 — Krentix reproducibility artifacts
+# TruthfulQA-MC1 - Krentix reproducibility artifacts
 
 Krentix score: **724 / 790 = 91.6% (pass@1, MC1, full dataset)**, measured 2026-05-01, medium tier.
 
@@ -14,8 +14,8 @@ Krentix score: **724 / 790 = 91.6% (pass@1, MC1, full dataset)**, measured 2026-
 
 Two runs exist for 2026-05-01:
 
-- `all-truthfulqa-2026-05-01T09-11-13.json` — **earlier, buggy run.** Superseded.
-- `all-truthfulqa-2026-05-01T21-45-54.json` — **definitive run.** This is the published artifact: `passed=724`, `n_run=790`, `score_pass_at_1=0.9164…` → 91.6%, `seed=20260501`.
+- `all-truthfulqa-2026-05-01T09-11-13.json` - **earlier, buggy run.** Superseded.
+- `all-truthfulqa-2026-05-01T21-45-54.json` - **definitive run.** This is the published artifact: `passed=724`, `n_run=790`, `score_pass_at_1=0.9164…` → 91.6%, `seed=20260501`.
 
 Always cite the **21:45** file. The 09:11 file is retained upstream in `reports/` only for audit history and is not the published number.
 

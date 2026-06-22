@@ -4,22 +4,22 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://rsms.me https://cdn.jsdelivr.net; font-src 'self' https://rsms.me https://cdn.jsdelivr.net data:; img-src 'self' data: https:; connect-src 'self' https://rsms.me https://cdn.jsdelivr.net; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests; object-src 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://rsms.me https://cdn.jsdelivr.net; font-src 'self' https://rsms.me https://cdn.jsdelivr.net data:; img-src 'self' data: https:; connect-src 'self' https://rsms.me https://cdn.jsdelivr.net https://api.web3forms.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self' https://api.web3forms.com; upgrade-insecure-requests; object-src 'none'">
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=(), payment=(), usb=(), magnetometer=(), accelerometer=(), gyroscope=(), display-capture=()">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
 
-<title>Krentix — 14,400 AI configurations. One question from you.</title>
-<meta name="description" content="Krentix cross-checks every question with every leading AI from 8 labs. Text, code, images, music, video, voice, real-time research — one companion, 14,400 configurations, one question from you. From $0.">
+<title>Krentix - Frontier AI, cross-checked. Private by architecture.</title>
+<meta name="description" content="Every leading AI from 8 labs cross-checks every answer - and Krentix is built so your work is never used to train a model, never sold, and you hold the kill switch. Frontier quality, zero fingerprints. Invitation-only.">
 <meta name="theme-color" content="#1A3A6B">
 <meta name="color-scheme" content="light dark">
-<meta property="og:title" content="Krentix — Your AI companion. Every leading AI, cross-checked. One answer.">
-<meta property="og:description" content="14,400 AI configurations. Every leading AI, cross-checked. 8 labs. Images, music, video, voice, code, research — through one companion.">
+<meta property="og:title" content="Krentix - Frontier AI. Zero fingerprints.">
+<meta property="og:description" content="Every leading AI from 8 labs, cross-checked - engineered around privacy. Never trains on your data, never sold, anonymous opt-out recall, you hold the kill switch. Invitation-only.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://www.krentix.com">
 
-<!-- Favicon: Krentix mark — 8-line convergent wedge + stem, spec C-8 v1.0 (scaled 24→32u) -->
+<!-- Favicon: Krentix mark - 8-line convergent wedge + stem, spec C-8 v1.0 (scaled 24→32u) -->
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23F4F3EE'/%3E%3Cg stroke='%231A3A6B' stroke-linecap='round'%3E%3Cline x1='2' y1='7' x2='13' y2='16' stroke-width='1.1'/%3E%3Cline x1='2' y1='9' x2='13' y2='16' stroke-width='1.1'/%3E%3Cline x1='2' y1='12' x2='13' y2='16' stroke-width='1.1'/%3E%3Cline x1='2' y1='14' x2='13' y2='16' stroke-width='1.1'/%3E%3Cline x1='2' y1='17' x2='13' y2='16' stroke-width='1.1'/%3E%3Cline x1='2' y1='19' x2='13' y2='16' stroke-width='1.1'/%3E%3Cline x1='2' y1='22' x2='13' y2='16' stroke-width='1.1'/%3E%3Cline x1='2' y1='25' x2='13' y2='16' stroke-width='1.1'/%3E%3Cline x1='19' y1='16' x2='30' y2='16' stroke-width='2.4'/%3E%3C/g%3E%3C/svg%3E">
 <link rel="canonical" href="https://www.krentix.com/">
 
@@ -84,10 +84,10 @@ a:hover{color:var(--ink);}
 .mast-cta:hover{background:var(--signal-3);color:var(--signal-ink);}
 
 .logo{display:inline-flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink);}
-/* Krentix mark — SVG, C-8 v1.0 spec. Width matches previous 32px slot exactly. */
+/* Krentix mark - SVG, C-8 v1.0 spec. Width matches previous 32px slot exactly. */
 .logo-mark{width:32px;height:32px;flex-shrink:0;display:flex;align-items:center;justify-content:center;}
 .logo-mark svg{width:32px;height:32px;display:block;overflow:visible;}
-.logo-mark .dot,.logo-mark .dot.lit{display:none;} /* legacy — hidden */
+.logo-mark .dot,.logo-mark .dot.lit{display:none;} /* legacy - hidden */
 .logo-text{display:flex;flex-direction:column;line-height:1;}
 .logo-wordmark{font:600 18px/1 var(--font-display);letter-spacing:-0.024em;color:var(--ink);}
 .logo-tagline{font:400 10px/1 var(--font-mono);color:var(--ink-3);letter-spacing:0.04em;margin-top:3px;}
@@ -117,14 +117,14 @@ a:hover{color:var(--ink);}
 .hero-bg-arrows{position:absolute;inset:0;z-index:-1;overflow:hidden;pointer-events:none;}
 .hero-bg-arrows svg{position:absolute;inset:0;width:100%;height:100%;}
 
-/* Stream flow — animated dashes drifting toward convergence */
+/* Stream flow - animated dashes drifting toward convergence */
 @keyframes streamFlow{from{stroke-dashoffset:0;}to{stroke-dashoffset:-220;}}
 @keyframes streamFlowReverse{from{stroke-dashoffset:0;}to{stroke-dashoffset:220;}}
 
-/* Convergence node — breathing pulse */
+/* Convergence node - breathing pulse */
 @keyframes nodeBreath{0%,100%{opacity:0.85;transform:scale(1);}50%{opacity:1;transform:scale(1.18);}}
 
-/* Laser beam — shimmering exit */
+/* Laser beam - shimmering exit */
 @keyframes laserShimmer{0%,100%{opacity:0.55;}50%{opacity:0.95;}}
 @keyframes laserPulse{0%{opacity:0;transform:translateX(-40px);}25%{opacity:0.9;}75%{opacity:0.4;}100%{opacity:0;transform:translateX(60px);}}
 
@@ -160,7 +160,7 @@ a:hover{color:var(--ink);}
 @keyframes badgeSlideIn{from{transform:translateY(24px);opacity:0;}to{transform:translateY(0);opacity:1;}}
 @keyframes badgeShimmer{0%,100%{background-position:200% center;}50%{background-position:-200% center;}}
 @keyframes dotBlink{0%,100%{opacity:1;}50%{opacity:0.3;}}
-/* SAVE ENERGY badge — industry-standard green eco style (leaf + bolt) */
+/* SAVE ENERGY badge - industry-standard green eco style (leaf + bolt) */
 .energy-badge{
   position:fixed;bottom:24px;left:24px;z-index:9000;
   display:flex;align-items:stretch;gap:0;
@@ -181,7 +181,7 @@ a:hover{color:var(--ink);}
 @media (prefers-color-scheme: dark){
   .energy-badge{background:#1F9D44;box-shadow:0 4px 14px rgba(31,157,68,0.5),0 1px 3px rgba(0,0,0,0.3);}
 }
-/* Circular icon disc — white outline circle, leaf + lightning bolt inside */
+/* Circular icon disc - white outline circle, leaf + lightning bolt inside */
 .energy-badge .eb-disc{
   width:42px;height:42px;border-radius:50%;
   background:#22B14C;
@@ -196,7 +196,7 @@ a:hover{color:var(--ink);}
 .energy-badge .eb-disc svg{width:24px;height:24px;display:block;}
 .energy-badge .eb-disc .eb-leaf-shape{animation:leafSway 4.5s ease-in-out infinite;transform-origin:center;}
 @keyframes leafSway{0%,100%{transform:rotate(-2deg);}50%{transform:rotate(2deg);}}
-/* Pill body — text on right of disc */
+/* Pill body - text on right of disc */
 .energy-badge .eb-body{
   display:flex;align-items:center;gap:9px;
   padding:0 18px 0 12px;
@@ -244,6 +244,11 @@ a:hover{color:var(--ink);}
 .btn-ghost:hover{color:var(--ink);border-color:var(--ink-3);background:var(--paper-2);}
 .btn .arr{font-family:var(--font-mono);font-weight:400;transform:translateY(-0.04em);}
 .hero-reassure{font:400 13px/1.5 var(--font-mono);color:var(--ink-4);letter-spacing:0.02em;}
+.trust-strip{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:30px;}
+.trust-chip{display:inline-flex;align-items:center;gap:7px;font:500 12px/1 var(--font-mono);letter-spacing:0.01em;color:var(--ink-2);background:var(--paper-2);border:1px solid var(--rule);border-radius:999px;padding:9px 14px;box-shadow:var(--shadow-sm);}
+.trust-chip svg{width:13px;height:13px;flex-shrink:0;color:var(--signal);}
+.trust-chip b{color:var(--ink);font-weight:600;letter-spacing:-0.01em;}
+@media (max-width:480px){.trust-chip{font-size:11px;padding:8px 11px;}}
 
 .product-demo{margin-top:48px;border-radius:12px;overflow:hidden;border:1px solid var(--rule);background:var(--paper-2);box-shadow:var(--shadow-lg);max-width:860px;}
 .product-demo__chrome{background:var(--paper-3);border-bottom:1px solid var(--rule);padding:9px 14px;display:flex;align-items:center;gap:12px;}
@@ -421,7 +426,7 @@ footer .legal{border-top:1px solid var(--rule);margin-top:36px;padding-top:24px;
       <a href="/use-cases/">Use cases</a>
       <a href="/changelog/">Changelog</a>
     </nav>
-    <a class="mast-cta" href="/app/login.html">Try free <span class="arr">→</span></a>
+    <a class="mast-cta" href="#request">Request access <span class="arr">→</span></a>
   </div>
 </header>
 
@@ -431,7 +436,7 @@ footer .legal{border-top:1px solid var(--rule);margin-top:36px;padding-top:24px;
   <div class="hero-bg" aria-hidden="true">
     <div class="hero-bg-mesh"></div>
     <div class="hero-bg-grain"></div>
-    <!-- Cinematic energy convergence — organic streams → focused laser beam -->
+    <!-- Cinematic energy convergence - organic streams → focused laser beam -->
     <div class="hero-bg-arrows">
       <svg viewBox="0 0 1200 600" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
         <defs>
@@ -499,7 +504,7 @@ footer .legal{border-top:1px solid var(--rule);margin-top:36px;padding-top:24px;
           <path class="stream" d="M 320 -20  Q 580 80 780 220 T 920 300" stroke-width="1.3" stroke-dasharray="3 12" opacity="0.75"/>
         </g>
 
-        <!-- Layer 3: Convergence node — multi-layered glowing core -->
+        <!-- Layer 3: Convergence node - multi-layered glowing core -->
         <g class="convergence-node" style="transform-origin:920px 300px;">
           <circle cx="920" cy="300" r="22" fill="#A8C5E8" opacity="0.18" filter="url(#laser-glow)"/>
           <circle cx="920" cy="300" r="10" fill="#FFFFFF" opacity="0.6" filter="url(#laser-glow)"/>
@@ -509,7 +514,7 @@ footer .legal{border-top:1px solid var(--rule);margin-top:36px;padding-top:24px;
           <line x1="920" y1="282" x2="920" y2="318" stroke="#FFFFFF" stroke-width="0.6" opacity="0.4" stroke-linecap="round"/>
         </g>
 
-        <!-- Layer 4: Laser beam exit — bright focused stream right -->
+        <!-- Layer 4: Laser beam exit - bright focused stream right -->
         <g>
           <!-- Outer glow halo of beam -->
           <line x1="920" y1="300" x2="1230" y2="300" stroke="url(#laser-grad)" stroke-width="14" stroke-linecap="round" filter="url(#laser-glow)" opacity="0.4"/>
@@ -562,26 +567,31 @@ footer .legal{border-top:1px solid var(--rule);margin-top:36px;padding-top:24px;
   </div>
   <div class="shell">
     <div class="hero-content">
-      <p class="hero-eyebrow">14,400 configurations. One question from you.</p>
+      <p class="hero-eyebrow">Private by architecture</p>
       <h1 id="hero-h">
-        <span class="ln">One companion.</span>
-        <span class="ln">Every AI capability.</span>
-        <span class="ln"><em>Zero configuration.</em></span>
+        <span class="ln">Frontier AI.</span>
+        <span class="ln"><em>Zero fingerprints.</em></span>
       </h1>
-      <p class="hero-sub">Text, code, images, music, video, voice, real-time research — through one companion. Every leading AI from eight labs cross-checks every answer. You ask. Krentix handles the rest.</p>
+      <p class="hero-sub">Every leading AI from eight labs cross-checks every answer, and Krentix is built so your work is never used to train a model, never sold, and engineered toward sessions that leave nothing behind. Frontier quality. Privacy as the architecture, not a setting.</p>
+      <div class="trust-strip" aria-label="Privacy commitments">
+        <span class="trust-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>Never <b>trains</b> on your data</span>
+        <span class="trust-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>Never <b>sold</b>, ever</span>
+        <span class="trust-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>Anonymous, <b>opt-out</b> recall</span>
+        <span class="trust-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>You hold the <b>kill switch</b></span>
+      </div>
       <div class="hero-proof">
         <div class="hero-proof-item"><span class="num">14,400</span><span class="label">Configurations · managed for you</span></div>
         <div class="hero-proof-item"><span class="num">12</span><span class="label">Leading AIs · 8 distinct labs</span></div>
         <div class="hero-proof-item" style="border-color:var(--signal);background:linear-gradient(135deg,var(--paper-2) 0%,rgba(26,58,107,0.05) 100%);"><span class="num" style="color:var(--signal);">91.6%</span><span class="label">Truthfulness · highest recorded</span></div>
         <div class="hero-proof-item"><span class="num">97.0%</span><span class="label">Coding accuracy · verified</span></div>
         <div class="hero-proof-item"><span class="num" id="hero-kwh-saved" title="kWh saved by Krentix shared recall network">0</span><span class="label">kWh saved · shared recall network</span></div>
-        <div class="hero-proof-item"><span class="num">$0</span><span class="label">Free tier · real AI · no trial limits</span></div>
+        <div class="hero-proof-item"><span class="num">1:1</span><span class="label">Onboarded by hand · one at a time</span></div>
       </div>
       <div class="hero-ctas">
-        <a class="btn btn-primary" href="/app/login.html">Try Krentix free <span class="arr">→</span></a>
+        <a class="btn btn-primary" href="#request">Request an invitation <span class="arr">→</span></a>
         <a class="btn btn-ghost" href="#bench">See results</a>
       </div>
-      <p class="hero-reassure">No credit card · Free tier · Works in your browser · A governed intelligence system</p>
+      <p class="hero-reassure">By invitation · We onboard a few people at a time · Currently a small private group</p>
 
       <div class="product-demo" data-reveal aria-label="Krentix app preview">
         <div class="product-demo__chrome">
@@ -605,7 +615,7 @@ footer .legal{border-top:1px solid var(--rule);margin-top:36px;padding-top:24px;
                 <span class="product-demo__badge">✓ All leading AIs agreed</span>
                 <span class="product-demo__copy-btn">Copy</span>
               </div>
-              <p class="product-demo__response-text">Comparing AWS, GCP, and Azure for your use case — here's what actually matters for a startup:</p>
+              <p class="product-demo__response-text">Comparing AWS, GCP, and Azure for your use case - here's what actually matters for a startup:</p>
               <ul class="product-demo__response-list">
                 <li>AWS: largest ecosystem, highest complexity, free tier 12 months then ~$50–200/mo at startup scale</li>
                 <li>GCP: best ML tooling (Vertex AI), generous $300 credit, simpler pricing for compute</li>
@@ -626,7 +636,7 @@ footer .legal{border-top:1px solid var(--rule);margin-top:36px;padding-top:24px;
   <div class="shell">
     <p class="s-eyebrow" data-reveal>Top 5 benchmarks · April 2026</p>
     <h2 class="s-h2" id="bench-h" data-reveal>Independently verifiable. <em>Where Krentix beats every frontier.</em></h2>
-    <p class="s-lede" data-reveal>Public datasets. Open harness. <strong>No cherry-picking, no human review after the fact.</strong> Every Krentix score traces to per-problem JSON in the public bench repo. Where Krentix hasn't run yet, the cell is dashed — we don't fabricate numbers to fill space.</p>
+    <p class="s-lede" data-reveal>Public datasets. Open harness. <strong>No cherry-picking, no human review after the fact.</strong> Every Krentix score traces to per-problem JSON in the public bench repo. Where Krentix hasn't run yet, the cell is dashed - we don't fabricate numbers to fill space.</p>
     <div class="bench-table-wrap" data-reveal>
       <table class="bench-table" aria-label="Krentix vs frontier models, top 5 benchmarks, April 2026">
         <thead>
@@ -647,12 +657,12 @@ footer .legal{border-top:1px solid var(--rule);margin-top:36px;padding-top:24px;
             <td>96.4<span class="pct">%</span></td><td>96.1<span class="pct">%</span></td><td>95.8<span class="pct">%</span></td></tr>
           <tr><th scope="row">MBPP+<span class="sub">Coding · pass@1 · full 378</span></th>
             <td class="col-krentix"><span class="score">81.5<span class="pct">%</span></span><span class="meta">308 / 378 · medium tier</span></td>
-            <td class="dim">— <span class="meta">vendor not standardised</span></td><td class="dim">—</td><td class="dim">—</td></tr>
+            <td class="dim"> - <span class="meta">vendor not standardised</span></td><td class="dim"> - </td><td class="dim"> - </td></tr>
           <tr><th scope="row">SWE-bench Verified<span class="sub">Coding · % resolved</span></th>
-            <td class="col-krentix dim"><span class="score">—</span><span class="meta">Running now · publishes when complete</span></td>
-            <td>87.6<span class="pct">%</span></td><td>58.6<span class="pct">%</span></td><td class="dim">—</td></tr>
+            <td class="col-krentix dim"><span class="score"> - </span><span class="meta">Running now · publishes when complete</span></td>
+            <td>87.6<span class="pct">%</span></td><td>58.6<span class="pct">%</span></td><td class="dim"> - </td></tr>
           <tr><th scope="row">GPQA Diamond<span class="sub">Graduate-level Q&amp;A</span></th>
-            <td class="col-krentix dim"><span class="score">—</span><span class="meta">Running now · publishes when complete</span></td>
+            <td class="col-krentix dim"><span class="score"> - </span><span class="meta">Running now · publishes when complete</span></td>
             <td>94.2<span class="pct">%</span></td><td>93.5<span class="pct">%</span></td><td>94.1<span class="pct">%</span></td></tr>
           <tr><th scope="row">TruthfulQA-MC1<span class="sub">Truthfulness · pass@1 · full 790 questions</span></th>
             <td class="col-krentix"><span class="score">91.6<span class="pct">%</span></span><span class="meta">724 / 790 · highest recorded</span></td>
@@ -665,22 +675,128 @@ footer .legal{border-top:1px solid var(--rule);margin-top:36px;padding-top:24px;
       <a href="https://github.com/joelrobic-gif/krentix-landing/tree/main/bench" rel="noopener">View all 20 benchmarks + source citations →</a>
     </div>
     <div style="margin-top:40px;text-align:center;" data-reveal>
-      <a class="btn btn-primary" href="/app/login.html" style="font-size:15px;padding:14px 28px;">Try Krentix free — no credit card <span class="arr">→</span></a>
-      <p style="margin-top:12px;font:400 12px/1.5 var(--font-mono);color:var(--ink-4);letter-spacing:0.04em;">Free tier uses real AI · not a limited demo · no time limit</p>
+      <a class="btn btn-primary" href="#request" style="font-size:15px;padding:14px 28px;">Request an invitation <span class="arr">→</span></a>
+      <p style="margin-top:12px;font:400 12px/1.5 var(--font-mono);color:var(--ink-4);letter-spacing:0.04em;">Invitation-only · reviewed by hand · we reach out if it's a fit</p>
     </div>
   </div>
 </section>
 
+<!-- ─── Request access · invitation-only ────────────────────────────────── -->
+<section class="s-block req-section" id="request" aria-labelledby="request-h">
+  <style>
+  .req-section{position:relative;}
+  .req-wrap{max-width:580px;margin:0 auto;}
+  .req-eyebrow{display:flex;align-items:center;justify-content:center;gap:12px;font:500 11px/1 var(--font-mono);letter-spacing:0.18em;text-transform:uppercase;color:var(--signal);margin-bottom:18px;}
+  .req-eyebrow::before,.req-eyebrow::after{content:'';height:1px;width:30px;background:var(--rule-strong);}
+  .req-h{font:600 30px/1.16 var(--font-body);letter-spacing:-0.02em;color:var(--ink);text-align:center;margin-bottom:14px;}
+  .req-h em{font-style:normal;color:var(--signal);}
+  .req-lede{font:400 15px/1.66 var(--font-body);color:var(--ink-2);text-align:center;margin:0 auto 30px;max-width:50ch;}
+  .req-card{background:var(--paper);border:1px solid var(--rule);border-radius:16px;padding:32px;box-shadow:var(--shadow-md);}
+  .req-form{display:flex;flex-direction:column;gap:16px;}
+  .req-form.hide{display:none;}
+  .req-field{display:flex;flex-direction:column;gap:7px;}
+  .req-field label{font:500 11px/1.3 var(--font-mono);letter-spacing:0.06em;text-transform:uppercase;color:var(--ink-3);}
+  .req-field input,.req-field textarea{font:400 14px/1.5 var(--font-body);color:var(--ink);background:var(--paper-2);border:1px solid var(--rule-strong);border-radius:9px;padding:12px 14px;width:100%;box-sizing:border-box;transition:border-color 140ms,box-shadow 140ms;}
+  .req-field input::placeholder,.req-field textarea::placeholder{color:var(--ink-4);}
+  .req-field input:focus,.req-field textarea:focus{outline:none;border-color:var(--signal);box-shadow:0 0 0 3px var(--signal-2);}
+  .req-field textarea{resize:vertical;min-height:84px;}
+  .req-hp{position:absolute!important;left:-9999px;width:1px;height:1px;overflow:hidden;}
+  .req-submit{margin-top:4px;background:var(--signal);color:var(--signal-ink);border:0;border-radius:9px;padding:14px 22px;font:600 14px/1 var(--font-body);cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;box-shadow:var(--shadow-md);transition:background 140ms,transform 200ms cubic-bezier(0.2,0.6,0.2,1),box-shadow 200ms;}
+  .req-submit:hover:not(:disabled){background:var(--signal-3);box-shadow:var(--shadow-lg);transform:translateY(-1px);}
+  .req-submit:disabled{opacity:0.55;cursor:default;}
+  .req-fine{font:400 12px/1.6 var(--font-mono);letter-spacing:0.02em;color:var(--ink-4);text-align:center;margin-top:6px;}
+  .req-err{display:none;margin-top:2px;font:400 13px/1.5 var(--font-body);color:#d04545;text-align:center;}
+  .req-err.show{display:block;}
+  .req-member{font:400 13px/1.5 var(--font-body);color:var(--ink-3);text-align:center;margin-top:22px;}
+  .req-member a{color:var(--signal);}
+  .req-done{display:none;text-align:center;padding:10px 0;}
+  .req-done.show{display:block;animation:reqFade .55s cubic-bezier(.2,.6,.2,1);}
+  .req-done .seal{width:56px;height:56px;border-radius:50%;background:var(--signal-2);color:var(--signal);display:inline-flex;align-items:center;justify-content:center;font-size:27px;margin-bottom:16px;}
+  .req-done h3{font:600 21px/1.3 var(--font-body);color:var(--ink);margin-bottom:10px;}
+  .req-done p{font:400 14px/1.66 var(--font-body);color:var(--ink-2);max-width:44ch;margin:0 auto;}
+  @keyframes reqFade{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:none;}}
+  </style>
+  <div class="shell">
+    <div class="req-wrap" data-reveal>
+      <p class="req-eyebrow">By invitation</p>
+      <h2 class="req-h" id="request-h">Krentix is <em>invitation-only</em> right now.</h2>
+      <p class="req-lede">We're onboarding a small number of people by hand - one at a time. Request an invitation below. Every request is read personally. There's no autoresponder and no schedule: if it's a fit, we reach out. It may be a while.</p>
+      <div class="req-card">
+        <form class="req-form" id="reqForm" action="https://api.web3forms.com/submit" method="POST" novalidate>
+          <!-- The destination address is bound to this key inside Web3Forms. It is never written into this page or sent to the browser. -->
+          <input type="hidden" name="access_key" value="__WEB3FORMS_ACCESS_KEY__">
+          <input type="hidden" name="subject" value="New Krentix invitation request">
+          <input type="hidden" name="from_name" value="Krentix - krentix.com">
+          <!-- honeypot: bots tick this, humans never see it -->
+          <input type="checkbox" name="botcheck" class="req-hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <div class="req-field">
+            <label for="reqName">Name</label>
+            <input id="reqName" name="name" type="text" autocomplete="name" required placeholder="Your name">
+          </div>
+          <div class="req-field">
+            <label for="reqEmail">Email</label>
+            <input id="reqEmail" name="email" type="email" autocomplete="email" required placeholder="you@example.com">
+          </div>
+          <div class="req-field">
+            <label for="reqNote">What would you use Krentix for? <span style="color:var(--ink-4);text-transform:none;letter-spacing:0;">(optional)</span></label>
+            <textarea id="reqNote" name="message" placeholder="A sentence or two helps us decide."></textarea>
+          </div>
+          <button class="req-submit" type="submit" id="reqSubmit">Request an invitation <span class="arr" aria-hidden="true">→</span></button>
+          <p class="req-err" id="reqErr" role="alert">Something went wrong sending that. Please try again in a moment.</p>
+          <p class="req-fine">No automated reply. No timeline. We review in small batches and reach out only if there's a fit.</p>
+        </form>
+        <div class="req-done" id="reqDone" role="status" aria-live="polite">
+          <div class="seal" aria-hidden="true">✓</div>
+          <h3>Request received.</h3>
+          <p>It's in front of a person now - not a queue. We review quietly, in small batches, so this won't be quick. If we move forward, we'll email you. You won't need to follow up.</p>
+        </div>
+      </div>
+      <p class="req-member">Already invited? <a href="/app/login.html">Sign in →</a></p>
+    </div>
+  </div>
+</section>
+<script>
+(function(){
+  var f=document.getElementById('reqForm'); if(!f) return;
+  var btn=document.getElementById('reqSubmit'),
+      err=document.getElementById('reqErr'),
+      done=document.getElementById('reqDone');
+  f.addEventListener('submit', function(e){
+    e.preventDefault();
+    err.classList.remove('show');
+    var key=(f.access_key && f.access_key.value) || '';
+    if(!key || key.indexOf('__WEB3FORMS')===0){
+      err.textContent='This form isn’t connected yet. (Owner: paste your Web3Forms access key into index.html.)';
+      err.classList.add('show'); return;
+    }
+    var label=btn.innerHTML;
+    btn.disabled=true; btn.textContent='Sending…';
+    fetch('https://api.web3forms.com/submit',{
+      method:'POST', headers:{'Accept':'application/json'}, body:new FormData(f)
+    }).then(function(r){ return r.json().catch(function(){ return {success:r.ok}; }); })
+      .then(function(j){
+        if(j && j.success){ f.classList.add('hide'); done.classList.add('show'); }
+        else { throw new Error('relay'); }
+      })
+      .catch(function(){
+        btn.disabled=false; btn.innerHTML=label;
+        err.textContent='Something went wrong sending that. Please try again in a moment.';
+        err.classList.add('show');
+      });
+  });
+})();
+</script>
+
 <section class="s-block" id="values" aria-labelledby="values-h">
   <div class="shell">
     <p class="s-eyebrow" data-reveal>Why Krentix</p>
-    <h2 class="s-h2" id="values-h" data-reveal>The entire complexity of AI — <em>handled for you.</em></h2>
+    <h2 class="s-h2" id="values-h" data-reveal>The entire complexity of AI - <em>handled for you.</em></h2>
     <div class="vp-grid" data-reveal>
-      <article class="vp-card"><div class="icon">✓</div><h3>Verified, not just generated</h3><p>Every answer is independently checked before it reaches you. Wrong answers don't ship. You never have to wonder if it's right — or waste time finding out it wasn't.</p></article>
-      <article class="vp-card"><div class="icon">$</div><h3>From $0.05 a day</h3><p>Depth of review matches complexity of the task. Simple questions are instant and free. You never pay top rates for a quick answer. Free tier uses real AI — not a stripped demo.</p></article>
-      <article class="vp-card"><div class="icon">⚡</div><h3>Fast when you need it</h3><p>Sub-second fast path for simple queries. Deep review when stakes are high. Repeated patterns cached — instant, zero cost, every time after the first.</p></article>
+      <article class="vp-card"><div class="icon">✓</div><h3>Verified, not just generated</h3><p>Every answer is independently checked before it reaches you. Wrong answers don't ship. You never have to wonder if it's right - or waste time finding out it wasn't.</p></article>
+      <article class="vp-card"><div class="icon">$</div><h3>From $0.05 a day</h3><p>Depth of review matches complexity of the task. Simple questions are instant; deep ones get the full panel. You never pay top rates for a quick answer - depth scales to the task, not your bill.</p></article>
+      <article class="vp-card"><div class="icon">⚡</div><h3>Fast when you need it</h3><p>Sub-second fast path for simple queries. Deep review when stakes are high. Repeated patterns cached - instant, zero cost, every time after the first.</p></article>
       <article class="vp-card"><div class="icon">◎</div><h3>One question. That's your only decision.</h3><p>How much quality do you need right now? Free, everyday, professional, or maximum. That's it. 14,400 routing configurations happen automatically. You never touch a model name, a setting, or a mode.</p></article>
-      <article class="vp-card"><div class="icon">∞</div><h3>Every modality. One conversation.</h3><p>Text, code, images, music, video, voice output, real-time research. Ask for a photo, a song, a video draft, a spoken answer — Krentix routes automatically. You never pick a tool or switch apps.</p></article>
+      <article class="vp-card"><div class="icon">∞</div><h3>Every modality. One conversation.</h3><p>Text, code, images, music, video, voice output, real-time research. Ask for a photo, a song, a video draft, a spoken answer - Krentix routes automatically. You never pick a tool or switch apps.</p></article>
       <article class="vp-card"><div class="icon">↑</div><h3>Evolves overnight. Every night.</h3><p>While you sleep, Krentix scans 15 AI provider APIs, evaluates new models against strict criteria, and applies high-confidence improvements automatically. 2,000+ AI candidates evaluated. Every morning it's sharper than yesterday.</p></article>
     </div>
   </div>
@@ -689,13 +805,13 @@ footer .legal{border-top:1px solid var(--rule);margin-top:36px;padding-top:24px;
 <section class="s-block" id="mechanism" aria-labelledby="mech-h">
   <div class="shell">
     <p class="s-eyebrow" data-reveal>How it works</p>
-    <h2 class="s-h2" id="mech-h" data-reveal>Most coding agents give you their first answer. <em>Krentix gives you the best answer</em> — verified before you ever see it.</h2>
+    <h2 class="s-h2" id="mech-h" data-reveal>Most coding agents give you their first answer. <em>Krentix gives you the best answer</em> - verified before you ever see it.</h2>
     <ol class="steps" role="list">
       <li class="step" data-reveal>
         <div class="num" aria-hidden="true">01<span class="dot">.</span></div>
         <div class="body">
           <h3>Krentix engineers your question first. Then routes it to the right team.</h3>
-          <p>Before any AI sees your prompt, Krentix rewrites it for maximum yield — injecting context, prescribing format, routing to the right modality. <strong>You write naturally. The model receives a precision-engineered prompt.</strong> If two targeted questions would get a dramatically better answer, Krentix asks them — never more.</p>
+          <p>Before any AI sees your prompt, Krentix rewrites it for maximum yield - injecting context, prescribing format, routing to the right modality. <strong>You write naturally. The model receives a precision-engineered prompt.</strong> If two targeted questions would get a dramatically better answer, Krentix asks them - never more.</p>
           <pre class="example" aria-hidden="true"><span class="you">› help me write an email</span>
 <span class="arr">→</span> <span class="out">coaching: who is it for? what outcome?</span>
 <span class="arr">→</span> <span class="pass">3 variants · tone explained · yours to pick</span></pre>
@@ -704,8 +820,8 @@ footer .legal{border-top:1px solid var(--rule);margin-top:36px;padding-top:24px;
       <li class="step" data-reveal>
         <div class="num" aria-hidden="true">02<span class="dot">.</span></div>
         <div class="body">
-          <h3>Your answer is checked independently — before it reaches you.</h3>
-          <p>Krentix doesn't ask the same AI that produced your answer to also check it. A second, separate review runs without access to the first. <strong>Disagreement between the two is the signal</strong> — it catches blind spots, overconfidence, and hallucinations before they reach you.</p>
+          <h3>Your answer is checked independently - before it reaches you.</h3>
+          <p>Krentix doesn't ask the same AI that produced your answer to also check it. A second, separate review runs without access to the first. <strong>Disagreement between the two is the signal</strong> - it catches blind spots, overconfidence, and hallucinations before they reach you.</p>
           <pre class="example" aria-hidden="true"><span class="out">answer produced</span>  <span class="arr">→</span>  <span class="out">independent check</span>  <span class="arr">→</span>  <span class="pass">verified</span></pre>
         </div>
       </li>
@@ -713,7 +829,7 @@ footer .legal{border-top:1px solid var(--rule);margin-top:36px;padding-top:24px;
         <div class="num" aria-hidden="true">03<span class="dot">.</span></div>
         <div class="body">
           <h3>Only verified answers ship. If it fails the check, you never see it.</h3>
-          <p>Answers that fail are retried and corrected automatically. <strong>You see only what passed.</strong> If you want to know what was checked and why — the full audit trail is one click away.</p>
+          <p>Answers that fail are retried and corrected automatically. <strong>You see only what passed.</strong> If you want to know what was checked and why - the full audit trail is one click away.</p>
           <pre class="example" aria-hidden="true"><span class="pass">PASS</span> accuracy · <span class="pass">PASS</span> sources · <span class="fail">FAIL</span> rounding
 <span class="out">corrected automatically</span>  <span class="arr">→</span>  <span class="pass">PASS</span></pre>
         </div>
@@ -726,14 +842,14 @@ footer .legal{border-top:1px solid var(--rule);margin-top:36px;padding-top:24px;
   <div class="shell">
     <p class="s-eyebrow" data-reveal>Shared intelligence · Network effect</p>
     <h2 class="s-h2" id="network-h" data-reveal>The more people use Krentix, the less energy <em>everyone</em> uses.</h2>
-    <p class="s-lede" data-reveal>When a question is cross-checked by every leading AI and passes with full confidence, it enters the shared recall pool — anonymised, no user data. The next person who asks the same thing can accept that verified answer instantly: zero compute, zero wait, zero cost. Opt out anytime.</p>
+    <p class="s-lede" data-reveal>When a question is cross-checked by every leading AI and passes with full confidence, it enters the shared recall pool - anonymised, no user data. The next person who asks the same thing can accept that verified answer instantly: zero compute, zero wait, zero cost. Opt out anytime.</p>
     <div class="econ-grid" data-reveal style="margin-top:32px;">
-      <div class="econ-card"><p class="big">0<span class="alt"> compute</span></p><p class="lbl">For every shared recall hit</p><p class="dsc">A cached verified answer skips the entire pipeline — no generation, no evaluation, no GPU. The answer is already checked. It just needs to be delivered.</p></div>
+      <div class="econ-card"><p class="big">0<span class="alt"> compute</span></p><p class="lbl">For every shared recall hit</p><p class="dsc">A cached verified answer skips the entire pipeline - no generation, no evaluation, no GPU. The answer is already checked. It just needs to be delivered.</p></div>
       <div class="econ-card"><p class="big">~0.02<span class="alt"> kWh</span></p><p class="lbl">Saved per shared answer delivered</p><p class="dsc">The average Krentix query consumes ~0.02 kWh across generation and evaluation. Every shared recall hit avoids that entirely. At scale, this is measurable.</p></div>
-      <div class="econ-card" id="network-impact-card"><p class="big" id="net-kwh">—</p><p class="lbl" id="net-kwh-label">kWh saved by Krentix users so far</p><p class="dsc" id="net-desc">Loading live network impact data…</p></div>
+      <div class="econ-card" id="network-impact-card"><p class="big" id="net-kwh"> - </p><p class="lbl" id="net-kwh-label">kWh saved by Krentix users so far</p><p class="dsc" id="net-desc">Loading live network impact data…</p></div>
     </div>
     <div style="margin-top:28px;padding:18px 22px;background:var(--paper-2);border-left:3px solid var(--signal);border-radius:0 6px 6px 0;max-width:66ch;" data-reveal>
-      <p style="font:400 14px/1.65 var(--font-body);color:var(--ink-2);margin:0;"><strong style="color:var(--ink);">Privacy by design.</strong> Shared recall stores only a cryptographic fingerprint of the question (16 characters, one-way hash) alongside the anonymised answer. No user identity, no session data, no query history. One toggle to opt out. The energy impact is collective — the data is not.</p>
+      <p style="font:400 14px/1.65 var(--font-body);color:var(--ink-2);margin:0;"><strong style="color:var(--ink);">Privacy by design.</strong> Your inputs are never used to train any model and never sold - full stop. Shared recall stores only a cryptographic fingerprint of the question (16 characters, one-way hash) alongside the anonymised answer: no user identity, no session data, no query history. One toggle to opt out. The energy impact is collective - the data is not.</p>
     </div>
   </div>
 </section>
@@ -745,13 +861,13 @@ footer .legal{border-top:1px solid var(--rule);margin-top:36px;padding-top:24px;
     <h2 class="s-h2" id="contrast-h" data-reveal>Why Krentix is <em>different</em>.</h2>
     <div class="contrast-grid">
       <article class="contrast-art" data-reveal>
-        <h3>Not about having the most AI. About assembling the right team — and managing all of it for you.</h3>
-        <p>ChatGPT, Claude, Perplexity, Midjourney, Suno, ElevenLabs — used separately, that's five subscriptions, five logins, five learning curves, and <strong>$80–100 a month</strong>. And you still have to pick the right one for each task, learn how to prompt each one, and stay current as all of them update weekly.</p>
-        <p>Krentix replaces all of them. One companion. Every capability. <strong>Every leading AI from 8 labs cross-checks every answer</strong> — so you never get one AI's blind spot delivered as truth. And when you ask for an image, music, video, or a spoken answer, the right provider is chosen automatically. You ask. The right expert responds.</p>
+        <h3>Not about having the most AI. About assembling the right team - and managing all of it for you.</h3>
+        <p>ChatGPT, Claude, Perplexity, Midjourney, Suno, ElevenLabs - used separately, that's five subscriptions, five logins, five learning curves, and <strong>$80–100 a month</strong>. And you still have to pick the right one for each task, learn how to prompt each one, and stay current as all of them update weekly.</p>
+        <p>Krentix replaces all of them. One companion. Every capability. <strong>Every leading AI from 8 labs cross-checks every answer</strong> - so you never get one AI's blind spot delivered as truth. And when you ask for an image, music, video, or a spoken answer, the right provider is chosen automatically. You ask. The right expert responds.</p>
       </article>
       <article class="contrast-art" data-reveal>
         <h3>Cost-per-quality, not cost-per-keystroke. Proof, not promises.</h3>
-        <p>Most AI agents charge you their maximum rate on everything, every time. Krentix matches the depth of work to what the task actually needs — and only goes deeper when the answer requires it. <strong>An order-of-magnitude lower cost than always-on maximum-power tools.</strong> Every answer comes with a full audit trail — what was checked, what passed, what was overruled, and why.</p>
+        <p>Most AI agents charge you their maximum rate on everything, every time. Krentix matches the depth of work to what the task actually needs - and only goes deeper when the answer requires it. <strong>An order-of-magnitude lower cost than always-on maximum-power tools.</strong> Every answer comes with a full audit trail - what was checked, what passed, what was overruled, and why.</p>
       </article>
     </div>
   </div>
@@ -762,12 +878,12 @@ footer .legal{border-top:1px solid var(--rule);margin-top:36px;padding-top:24px;
     <p class="s-eyebrow" data-reveal>Energy &amp; cost</p>
     <h2 class="s-h2" id="econ-h" data-reveal>Most AI agents charge you their maximum rate on everything. <em>Krentix uses only what each task actually needs.</em></h2>
     <div class="econ-grid">
-      <div class="econ-card" data-reveal><p class="big">$80<span class="alt">/mo</span></p><p class="lbl">What 5 separate AI subscriptions cost</p><p class="dsc">ChatGPT Plus + Claude Pro + Perplexity + Midjourney + Suno = $80–100/month. Krentix replaces all of them. Free tier: $0. Professional: pennies a day. Maximum power: ~$1/day.</p></div>
-      <div class="econ-card" data-reveal><p class="big">~10<span class="alt">×</span></p><p class="lbl">Lower cost than always-on maximum-power AI</p><p class="dsc">Most AI agents run at maximum cost on every request. Krentix uses only what each task actually needs — same verified quality for a fraction of the price.</p></div>
-      <div class="econ-card" data-reveal><p class="big">0<span class="alt"> wait</span></p><p class="lbl">Instant answers for repeated questions — zero wait, zero cost</p><p class="dsc">Questions you've asked before are answered instantly — no AI processing needed. Same verified answer. No delay. No charge.</p></div>
-      <div class="econ-card" data-reveal><p class="big">$0.05</p><p class="lbl">Per day on the Light plan — less than a coffee</p><p class="dsc">Full verification on every answer, all day. Start free with no limits and upgrade only when you need more power. No hidden costs, no surprise bills.</p></div>
+      <div class="econ-card" data-reveal><p class="big">$80<span class="alt">/mo</span></p><p class="lbl">What 5 separate AI subscriptions cost</p><p class="dsc">ChatGPT Plus + Claude Pro + Perplexity + Midjourney + Suno = $80–100/month. Krentix replaces all of them - from pennies a day, up to ~$1/day at maximum power.</p></div>
+      <div class="econ-card" data-reveal><p class="big">~10<span class="alt">×</span></p><p class="lbl">Lower cost than always-on maximum-power AI</p><p class="dsc">Most AI agents run at maximum cost on every request. Krentix uses only what each task actually needs - same verified quality for a fraction of the price.</p></div>
+      <div class="econ-card" data-reveal><p class="big">0<span class="alt"> wait</span></p><p class="lbl">Instant answers for repeated questions - zero wait, zero cost</p><p class="dsc">Questions you've asked before are answered instantly - no AI processing needed. Same verified answer. No delay. No charge.</p></div>
+      <div class="econ-card" data-reveal><p class="big">$0.05</p><p class="lbl">Per day on the Light plan - less than a coffee</p><p class="dsc">Full verification on every answer, all day. Scale up only when you need more power. No hidden costs, no surprise bills.</p></div>
     </div>
-    <p class="econ-note" data-reveal>Efficiency comes from matching the right AI to the right task — and using only what each task actually needs. Most AI tools lock you to maximum cost on everything. Krentix matches depth to problem size, automatically.</p>
+    <p class="econ-note" data-reveal>Efficiency comes from matching the right AI to the right task - and using only what each task actually needs. Most AI tools lock you to maximum cost on everything. Krentix matches depth to problem size, automatically.</p>
   </div>
 </section>
 
@@ -775,14 +891,14 @@ footer .legal{border-top:1px solid var(--rule);margin-top:36px;padding-top:24px;
   <div class="shell">
     <p class="s-eyebrow" data-reveal>The dial</p>
     <h2 class="s-h2" id="dial-h" data-reveal>14,400 configurations. <em>One dial.</em></h2>
-    <p class="s-lede" data-reveal>Free, everyday, professional, or maximum. That's the only decision you make. Krentix handles the other 14,400 — which AIs to run, which models to use, which modality to route to, how deep to cross-check. At <strong>zero</strong>, real free AI inference. At <strong>maximum</strong>, eight labs voting on every answer. Every other AI locks you to one price. Krentix puts the dial in your hand.</p>
+    <p class="s-lede" data-reveal>From entry tier to maximum power. That's the only decision you make. Krentix handles the other 14,400 - which AIs to run, which models to use, which modality to route to, how deep to cross-check. At the <strong>entry tier</strong>, real AI inference at near-zero cost. At <strong>maximum</strong>, eight labs voting on every answer. Every other AI locks you to one price. Krentix puts the dial in your hand.</p>
     <div class="dial-grid">
-      <article class="dial-tier" data-reveal><header><p class="tier-name">Zero</p><p class="tier-price">Free</p></header><p class="tier-tag">Free models · real answers · no trial limits</p><ul class="tier-bullets"><li>Real AI inference — not a stripped-down demo</li><li>Instant answers for repeated questions — zero wait</li><li>Good for exploration, learning, everyday questions</li></ul><a class="btn btn-ghost" href="/app/login.html" style="margin-top:auto;text-align:center;justify-content:center;">Start free →</a></article>
-      <article class="dial-tier" data-reveal><header><p class="tier-name">Light</p><p class="tier-price">Light</p></header><p class="tier-tag">Fast · accurate · great value</p><ul class="tier-bullets"><li>Fast, accurate AI — quality without the wait</li><li>Full review on every answer</li><li>Ideal for daily work</li></ul><a class="btn btn-ghost" href="/app/login.html" style="margin-top:auto;text-align:center;justify-content:center;">Try Light →</a></article>
-      <article class="dial-tier is-default" data-reveal><header><p class="tier-name">Medium <span class="tier-default">default</span></p><p class="tier-price">Balanced</p></header><p class="tier-tag">Top-tier quality · smart cost management</p><ul class="tier-bullets"><li>Top AI on your most important work</li><li>Routes each task to the right model automatically</li><li>A fraction of the cost of running max-power on everything</li></ul><a class="btn btn-primary" href="/app/login.html" style="margin-top:auto;text-align:center;justify-content:center;">Try Balanced →</a></article>
-      <article class="dial-tier is-full" data-reveal><header><p class="tier-name">Full power</p><p class="tier-price">Max</p></header><p class="tier-tag">The best AI in the world · maximum accuracy</p><ul class="tier-bullets"><li>Every top AI working together</li><li>Highest possible quality on critical work</li><li>For production code, high-stakes decisions, complex problems</li></ul><a class="btn btn-ghost" href="/app/login.html" style="margin-top:auto;text-align:center;justify-content:center;">Try Max →</a></article>
+      <article class="dial-tier" data-reveal><header><p class="tier-name">Zero</p><p class="tier-price">$0</p></header><p class="tier-tag">Real AI inference · near-zero cost · no demo tricks</p><ul class="tier-bullets"><li>Real AI inference - not a stripped-down demo</li><li>Instant answers for repeated questions - zero wait</li><li>Good for exploration, learning, everyday questions</li></ul><a class="btn btn-ghost" href="#request" style="margin-top:auto;text-align:center;justify-content:center;">Request access →</a></article>
+      <article class="dial-tier" data-reveal><header><p class="tier-name">Light</p><p class="tier-price">Light</p></header><p class="tier-tag">Fast · accurate · great value</p><ul class="tier-bullets"><li>Fast, accurate AI - quality without the wait</li><li>Full review on every answer</li><li>Ideal for daily work</li></ul><a class="btn btn-ghost" href="#request" style="margin-top:auto;text-align:center;justify-content:center;">Request access →</a></article>
+      <article class="dial-tier is-default" data-reveal><header><p class="tier-name">Medium <span class="tier-default">default</span></p><p class="tier-price">Balanced</p></header><p class="tier-tag">Top-tier quality · smart cost management</p><ul class="tier-bullets"><li>Top AI on your most important work</li><li>Routes each task to the right model automatically</li><li>A fraction of the cost of running max-power on everything</li></ul><a class="btn btn-primary" href="#request" style="margin-top:auto;text-align:center;justify-content:center;">Request access →</a></article>
+      <article class="dial-tier is-full" data-reveal><header><p class="tier-name">Full power</p><p class="tier-price">Max</p></header><p class="tier-tag">The best AI in the world · maximum accuracy</p><ul class="tier-bullets"><li>Every top AI working together</li><li>Highest possible quality on critical work</li><li>For production code, high-stakes decisions, complex problems</li></ul><a class="btn btn-ghost" href="#request" style="margin-top:auto;text-align:center;justify-content:center;">Request access →</a></article>
     </div>
-    <p class="dial-note" data-reveal>One dropdown. The same verified quality at every level. <strong>No other AI agent does this.</strong> Cursor, Copilot, and ChatGPT charge you maximum rates on everything — you can't dial down for simple work, and you can't dial up when it really matters. Krentix gives you full control.</p>
+    <p class="dial-note" data-reveal>One dropdown. The same verified quality at every level. <strong>No other AI agent does this.</strong> Cursor, Copilot, and ChatGPT charge you maximum rates on everything - you can't dial down for simple work, and you can't dial up when it really matters. Krentix gives you full control.</p>
   </div>
 </section>
 
@@ -790,41 +906,41 @@ footer .legal{border-top:1px solid var(--rule);margin-top:36px;padding-top:24px;
   <div class="shell">
     <p class="s-eyebrow" data-reveal>Source mode</p>
     <h2 class="s-h2" id="source-h" data-reveal>Give Krentix your files. <em>Get answers only from them.</em></h2>
-    <p class="s-lede" data-reveal><strong>Drop in any file, URL, or document.</strong> Krentix answers only from what you gave it — citing the exact source for every claim. If the answer isn't in your files, it says so. No guessing. No making things up.</p>
+    <p class="s-lede" data-reveal><strong>Drop in any file, URL, or document.</strong> Krentix answers only from what you gave it - citing the exact source for every claim. If the answer isn't in your files, it says so. No guessing. No making things up.</p>
     <div class="source-grid">
-      <article class="source-card" data-reveal><p class="src-label">Your documents</p><p class="src-body">Drop in a contract, report, or brief. Ask anything about it. Every answer cites the exact section it came from — or tells you the answer isn't there.</p></article>
-      <article class="source-card" data-reveal><p class="src-label">Your code</p><p class="src-body">Upload your project files. Krentix answers questions about your actual code — not generic advice. It won't suggest things that don't exist in what you gave it.</p></article>
+      <article class="source-card" data-reveal><p class="src-label">Your documents</p><p class="src-body">Drop in a contract, report, or brief. Ask anything about it. Every answer cites the exact section it came from - or tells you the answer isn't there.</p></article>
+      <article class="source-card" data-reveal><p class="src-label">Your code</p><p class="src-body">Upload your project files. Krentix answers questions about your actual code - not generic advice. It won't suggest things that don't exist in what you gave it.</p></article>
       <article class="source-card" data-reveal><p class="src-label">Articles &amp; research</p><p class="src-body">Drop in anything you're reading. Every claim in the answer comes back with the exact source and section. No fabricated references.</p></article>
-      <article class="source-card" data-reveal><p class="src-label">Anything at all</p><p class="src-body">PDFs, URLs, pasted text — whatever you have. Krentix stays inside what you give it. The moment you ask something outside those files, it tells you.</p></article>
+      <article class="source-card" data-reveal><p class="src-label">Anything at all</p><p class="src-body">PDFs, URLs, pasted text - whatever you have. Krentix stays inside what you give it. The moment you ask something outside those files, it tells you.</p></article>
     </div>
-    <p class="source-note" data-reveal><strong>Works at every price level — including free.</strong> Toggle it on from the chat interface. No setup required.</p>
+    <p class="source-note" data-reveal><strong>Works at every price level - including free.</strong> Toggle it on from the chat interface. No setup required.</p>
   </div>
 </section>
 
-<!-- FINAL CTA — energy + companion mission close -->
+<!-- FINAL CTA - energy + companion mission close -->
 <section style="background:linear-gradient(180deg,var(--paper) 0%,var(--paper-2) 100%);border-top:1px solid var(--rule);padding:80px 0 64px;" aria-labelledby="close-h">
   <div class="shell" style="text-align:center;max-width:680px;margin:0 auto;">
     <p style="font:500 11px/1 var(--font-mono);letter-spacing:0.16em;text-transform:uppercase;color:var(--signal);margin-bottom:20px;" data-reveal>The AI that works for everyone · evolves overnight · saves energy together</p>
     <h2 style="font:500 44px/1.08 var(--font-display);letter-spacing:-0.028em;color:var(--ink);margin-bottom:20px;text-wrap:balance;" id="close-h" data-reveal>
       The more people use Krentix,<br><em style="font-style:italic;color:var(--signal);">the better it gets for everyone.</em>
     </h2>
-    <p style="font:400 18px/1.55 var(--font-body);color:var(--ink-2);max-width:52ch;margin:0 auto 36px;letter-spacing:-0.01em;" data-reveal>Every verified answer joins the shared recall network. Every shared answer saves compute. Every saved computation is real energy not spent. At scale — millions of questions, thousands of users — this becomes a measurable contribution to a problem everyone shares.</p>
+    <p style="font:400 18px/1.55 var(--font-body);color:var(--ink-2);max-width:52ch;margin:0 auto 36px;letter-spacing:-0.01em;" data-reveal>Every verified answer joins the shared recall network. Every shared answer saves compute. Every saved computation is real energy not spent. At scale - millions of questions, thousands of users - this becomes a measurable contribution to a problem everyone shares.</p>
     <div style="display:flex;flex-wrap:wrap;gap:14px;justify-content:center;margin-bottom:20px;" data-reveal>
-      <a class="btn btn-primary" href="/app/login.html" style="font-size:16px;padding:16px 32px;">Start free — join the network <span class="arr">→</span></a>
+      <a class="btn btn-primary" href="#request" style="font-size:16px;padding:16px 32px;">Request an invitation <span class="arr">→</span></a>
       <a class="btn btn-ghost" href="#network" style="font-size:15px;padding:15px 24px;">See energy impact</a>
     </div>
-    <p style="font:400 12px/1.6 var(--font-mono);color:var(--ink-4);letter-spacing:0.02em;" data-reveal>No credit card · Free tier · Opt out of shared recall anytime · A governed intelligence system</p>
+    <p style="font:400 12px/1.6 var(--font-mono);color:var(--ink-4);letter-spacing:0.02em;" data-reveal>By invitation · Opt out of shared recall anytime · A governed intelligence system</p>
     <div style="margin-top:48px;display:flex;flex-wrap:wrap;gap:32px;justify-content:center;" data-reveal>
       <div style="text-align:center;">
-        <div style="font:300 36px/1 var(--font-display);letter-spacing:-0.028em;color:var(--ink);" id="close-kwh">—</div>
+        <div style="font:300 36px/1 var(--font-display);letter-spacing:-0.028em;color:var(--ink);" id="close-kwh"> - </div>
         <div style="font:500 10px/1.4 var(--font-mono);letter-spacing:0.1em;text-transform:uppercase;color:var(--ink-3);margin-top:4px;">kWh saved so far</div>
       </div>
       <div style="text-align:center;">
-        <div style="font:300 36px/1 var(--font-display);letter-spacing:-0.028em;color:var(--ink);" id="close-hits">—</div>
+        <div style="font:300 36px/1 var(--font-display);letter-spacing:-0.028em;color:var(--ink);" id="close-hits"> - </div>
         <div style="font:500 10px/1.4 var(--font-mono);letter-spacing:0.1em;text-transform:uppercase;color:var(--ink-3);margin-top:4px;">shared answers delivered</div>
       </div>
       <div style="text-align:center;">
-        <div style="font:300 36px/1 var(--font-display);letter-spacing:-0.028em;color:var(--ink);" id="close-pool">—</div>
+        <div style="font:300 36px/1 var(--font-display);letter-spacing:-0.028em;color:var(--ink);" id="close-pool"> - </div>
         <div style="font:500 10px/1.4 var(--font-mono);letter-spacing:0.1em;text-transform:uppercase;color:var(--ink-3);margin-top:4px;">questions in shared pool</div>
       </div>
     </div>
@@ -867,8 +983,8 @@ footer .legal{border-top:1px solid var(--rule);margin-top:36px;padding-top:24px;
 })();
 </script>
 
-<!-- Floating shared recall energy badge — bottom-left, light green pill -->
-<a class="energy-badge" href="#network" id="energy-badge" aria-label="Krentix shared recall — save energy by reusing verified answers">
+<!-- Floating shared recall energy badge - bottom-left, light green pill -->
+<a class="energy-badge" href="#network" id="energy-badge" aria-label="Krentix shared recall - save energy by reusing verified answers">
   <span class="eb-disc" aria-hidden="true">
     <!-- Save Energy icon: leaf + lightning bolt (industry-standard eco mark) -->
     <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -906,7 +1022,7 @@ footer .legal{border-top:1px solid var(--rule);margin-top:36px;padding-top:24px;
   }
   // Hide if already dismissed this session
   try { if (sessionStorage.getItem('kx-badge-dismissed')) { badge && badge.remove(); } } catch {}
-  // Update counter from loadImpact() result — badge-kwh populated by unified script
+  // Update counter from loadImpact() result - badge-kwh populated by unified script
 })();
 </script>
 
@@ -926,7 +1042,7 @@ footer .legal{border-top:1px solid var(--rule);margin-top:36px;padding-top:24px;
           <span class="logo-text"><span class="logo-wordmark">Krentix</span><span class="logo-tagline">Twelve verifiers. One answer.</span></span>
         </a>
       </div>
-      <div class="col"><h4>Product</h4><ul><li><a href="/architecture/">Architecture</a></li><li><a href="/benchmarks/">Benchmarks</a></li><li><a href="/use-cases/">Use cases</a></li><li><a href="/app/login.html">Try free</a></li></ul></div>
+      <div class="col"><h4>Product</h4><ul><li><a href="/architecture/">Architecture</a></li><li><a href="/benchmarks/">Benchmarks</a></li><li><a href="/use-cases/">Use cases</a></li><li><a href="#request">Request access</a></li></ul></div>
       <div class="col"><h4>Trust</h4><ul><li><a href="/security/">Security</a></li><li><a href="/changelog/">Changelog</a></li><li><a href="https://github.com/joelrobic-gif/krentix-landing/tree/main/bench" rel="noopener">Bench repo</a></li></ul></div>
       <div class="col"><h4>Contact</h4><ul><li><a href="mailto:hello@krentix.com">hello@krentix.com</a></li><li><a href="mailto:security@krentix.com">security@krentix.com</a></li></ul></div>
     </div>

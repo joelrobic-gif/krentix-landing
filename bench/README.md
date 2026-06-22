@@ -1,4 +1,4 @@
-# Krentix benchmarks — public, reproducible
+# Krentix benchmarks - public, reproducible
 
 This directory contains the harness, datasets, and raw results behind the
 benchmark numbers shown on [www.krentix.com](https://www.krentix.com).
@@ -14,20 +14,20 @@ the score, the claim stands. If you can't, the claim doesn't.
 bench/
 └── humaneval/
     ├── HumanEval.jsonl.gz       Public dataset (openai/human-eval, v2 2021-07-05)
-    ├── run_humaneval.py         The harness — reads dataset, calls bridge,
+    ├── run_humaneval.py         The harness - reads dataset, calls bridge,
     │                             extracts code, runs unit tests, scores.
     ├── results/
     │   └── humaneval-<UTC>.json  Per-problem results, raw output preserved.
     └── README.md
 ```
 
-## HumanEval — what's measured
+## HumanEval - what's measured
 
 [HumanEval](https://github.com/openai/human-eval) is the standard public
 coding benchmark from Chen et al., 2021 (arXiv:2107.03374). 164 hand-written
 Python problems, each with hidden unit tests.
 
-- **Score**: pass@1 — % of problems where the candidate's code passes ALL
+- **Score**: pass@1 - % of problems where the candidate's code passes ALL
   the official unit tests in a fresh `python -I` subprocess (no inherited
   imports, no shared state).
 - **No author grading.** A test passes iff the subprocess exits with code 0.
@@ -46,7 +46,7 @@ Python problems, each with hidden unit tests.
    cd krentix-landing/bench/humaneval
    ```
 
-2. Install Python 3.11+ (only `urllib`, `gzip`, `subprocess`, `json` —
+2. Install Python 3.11+ (only `urllib`, `gzip`, `subprocess`, `json` - 
    all standard library, no extra packages required).
 
 3. Run a Krentix bridge somewhere reachable (default `http://localhost:4100`).
@@ -55,7 +55,7 @@ Python problems, each with hidden unit tests.
 
 4. Run the harness:
    ```
-   # Sanity check — single task
+   # Sanity check - single task
    python run_humaneval.py --task HumanEval/0
 
    # Full suite (164 tasks, ~60 min, costs ~$5–10 in API spend on
@@ -76,14 +76,14 @@ benchmark or competitor), and neither was reproducible. We pulled it.
 
 What's posted now is bounded, sourced, and re-runnable:
 
-1. **Public dataset** — `HumanEval.jsonl.gz` is the file OpenAI shipped
+1. **Public dataset** - `HumanEval.jsonl.gz` is the file OpenAI shipped
    in 2021. We didn't make it.
-2. **Mechanical scoring** — pass/fail comes from `python` exit codes on
+2. **Mechanical scoring** - pass/fail comes from `python` exit codes on
    the dataset's own hidden tests. We didn't pick the rubric.
-3. **Open harness** — `run_humaneval.py` is in this repo. Read it. Re-run
+3. **Open harness** - `run_humaneval.py` is in this repo. Read it. Re-run
    it. The pipeline is: HTTP POST → fenced-code extraction → subprocess
    → exit-code check.
-4. **Per-problem results saved** — `results/*.json` lists which task IDs
+4. **Per-problem results saved** - `results/*.json` lists which task IDs
    passed and which failed, with stderr tails for the failures. Anyone
    can audit specific failures.
 
@@ -103,7 +103,7 @@ clean signatures and unit tests. It doesn't test:
 
 The frontier-model scores (44.7% HLE etc.) shown in the landing's §04
 Benchmarks table come from Artificial Analysis's live leaderboard for
-those gated benchmarks — we link the source rather than reproducing
+those gated benchmarks - we link the source rather than reproducing
 numbers we can't verify ourselves.
 
 ## Provenance
